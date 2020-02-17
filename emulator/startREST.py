@@ -50,7 +50,7 @@ class Advance(Resource):
     and receive current measurements.
     """
     u = self.parser_advance.parse_args()
-    print u
+#    print u
     y = self.case.advance(u)
     return y
 

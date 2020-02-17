@@ -82,7 +82,7 @@ class emulatorSetup(object):
             u_trajectory = self.start_time
             for key in u.keys():
                 if key != 'time' and u[key] is not None:
-                    print u[key]
+#                    print u[key]
                     value = float(u[key])
                     u_list.append(key)
                     u_trajectory = np.vstack((u_trajectory, value))

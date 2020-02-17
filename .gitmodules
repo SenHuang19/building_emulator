@@ -1,0 +1,3 @@
+[submodule "emulator/models/C3PO"]
+	path = emulator/models/C3PO
+	url = https://github.com/SenHuang19/C3PO.git

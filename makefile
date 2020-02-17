@@ -6,6 +6,11 @@ remove-image:
 
 run:
 	docker-compose up
+	
+update:
+	cd emulator/models/C3PO
+	git pull
+	cd ../../..
 
 copy:
 	docker cp c3po_control_1:/usr/myapp/result_testcase2.csv result.csv

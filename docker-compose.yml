@@ -8,4 +8,4 @@ services:
   emulator:
     build: './emulator'
     working_dir: /home/developer
-    command: python startREST.py --fmuPath=/home/developer/models/LargeBuilding.fmu --fmuStep=60
+    command: python startREST.py --fmuPath=/home/developer/models/wrapped.fmu --fmuStep=60

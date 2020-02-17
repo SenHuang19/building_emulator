@@ -12,14 +12,14 @@ function compute_control(y::Dict)
     # u: dict Defines the control input to be used for the next step.
     # {<input_name> : <input_value>}
 
-    u = Dict("floor1_zon2_oveTRoo_u" => 295.15,"floor1_zon2_oveTRoo_activate" => 1)
+    u = Dict("floor1_zon4_oveTSetRooCoo_u" => 295.15,"floor1_zon4_oveTSetRooCoo_activate" => 1)
     return u
 end
 
 function initialize()
     # u: dict Defines the initial control input to be used for the next step.
     # {<input_name> : <input_value>}
-    u = Dict("floor1_zon2_oveTRoo_u" => 295.15,"floor1_zon2_oveTRoo_activate" => 1)
+    u = Dict("floor1_zon4_oveTSetRooCoo_oveTRoo_u" => 295.15,"floor1_zon4_oveTSetRooCoo_activate" => 1)
     return u
 end
 

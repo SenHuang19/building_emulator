@@ -16,8 +16,8 @@ using .con
 # ---------------
 # Set URL for testcase
 url = "http://emulator:5000"
-length = 3600
-step = 3600
+length = 86400
+step = 600
 # ---------------
 
 # GET TEST INFORMATION
@@ -38,7 +38,7 @@ measurements = JSON.parse(String(HTTP.get("$url/measurements").body))
 step_def = JSON.parse(String(HTTP.get("$url/step").body))
 println("Default Simulation Step:\t$step_def")
 
-# store names of the measurements and inputs in csv files
+# store measurements and inputs in csv file
 df = DataFrame(Control_inputs=inputs)
 CSV.write("control_inputs.csv", sort!(df))
 df = DataFrame(Measurements=measurements)

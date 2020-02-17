@@ -9,6 +9,14 @@ This repo is set up for facilitating the testing of load prioritization methods,
    - copy the result files out of the images by executing "make copy"
 
    - remove the images by executing "make remove-image"
+   
+   - update the emulator inventory by executing "make update" 
+      
+	 noted that
+	 
+	 - a parse function will be added so that the emulator fmu can be generated automatically 
+
+	 - a user account is required for pull the updates from the emulator inventory	 
 
 2. Please note that you will need to install docker-compose and make in order to execute the above commands.
 
