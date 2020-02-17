@@ -1,0 +1,11 @@
+version: '3.1'
+
+services:
+  control:
+    build: './control'
+    working_dir: /usr/myapp
+    command: julia interface.jl
+  emulator:
+    build: './emulator'
+    working_dir: /home/developer
+    command: python startREST.py --fmuPath=/home/developer/models/LargeBuilding.fmu --fmuStep=60

@@ -1,0 +1,34 @@
+This repo is set up for facilitating the testing of load prioritization methods, that is under the scope of the C3PO project.
+
+1. To run the test, please
+
+   - build the images by executing "make build"
+
+   - run the images by executing "make run"
+
+   - copy the result files out of the images by executing "make copy"
+
+   - remove the images by executing "make remove-image"
+
+2. Please note that you will need to install docker-compose and make in order to execute the above commands.
+
+   To install docker-compose, please refer to https://docs.docker.com/compose/install/
+
+   To install make for window, please refer to http://gnuwin32.sourceforge.net/packages/make.htm
+
+3. The following options can be modified for your needs:
+
+   - Simulation period:
+     simulation length [s] is defined in the line 19 of control/interface.jl
+     starting time [s] is defined in the line 44 of control/interface.jl
+
+   - Control sampling:
+     interval [s] is defined in the line 20 of control/interface.jl
+	 
+   - Testing results
+     The variables to be included in the output csv file is defined in the line 77 of control/interface.jl.
+	 Please add as many points as possible
+	 
+   - Testing control
+     The testing control is implemented in control/controls.jl. 
+	 Please replace it with your control deployment.
