@@ -8,4 +8,6 @@ services:
   emulator:
     build: './emulator'
     working_dir: /home/developer
+    logging:
+            driver: none 
     command: python startREST.py --fmuPath=/home/developer/models/wrapped.fmu --fmuStep=60
