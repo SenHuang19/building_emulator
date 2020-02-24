@@ -91,6 +91,8 @@ class emulatorSetup(object):
             input_object = None
         # Simulate
         self.options['initialize'] = self.initialize
+        self.options['filter'] = ['*_y','*_u','*_activate']
+        self.options['result_handling'] = 'memory'  
         res = self.fmu.simulate(start_time=self.start_time, 
                                 final_time=self.final_time, 
                                 options=self.options, 
@@ -113,7 +115,7 @@ class emulatorSetup(object):
         """Reset the test.
         
         """
-
+        self.fmu = load_fmu(self.fmupath)
         self.start_time = float(u)
 
     def get_step(self):
