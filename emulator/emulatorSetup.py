@@ -117,6 +117,7 @@ class emulatorSetup(object):
         """
         self.fmu = load_fmu(self.fmupath)
         self.start_time = float(u)
+        self.initialize = True        
 
     def get_step(self):
         """Returns the current simulation step in seconds."""
