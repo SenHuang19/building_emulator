@@ -1,0 +1,13 @@
+version: '3.1'
+
+services:
+  control:
+    build: './python'
+    working_dir: /usr/src/app
+    command: python runSimulation.py --url="http://emulator:5000" --dayOfYear=152 --dayOffset=0 --simDuration=172800 --fmuStep=600
+  emulator:
+    build: './emulator'
+    working_dir: /home/developer
+    logging:
+            driver: none 
+    command: python startREST.py --fmuPath=/home/developer/models/wrapped.fmu --fmuStep=60
