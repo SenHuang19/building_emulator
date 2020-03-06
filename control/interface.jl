@@ -16,7 +16,7 @@ using .con
 # ---------------
 # Set URL for testcase
 url = "http://emulator:5000"
-length = 86400
+length = 1200#86400
 step = 600
 # ---------------
 
@@ -43,6 +43,22 @@ df = DataFrame(Control_inputs=inputs)
 CSV.write("control_inputs.csv", sort!(df))
 df = DataFrame(Measurements=measurements)
 CSV.write("measurements.csv", sort!(df))
+
+# specify the zone(s) and floor(s) you are interested in
+
+floor_idx = 1;
+zone_idx = 4;
+
+u_of_interest = inputs[occursin.("floor$(floor_idx)_zon$(zone_idx)",inputs)];
+y_of_interest = measurements[occursin.("floor$(floor_idx)_zon$(zone_idx)",measurements)];
+
+# println("Control Inputs:\t\t\t$u_of_interest")
+# println("Measurements:\t\t\t$y_of_interest")
+
+df = DataFrame(select_control_inputs=u_of_interest)
+CSV.write("select_control_inputs.csv", sort!(df))
+df = DataFrame(select_measurements=y_of_interest)
+CSV.write("select_measurements.csv", sort!(df))
 
 # RUN TEST CASE
 #----------
@@ -80,14 +96,28 @@ println("Elapsed time of test was $time seconds.")
 # Get result data
 res = JSON.parse(String(HTTP.get("$url/results").body))
 
-time = [x/3600 for x in res["y"]["time"]] # convert s --> hr
-# add whatever variables you want to add
-TRooAir  = [x-273.15 for x in res["y"]["floor1_zon2_TRooAir_y"]] # convert K --> C
+time = [x/1.0 for x in res["y"]["time"]]; # in [s]
 
-# adding column names
-colnames = ["time", "TRooAir"]
-tab=DataFrame([time,TRooAir])
-names!(tab, Symbol.(colnames))
+# convert time into dd-hh-mm-ss format
+time_dd = convert.(Int64,ceil.(time/24/3600));
+time_hh = convert.(Int64,ceil.((time-(time_dd.-1)*24*3600)/3600));
+time_mm = convert.(Int64,ceil.((time-(time_dd.-1)*24*3600-(time_hh.-1)*3600)/60));
+time_ss = convert.(Int64,ceil.(time-(time_dd.-1)*24*3600-(time_hh.-1)*3600-(time_mm.-1)*60));
+
+# add whatever variables you want to add
+ylen = size(y_of_interest)[1];
+colnames    = Array{String}(undef,4+ylen);
+colvals     = Array{Any}(undef,4+ylen);
+colnames[1:4] = ["dd","hh","mm","ss"];    # adding column names
+colvals[1:4]  = [time_dd,time_hh,time_mm,time_ss];
+for iy = 1:ylen
+   colvals[4+iy]  = res["y"][y_of_interest[iy]]; # pick the iy-th output
+   colnames[4+iy] = y_of_interest[iy];
+end
+tab = DataFrame(colvals);
+
+# names!(tab, Symbol.(colnames))
+rename!(tab, Symbol.(colnames))
 CSV.write("result_testcase2.csv",tab)
 
 # stop the emulator
