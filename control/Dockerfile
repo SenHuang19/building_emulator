@@ -5,3 +5,5 @@ RUN julia -e "using Pkg; Pkg.add(\"HTTP\");Pkg.add(\"JSON\");Pkg.add(\"CSV\");Pk
 ADD interface.jl /usr/myapp/
 
 ADD controllers.jl /usr/myapp/
+
+ADD custom_input/occParams.out /usr/myapp/

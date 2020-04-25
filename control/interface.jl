@@ -5,7 +5,16 @@
 
 # GENERAL PACKAGE IMPORT
 # ----------------------
-using HTTP, JSON, CSV, DataFrames, Dates
+using HTTP, JSON, CSV, DataFrames, Dates, Serialization
+
+# DEFINE struct that contains occupancy models (need to be defined at top)
+mutable struct occModel
+     slotIdx ::Array{Int64}      # slot index assigned to every min in a day
+     mean_IN ::Array{Float64}    # mean duration spent inside office in EACH slot
+     mean_OUT::Array{Float64}    # mean duration spent outside, in EACH slot
+     states  ::Array{Any}        # states (indices) of the MC, in EACH slot
+     TPM     ::Array{Any}        # transition probability matrices, in EACH slot
+ end
 
 # TEST CONTROLLER IMPORT
 # ----------------------
@@ -16,8 +25,8 @@ using .con
 # ---------------
 # Set URL for testcase
 url = "http://emulator:5000"
-simLength_inSec = 120;#7*24*60*60;     # in [s]
-simStep_inSec   = 60;              # in [s]
+simLength_inSec = 3*24*60*60;         # in [s]
+simStep_inSec   = 5*60;                # in [s]
 # ---------------
 
 # GET TEST INFORMATION
@@ -61,16 +70,23 @@ CSV.write("measurements.csv", sort!(df))
 
 typeDev  = ["PC","Light","Misc"];
 
-dlen     = length(typeDev);
-allDev   = Array{devInfo}(undef,dlen);
+numDev   = length(typeDev);
+allDev   = Array{devInfo}(undef,numDev);
 
-floor_idx = 1;
-zone_idx = 4;
+list_of_zones = [(1,4), (1,2)];
 
-u_of_interest = inputs[occursin.("floor$(floor_idx)_zon$(zone_idx)",inputs)];
-y_of_interest = measurements[occursin.("floor$(floor_idx)_zon$(zone_idx)",measurements)];
+if isa(list_of_zones, Tuple)     # only one floor-zone combo is specified
+   list_of_zones = [list_of_zones];    # convert into an array of tuples
+end
 
-for iDev = 1:dlen
+u_of_interest = inputs[occursin.("floor$(list_of_zones[1][1])_zon$(list_of_zones[1][2])",inputs)];
+y_of_interest = measurements[occursin.("floor$(list_of_zones[1][1])_zon$(list_of_zones[1][2])",measurements)];
+for id = 2:length(list_of_zones)
+   global u_of_interest = [u_of_interest; inputs[occursin.("floor$(list_of_zones[id][1])_zon$(list_of_zones[id][2])",inputs)]];
+   global y_of_interest = [y_of_interest; measurements[occursin.("floor$(list_of_zones[id][1])_zon$(list_of_zones[id][2])",measurements)]];
+end
+
+for iDev = 1:numDev
    allDev[iDev] = devInfo(typeDev[iDev],undef,undef,undef,undef,undef,undef,undef);
    allDev[iDev].senseKey = string("pow",typeDev[iDev][1:min(3,length(typeDev[iDev]))]);
    allDev[iDev].senseIdx = findfirst(x->occursin(Regex(allDev[iDev].senseKey,"i"),x),y_of_interest);
@@ -82,13 +98,14 @@ CSV.write("select_control_inputs.csv", sort!(df))
 df = DataFrame(select_measurements=y_of_interest)
 CSV.write("select_measurements.csv", sort!(df))
 
+#~~~~~~~~~~~~~~~~~~~~~~
 # RUN TEST CASE
-#----------
+#~~~~~~~~~~~~~~~~~~~~~~
 start_test = Dates.now()
 # Reset test case
 println("Resetting test case if needed.")
-start = 0;#86400*200
-res = HTTP.put("$url/reset",["Content-Type" => "application/json"], JSON.json(Dict("start" => start)))
+start_inSec = 0;
+res = HTTP.put("$url/reset",["Content-Type" => "application/json"], JSON.json(Dict("start" => start_inSec)))
 println("Running test case ...")
 # Set simulation step
 println("Setting simulation step to $simStep_inSec")
@@ -109,26 +126,28 @@ allSeries = Array{Any}(undef,tlen,length(measurements)-1); # -1 because "time" i
 for i = 1:tlen
    if i<2
    # Initialize u
-      u = con.initialize()
+      global u, occDur, occParams = con.initialize(start_inSec,simStep_inSec,list_of_zones);
    else
    # Compute next control signal
-      u = con.compute_control(y)
+      global u, occDur = con.compute_control(y, occDur, occParams, list_of_zones);
    end
    # Advance in simulation
    res = HTTP.post("$url/advance", ["Content-Type" => "application/json"], JSON.json(u);retry_non_idempotent=true).body
    global y = JSON.parse(String(res));
 
+   global occDur .+= simStep_inSec/60;     # in minute
+
    tSeries[i] = y["time"];
    ySeries[i,:] = [y[name_y] for name_y in y_of_interest];
    allSeries[i,:] = [y[name_y] for name_y in setdiff(measurements,["time"])];
-   if rem(i,min(1,floor(tlen/20)))==0
-      println("$(Int64(round(i/tlen*100)))% complete ...")
+   if rem(i,max(1,floor(tlen/20)))==0
+      println("[status] $(Dates.format(now(),"HH:MM")) GMT -- complete $(Int64(round(i/tlen*100)))%")
    end
 
    # convert time into dd-hh-mm-ss format
    time_dd[i] = convert(Int64,ceil(tSeries[i]/24/3600));
-   time_hh[i] = convert(Int64,ceil((tSeries[i]-(time_dd[i]-1)*24*3600)/3600));
-   time_mm[i] = convert(Int64,ceil((tSeries[i]-(time_dd[i]-1)*24*3600-(time_hh[i]-1)*3600)/60));
+   time_hh[i] = convert(Int64,floor((tSeries[i]-(time_dd[i]-1)*24*3600)/3600));
+   time_mm[i] = convert(Int64,floor((tSeries[i]-(time_dd[i]-1)*24*3600-time_hh[i]*3600)/60));
 end
 occIdx      = findfirst(x->occursin(r"OccSch"i,x),y_of_interest);
 occSeries   = ySeries[:,occIdx];
@@ -142,8 +161,8 @@ println("Elapsed time of test was $time seconds.")
 # --------------------
 
 # add whatever variables you want to add
-colname    = Array{String}(undef,3+ylen+dlen);
-colvals    = Array{Any}(undef,tlen,3+ylen+dlen);
+colname    = Array{String}(undef,3+ylen+numDev);
+colvals    = Array{Any}(undef,tlen,3+ylen+numDev);
 
 colname[1:3] = ["dd","hh","mm"];    # adding column names
 colvals[:,1] = time_dd;
@@ -153,12 +172,14 @@ colvals[:,3] = time_mm;
 colname[4:3+ylen]    = y_of_interest;
 colvals[:,4:3+ylen]  = ySeries;
 
-for id = 1:dlen
+# println("tlen: $tlen, max ID: $(maximum(Int64.(floor.(rem.((time_hh*60+time_mm),24*60)*60/simStep_inSec)))), min ID: $(minimum(Int64.(floor.(rem.((time_hh*60+time_mm),24*60)*60/simStep_inSec))))")
+
+for id = 1:numDev
    colname[3+ylen+id] = string("cmf_$(allDev[id].devType)");
    devUse = Float64.(ySeries[:,allDev[id].senseIdx].>1e-6);
    cmfAlp = allDev[id].devParam[1];
    dayUse = allDev[id].devParam[2];
-   colvals[:,3+ylen+id] = (exp.(cmfAlp * (1 .- abs.(devUse - dayUse[Int64.(floor.((time_hh*60+time_mm)*60/simStep_inSec))]) )) .- 1)/(exp(cmfAlp)-1);
+   colvals[:,3+ylen+id] = (exp.(cmfAlp * (1 .- abs.(devUse - dayUse[Int64.(floor.(rem.(time_hh*60+time_mm,24*60)*60/simStep_inSec))[:] .+ 1]) )) .- 1)/(exp(cmfAlp)-1);
 end
 # colname[end]   = y_of_interest[occIdx];
 # colvals[:,end] = occSeries;
