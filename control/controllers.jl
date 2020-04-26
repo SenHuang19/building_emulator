@@ -16,6 +16,8 @@ function compute_control(y::Dict, occDur::Array{Float64}, occParams::Array{Any},
 
     time_inMin  = Int64(floor(rem(y["time"]/60, 24*60))+1);    # minute of the day
 
+    u = Dict();
+
     for iZ = 1:length(list_of_zones)    # assign new occupancy for each zone
         cOcc = y["floor$(list_of_zones[iZ][1])_zon$(list_of_zones[iZ][2])_OccSch_y"];
         cDur = occDur[iZ];
@@ -48,17 +50,19 @@ function compute_control(y::Dict, occDur::Array{Float64}, occParams::Array{Any},
         # update occupnacy value and the occupancy duration (IF NEEDED)
         if newOcc!=cOcc  # reset occupancy duration if status changes
             occDur[iZ] = 0.0;
-            u = Dict("floor$(list_of_zones[iZ][1])_zon$(list_of_zones[iZ][2])_oveOccSch_activate" => 1, "floor$(list_of_zones[iZ][1])_zon$(list_of_zones[iZ][2])_oveOccSch_u" => newOcc);
+            merge!(u, Dict("floor$(list_of_zones[iZ][1])_zon$(list_of_zones[iZ][2])_oveOccSch_activate" => 1, "floor$(list_of_zones[iZ][1])_zon$(list_of_zones[iZ][2])_oveOccSch_u" => newOcc));
         end
     end
 
-    u = Dict("floor1_zon4_oveTSetRooCoo_u" => 295.15,"floor1_zon4_oveTSetRooCoo_activate" => 1)
+    merge!(u, Dict("floor1_zon4_oveTSetRooCoo_u" => 295.15,"floor1_zon4_oveTSetRooCoo_activate" => 1))
     return u, occDur
 end
 
 function initialize(start_inSec::Int64,simStep_inSec::Int64,list_of_zones::Any)
     # u: dict Defines the initial control input to be used for the next step.
     # {<input_name> : <input_value>}
+
+    u = Dict();
 
     # TEST whether the occupancy model file is accessible or not
     if isfile("occParams.out")
@@ -86,14 +90,14 @@ function initialize(start_inSec::Int64,simStep_inSec::Int64,list_of_zones::Any)
        # update the initial occupancy values in the selected zones
        occDur = dur_inMin * ones(length(list_of_zones));
        for id = 1:length(list_of_zones)
-           u = Dict("floor$(list_of_zones[id][1])_zon$(list_of_zones[id][2])_oveOccSch_activate" => 1, "floor$(list_of_zones[id][1])_zon$(list_of_zones[id][2])_oveOccSch_u" => start_occ);
+           merge!(u, Dict("floor$(list_of_zones[id][1])_zon$(list_of_zones[id][2])_oveOccSch_activate" => 1, "floor$(list_of_zones[id][1])_zon$(list_of_zones[id][2])_oveOccSch_u" => start_occ))
        end
 
     else
        error("No custom occupancy data found ... please check!")
     end
 
-    u = Dict("floor1_zon4_oveTSetRooCoo_oveTRoo_u" => 295.15,"floor1_zon4_oveTSetRooCoo_activate" => 1)
+    merge!(u, Dict("floor1_zon4_oveTSetRooCoo_oveTRoo_u" => 295.15,"floor1_zon4_oveTSetRooCoo_activate" => 1))
     return u, occDur, occParams
 end
 

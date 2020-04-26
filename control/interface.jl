@@ -25,7 +25,7 @@ using .con
 # ---------------
 # Set URL for testcase
 url = "http://emulator:5000"
-simLength_inSec = 3*24*60*60;         # in [s]
+simLength_inSec = 2*24*60*60;         # in [s]
 simStep_inSec   = 5*60;                # in [s]
 # ---------------
 
