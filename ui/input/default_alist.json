@@ -1,0 +1,18 @@
+{
+	"HVAC": [
+		{"label": "Power Conumption", "stream": "xyz", "filename": "xyz"}, 
+		{"label": "Temperature", "stream": "xyz", "filename": "xyz"}
+	], 
+	"Lighting": [
+		{"label": "Power Conumption", "stream": "xyz", "filename": "xyz"}, 
+		{"label": "Temperature", "stream": "xyz", "filename": "xyz"}
+	], 
+	"Desktops": [
+		{"label": "Power Conumption", "stream": "xyz", "filename": "xyz"}, 
+		{"label": "Temperature", "stream": "xyz", "filename": "xyz"}
+	], 
+	"Laptops": [
+		{"label": "Power Conumption", "stream": "xyz", "filename": "xyz"}, 
+		{"label": "Temperature", "stream": "xyz", "filename": "xyz"}
+	]
+}

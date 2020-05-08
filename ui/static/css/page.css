@@ -1,0 +1,529 @@
+html,
+body {
+    height: 100%;
+    min-height: 100%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+div.hidden {
+  display: none;
+}
+
+.mainbox {
+    min-height: 80vh;
+}
+.panel {
+    margin: 1vw 1vw 2vw 1vw;
+    padding: 1vw 0vw 2vw 0vw;
+}
+
+fieldset.scheduler-border {
+    border: 1px groove #ddd !important;
+    padding: 0 0 1vw 2vw !important;
+    margin: 0 0 0 0 !important;
+    -webkit-box-shadow:  0px 0px 0px 0px #000;
+            box-shadow:  0px 0px 0px 0px #000;
+}
+legend.scheduler-border {
+    font-size: 1.4vw !important;
+    text-align: left !important;
+    width:auto;
+    padding:0 10px;
+    border-bottom:none;
+}
+.selection-panel {
+    margin: 0;
+    padding: 0;
+}
+.selection-panel .type-row {
+    margin: 0 0 0 0;
+    padding: 0.5vw 0 0 0;
+}
+.selection-panel .selection-box {
+    text-align: center;
+    margin: 0 0.6vw 1vw 0.6vw;
+    padding: 0 1vw 0 1vw; 
+    justify-content: center;
+}
+.selection-box input{
+    margin:0; padding:0;
+    -webkit-appearance:none;
+       -moz-appearance:none;
+            appearance:none;
+}
+.selection-box .label-image{
+    cursor:pointer;
+    background-size:contain;
+    background-repeat:no-repeat;
+    display:inline-block;
+    width:70%; height:auto;
+    -webkit-transition: all 100ms ease-in;
+       -moz-transition: all 100ms ease-in;
+            transition: all 100ms ease-in;
+    -webkit-filter: brightness(1.8) grayscale(1) opacity(.7);
+       -moz-filter: brightness(1.8) grayscale(1) opacity(.7);
+            filter: brightness(1.8) grayscale(1) opacity(.7);
+}
+
+.selection-box .label-image:hover{
+    -webkit-filter: brightness(1.2) grayscale(.5) opacity(.9);
+       -moz-filter: brightness(1.2) grayscale(.5) opacity(.9);
+            filter: brightness(1.2) grayscale(.5) opacity(.9);
+}
+
+.tag {
+    font-size: 1vw;
+    margin-top: 1vw;
+    margin-bottom: 1vw;
+}
+
+.back-button-div {
+    text-align: center;
+    margin: 0 0vw 2vw 0vw;
+}
+.back-button-div .back-button{
+    width:auto;
+    height:2.5vw;
+    cursor:pointer;
+    display:inline-block;
+    background-size:contain;
+    background-repeat:no-repeat;
+    background-image:url('../icons/up-arrow.png');
+    -webkit-transition: all 100ms ease-in;
+       -moz-transition: all 100ms ease-in;
+            transition: all 100ms ease-in;
+    -webkit-filter: brightness(1.8) grayscale(1) opacity(.5);
+       -moz-filter: brightness(1.8) grayscale(1) opacity(.5);
+            filter: brightness(1.8) grayscale(1) opacity(.5);
+}
+.back-button-div .back-button:hover{
+    -webkit-filter: brightness(1.2) grayscale(.5) opacity(.9);
+       -moz-filter: brightness(1.2) grayscale(.5) opacity(.9);
+            filter: brightness(1.2) grayscale(.5) opacity(.9);
+}
+
+.leaf {
+  border: 1px solid #fff;
+  display: block;
+  position: relative;
+  cursor: pointer;
+}
+.leaf:before {
+  display: block;
+  border-radius: 50%;
+  border: 1px solid grey;
+  position: absolute;
+  top: -5px;
+  left: -5px;
+  width: 25px;
+  height: 25px;
+  text-align: center;
+  line-height: 22px;
+  transition-duration: 0.4s;
+  transform: scale(0);
+}
+.leaf img {
+  transition-duration: 0.2s;
+  transform-origin: 50% 50%;
+}
+:checked + .leaf {
+  border-color: #ddd;
+}
+:checked + .leaf:before {
+  content: "✓";
+  background-color: grey;
+  transform: scale(1);
+}
+:checked + .leaf img {
+  transform: scale(0.9);
+  box-shadow: 0 0 0 #333;
+  z-index: -1;
+}
+
+.table > thead > tr > th {
+    font-size: 1.1vw;
+    text-align: center;
+}
+
+.table > tbody > tr > th {
+    vertical-align: middle;
+    text-align: center;
+}
+
+.table > tbody > tr > td {
+    vertical-align: middle;
+    font-size: 1.2vw;
+    text-align: center;
+}
+td.clickable-link:hover {
+    color: green;
+    background-color: aqua;
+}
+td.clickable-link a {
+    color: black;
+    text-decoration:none;
+    display:block;
+    width:100%;
+}
+td.clickable-link a:target {
+    display:block;
+}
+
+.row-simage {
+    background-size:contain;
+    background-repeat:no-repeat;
+    display:inline-block;
+    width:1.5vw; height:auto;
+}
+
+.configuration-form {
+    margin: 0vw 0vw 0vw 0vw;
+    padding: 0vw 0vw 0vw 0vw;
+}
+.configuration-form .row {
+    margin: 0vw 0vw 1vw 0vw;
+}
+.configuration-form label {
+    margin: 0vw 0vw 0vw 0vw;
+    padding: 0vw 0vw 0vw 0vw;
+    font-size: 1.2vw;
+}
+.configuration-form input {
+    text-align: center;
+    font-size: 1.2vw;
+}
+.configuration-form .col-form-label {
+    margin: 0vw 0vw 2vw 0vw;
+}
+.configuration-form .floor-wise {
+    margin: 0vw 0vw 0vw 0vw;
+    padding: 0vw 0vw 0vw 0vw;
+}
+.configuration-form .floor-div {
+    margin: 0vw 2vw 0vw 0vw;
+    padding: 0vw 0vw 2vw 0vw;
+}
+.configuration-form .floor-input {
+    margin: 0vw 0vw 0vw 0vw;
+    padding: 0vw 0vw 0vw 0vw;
+}
+
+.summary-panel {
+    margin: 1vw 1vw 2vw 1vw;
+    padding: 1vw 0vw 2vw 0vw;
+}
+.summary-panel .building-box-row {
+    margin: 1vw 1vw 0vw 0vw;
+    padding: 0vw 0vw 0vw 0vw;
+}
+
+.building-box-row .building-box {
+    margin: 0vw 0vw 0vw 0vw;
+    padding: 0vw 0vw 0vw 0vw;
+}
+.building-box-row .list-of-appliances {
+    margin: 0vw 0vw 0vw 2vw;
+    padding: 0vw 0vw 0vw 0vw;    
+}
+
+.summary-panel .building-box-buttons {
+    margin: 0vw 0vw 0vw 0vw;
+    padding: 0vw 0vw 1vw 0vw;
+}
+.building-box-buttons input {
+    margin: 0vw 2vw 0vw 0vw;
+    font-size: 1.2vw;
+}
+
+.service-panel-button {
+    margin: 0vw 0vw 0vw 0vw;
+    padding: 0vw 0vw 1vw 3vw;
+}
+
+.service-panel-button button {
+    font-size: 1.2vw;
+}
+
+.grid-buttons button {
+    font-size: 1.2vw;
+    margin: 0vw 2vw 0vw 0vw;
+}
+
+.grid-services .background {
+    fill: #fff;
+}
+
+.grid-services rect {
+    stroke: #fff;
+    stroke-width: 1;
+}
+
+.service-app-selected {
+    margin: 0vw 0vw 1vw 0vw;
+    padding: 0vw 0vw 0vw 1vw;        
+}
+
+@media screen and (max-width: 1200px) {
+    legend.scheduler-border {
+        font-size: 1.6vw !important;
+    }
+    .tag {
+        font-size: 1.2vw; /* The width is 100%, when the viewport is 800px or smaller */
+    }
+    .buildingPanel .label-image{
+        width:95%;
+    }
+    .appliancePanel .imageBox{
+        margin: 1vw 0vw 1vw 0vw;
+        padding: 1vw 0vw 1vw 0vw;    
+    }
+    .imageBox .label-image{
+        width:95%;
+    }
+    .selectionBox .iconBox{
+        margin: 0 0 1vw 1vw;
+        padding: 0 0 0vw 0;    
+    }
+    .icon-image{
+        width:80%;
+    }
+    .table .table-image {
+        width:4.5vw;
+    }
+    .table .row-image {
+        width:3.5vw;
+    }
+    .table > thead > tr > th {
+        font-size: 1.2vw;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    legend.scheduler-border {
+        font-size: 1.6vw !important;
+    }
+    .tag {
+        font-size: 1.2vw; /* The width is 100%, when the viewport is 800px or smaller */
+    }
+    .buildingPanel .label-image{
+        width:95%;
+    }
+    .appliancePanel .imageBox{
+        margin: 1vw 0vw 1vw 0vw;
+        padding: 1vw 0vw 1vw 0vw;    
+    }
+    .imageBox .label-image{
+        width:95%;
+    }
+    .selectionBox .iconBox{
+        margin: 0 0 1vw 1vw;
+        padding: 0 0 0vw 0;    
+    }
+    .icon-image{
+        width:80%;
+    }
+    .table .table-image {
+        width:4.5vw;
+    }
+    .table .row-image {
+        width:3.5vw;
+    }
+    .table > thead > tr > th {
+        font-size: 1.2vw;
+    }
+}
+
+@media screen and (max-width: 900px) {
+    legend.scheduler-border {
+        font-size: 1.6vw !important;
+    }
+    .tag {
+        font-size: 1.2vw; /* The width is 100%, when the viewport is 800px or smaller */
+    }
+    .buildingPanel .label-image{
+        width:95%;
+    }
+    .appliancePanel .imageBox{
+        margin: 1vw 0vw 1vw 0vw;
+        padding: 1vw 0vw 1vw 0vw;    
+    }
+    .imageBox .label-image{
+        width:95%;
+    }
+    .selectionBox .iconBox{
+        margin: 0 0 1vw 1vw;
+        padding: 0 0 2vw 0;    
+    }
+    .icon-image{
+        width:80%;
+    }
+    .table .table-image {
+        width:4.5vw;
+    }
+    .table .row-image {
+        width:3.5vw;
+    }
+    .table > thead > tr > th {
+        font-size: 1.2vw;
+    }
+}
+
+@media screen and (max-width: 765px) {
+    legend.scheduler-border {
+        font-size: 1.6vw !important;
+    }
+    .tag {
+        font-size: 1.6vw; /* The width is 100%, when the viewport is 800px or smaller */
+    }
+    .buildingPanel .label-image{
+        width:95%;
+    }
+    .appliancePanel .imageBox{
+        margin: 1vw 1vw 1vw 1vw;
+        padding: 1vw 1vw 1vw 1vw;    
+    }
+    .imageBox .label-image{
+        width:95%;
+    }
+    .selectionBox .iconBox{
+        margin: 0 0 1vw 0;
+        padding: 0 0 2vw 0;    
+    }
+    .icon-image{
+        width:40%;
+    }
+    .table .table-image {
+        width:4.5vw;
+    }
+    .table .row-image {
+        width:3.5vw;
+    }
+    .table > tbody > tr > td {
+        font-size: 1.5vw;
+    }
+    .table > thead > tr > th {
+        font-size: 1.2vw;
+    }
+}
+
+@media screen and (max-width: 575px) {
+    legend.scheduler-border {
+        font-size: 3.6vw !important;
+    }
+    .tag {
+        font-size: 3vw; /* The width is 100%, when the viewport is 800px or smaller */
+    }
+    .buildingPanel .label-image{
+        width:25%;
+    }
+    .appliancePanel .imageBox{
+        margin: 1vw 0 1vw 12vw;
+        padding: 1vw 0 1vw 12vw;    
+    }
+    .imageBox .label-image{
+        width:50%;
+    }
+    .selectionBox .iconBox{
+        margin: 0 0 3vw 0;
+        padding: 0 0 2vw 0;    
+    }
+    .icon-image{
+        width:15%;
+    }
+    .table .table-image {
+        width:11vw;
+    }
+    .table .row-image {
+        width:9vw;
+    }
+    
+    .table > tbody > tr > td {
+        font-size: 2.7vw;
+    }
+
+    .table > thead > tr > th {
+        font-size: 2.5vw;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    legend.scheduler-border {
+        font-size: 3.6vw !important;
+    }
+    .tag {
+        font-size: 3vw; /* The width is 100%, when the viewport is 800px or smaller */
+    }
+    .buildingPanel .label-image{
+        width:25%;
+    }
+    .appliancePanel .imageBox{
+        margin: 1vw 0 1vw 12vw;
+        padding: 1vw 0 1vw 12vw;    
+    }
+    .imageBox .label-image{
+        width:50%;
+    }
+    .selectionBox .iconBox{
+        margin: 0 0 3vw 0;
+        padding: 0 0 2vw 0;    
+    }
+    .icon-image{
+        width:15%;
+    }
+    .table .table-image {
+        width:11vw;
+    }
+    .table .row-image {
+        width:9vw;
+    }
+    
+    .table > tbody > tr > td {
+        font-size: 2.7vw;
+    }
+
+    .table > thead > tr > th {
+        font-size: 2.5vw;
+    }
+}
+
+@media screen and (max-width: 320px) {
+    legend.scheduler-border {
+        font-size: 3.6vw !important;
+    }
+    .tag {
+        font-size: 3vw; /* The width is 100%, when the viewport is 800px or smaller */
+    }
+    .buildingPanel .label-image{
+        width:25%;
+    }
+    .appliancePanel .imageBox{
+        margin: 1vw 0 1vw 12vw;
+        padding: 1vw 0 1vw 12vw;    
+    }
+    .imageBox .label-image{
+        width:50%;
+    }
+    .selectionBox .iconBox{
+        margin: 0 0 3vw 0;
+        padding: 0 0 2vw 0;    
+    }
+    .icon-image{
+        width:15%;
+    }
+    .table .table-image {
+        width:11vw;
+    }
+    .table .row-image {
+        width:9vw;
+    }
+    
+    .table > tbody > tr > td {
+        font-size: 2.7vw;
+    }
+
+    .table > thead > tr > th {
+        font-size: 2.5vw;
+    }
+}

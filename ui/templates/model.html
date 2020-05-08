@@ -1,0 +1,65 @@
+    <div class="col-sm-6 panel analysis-panel">
+        <fieldset class="scheduler-border">
+            <legend class="scheduler-border">Analyze yourData</legend>
+            <div class="row ml-0 mr-2" id="div-sel-options">
+                <!--
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <select class="selectpicker form-control" title="Select Floors" id="select-floor" multiple></select>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                    <div class="form-group">
+                        <select class="selectpicker form-control" title="Select Zones" id="select-zone" multiple></select>
+                    </div>
+                </div>
+                -->
+                <div class="col-sm-10">
+                    <div class="form-group">
+                        <select class="selectpicker form-control" title="Select Parameters" id="select-parameter" data-max-options="3" data-live-search="true" data-selected-text-format="count" multiple></select>
+                    </div>
+                </div>
+                <div class="col-sm-2">
+                    <div class="form-group">
+                        <button type="button" class="btn btn-primary form-control" id="btn-plot-data">Plot Data</button>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 px-0 mx-0" id="div-chart1"></div>
+            <div class="col-sm-12 px-0 mx-0" id="div-chart2"></div>
+        </fieldset>
+    </div>
+    <div class="col-sm-5 panel service-selection-panel">
+        <fieldset class="scheduler-border">
+            <legend class="scheduler-border">Service Selection</legend>
+            <div class="col-sm-12 selection-panel service-selection-panel">
+                <div class="row type-row" id="select-service">
+                </div>
+                <div class="row type-row">
+                    <div class="col-md-12 service-panel-button">
+                        <button type="button" class="btn btn-primary" id="service-selected">Continue</button>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+    <div class="col-sm-6 panel model-panel hidden">
+        <fieldset class="scheduler-border">
+            <legend class="scheduler-border">Grid Services</legend>
+            <div class="col-sm-12 selection-panel">
+                <div class="row">
+                    <div class="col-sm-12 back-button-div text-center">
+                        <button type="button" id="back-to-selection" class="btn btn-default back-button"></button>
+                    </div>
+                </div>
+                <div class="row service-labels service-app-selected"></div>
+                <div class="row grid-services service-app-selected"></div>
+                <div class="row grid-buttons service-app-selected">
+                    <div class="col-sm-12">
+                        <button type="button" class="btn btn-primary" id="reconfigure">Reconfigure</button>
+                        <button type="button" class="btn btn-primary">Serve myGrid</button>
+                    </div>
+                </div>
+            </div>
+        </fieldset>
+    </div>

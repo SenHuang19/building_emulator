@@ -1,0 +1,96 @@
+<div class="col-sm-3 panel" id="building-type">
+    <fieldset class="scheduler-border">
+        <legend class="scheduler-border">Building Selection Panel</legend>
+        <div class="back-button-div col-sm-12">
+            <button type="button" id="back-button" class="btn btn-default back-button"></button>
+        </div>
+        {% set div_dict = {'name': building_types.value, 'children':building_types.children} %}
+        {% set parent_list = [div_dict] %}
+        {% for parent in parent_list %}
+            {% if parent.name == 'building' %}
+            <div class="{{ 'col-sm-12 form-group selection-panel ' ~ parent.name ~ '-type'}}">
+            {% else %}
+            <div class="{{ 'col-sm-12 form-group hidden selection-panel ' ~ parent.name ~ '-type'}}">
+            {% endif %}
+                <div class="row type-row">
+                    {% for building in parent.children %}
+                        {% if building.children %}
+                            {% set div_dict = {'name': building.value, 'children':building.children} %}
+                            {{ parent_list.append(div_dict) or ""}}
+                        {% endif %}
+                        <div class="col-sm-5 form-check form-check-inline selection-box">
+                            {% if building.type == "leaf" %}
+                            <input class="form-check-input leafRadio" type="radio" name="{{ building.parent }}" id="{{ building.value }}" value="{{ building.value }}">
+                            <label class="form-check-label leaf" for="{{ building.value }}">
+                            {% else %}
+                            <input class="form-check-input" type="radio" name="{{ building.parent }}" id="{{ building.value }}" value="{{ building.value }}">
+                            <label class="form-check-label" for="{{ building.value }}">
+                            {% endif %}
+                                <figure>
+                                    <img class="label-image" src="{{ 'static/images/icons/' ~ building.icon }}" alt="">
+                                    <figcaption class="tag">{{ building.name }}</figcaption>
+                                </figure>
+                            </label>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        {% endfor %}
+    </fieldset>
+</div>
+<div class="col-sm-3 hidden panel configuration-panel">
+    <fieldset class="scheduler-border">
+        <legend class="scheduler-border">Configuration Panel</legend>
+        <div class="col-sm-12 form-group configuration-form">
+            <form>
+                <div class="row form-group">
+                    <label for="nfloors" class="col-sm-4 col-form-label">Number of Floors: </label>
+                    <div class="col-sm-4">
+                        <input type="text" class="form-control" id="nfloors" name="nfloors">
+                    </div>
+                </div>
+                <div class="row form-group floor-panel">
+                    <label for="floor-wise-zones" class="col-sm-12 col-form-label">Number of Zones (Floor Wise)</label>
+                    <div class="col-sm-12 floor-wise">
+                        <div class="row floor-list"></div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </fieldset>
+</div>
+<div class="col-sm-5 hidden panel summary-panel">
+    <fieldset class="scheduler-border">
+        <legend class="scheduler-border">Summary Panel</legend>
+        <div class="row building-box-row">
+            <div class="col-sm-6 justify-content-center building-box">
+            </div>
+            <div class="col-sm-5 list-of-appliances">
+            </div>
+        </div>
+        <div class="row building-box-buttons">
+            <div class="col-sm-12 building-box-buttons">
+                <input type="submit" class="btn btn-primary" name="save_building" id="save_building" value="Save Building" />
+                <input type="submit" class="btn btn-primary" name="learn_model" id="learn_model" value="Build Model" />
+            </div>
+        </div>
+    </fieldset>
+</div>
+<div class="modal fade" id="streamList" tabindex="-1" role="dialog" aria-labelledby="streamListTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="stream-title">Data Streams</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>
