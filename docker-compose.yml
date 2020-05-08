@@ -5,6 +5,10 @@ services:
     build: './control'
     working_dir: /usr/myapp
     command: julia interface.jl
+  ui:
+    build: './ui'
+    working_dir: /home/developer
+    command: python backend.py
   emulator:
     build: './emulator'
     working_dir: /home/developer

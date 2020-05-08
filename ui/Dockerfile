@@ -1,9 +1,16 @@
-FROM julia:1.2.0-buster
+FROM python:3
 
-RUN julia -e "using Pkg; Pkg.add(\"HTTP\");Pkg.add(\"JSON\");Pkg.add(\"CSV\");Pkg.add(\"DataFrames\");Pkg.add(\"Dates\")"
+ADD input /home/developer/input/
 
-ADD interface.jl /usr/myapp/
+ADD output /home/developer/output/
 
-ADD controllers.jl /usr/myapp/
+ADD static /home/developer/static/
 
-ADD custom_input/occParams.out /usr/myapp/
+ADD templates /home/developer/templates/
+
+ADD requirements.txt /home/developer/
+
+ADD backend.py /home/developer/
+
+WORKDIR /home/developer/
+RUN pip install -r requirements.txt
