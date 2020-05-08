@@ -6,4 +6,6 @@ ADD interface.jl /usr/myapp/
 
 ADD controllers.jl /usr/myapp/
 
+ADD exogenous.jl /usr/myapp/
+
 ADD custom_input/occParams.out /usr/myapp/

@@ -21,11 +21,16 @@ mutable struct occModel
 include("./controllers.jl")
 using .con
 
+# EXOGENOUS INPUT IMPORT
+# ----------------------
+include("./exogenous.jl")
+using .exo
+
 # SETUP TEST CASE
 # ---------------
 # Set URL for testcase
 url = "http://emulator:5000"
-simLength_inSec = 2*24*60*60;         # in [s]
+simLength_inSec = 20*60;         # in [s]
 simStep_inSec   = 5*60;                # in [s]
 # ---------------
 
@@ -38,15 +43,13 @@ println("Name:\t\t\t$name")
 
 # Inputs available
 inputs = JSON.parse(String(HTTP.get("$url/inputs").body))
-# println("Control Inputs:\t\t\t$inputs")
+
 # Measurements available
 measurements = JSON.parse(String(HTTP.get("$url/measurements").body))
-#println("Measurements:\t\t\t$measurements")
 
 # define a struct variable to contain the device information
 mutable struct devInfo
     devType::String
-    # powRated::Any      # [kW]
     devParam::Any          # [OPTIONAL] only if needed for calculation of scores
     senseKey::Any
     senseVal::Any
@@ -125,23 +128,27 @@ allSeries = Array{Any}(undef,tlen,length(measurements)-1); # -1 because "time" i
 # simulation loop
 for i = 1:tlen
    if i<2
-   # Initialize u
-      global u, occDur, occParams = con.initialize(start_inSec,simStep_inSec,list_of_zones);
+      # Initialize u
+      global u_exo, occDur, occParams = exo.initialize(start_inSec,simStep_inSec,list_of_zones);
+      global u_con = con.initialize(start_inSec,simStep_inSec,list_of_zones);
    else
-   # Compute next control signal
-      global u, occDur = con.compute_control(y, occDur, occParams, list_of_zones);
+      # Compute next control signal
+      global u_exo, occDur = exo.next_signal(y, occDur, occParams, list_of_zones);
+      global u_con = con.compute_control(y, list_of_zones);
    end
+   u = merge(u_exo,u_con);
+
    # Advance in simulation
    res = HTTP.post("$url/advance", ["Content-Type" => "application/json"], JSON.json(u);retry_non_idempotent=true).body
    global y = JSON.parse(String(res));
 
    global occDur .+= simStep_inSec/60;     # in minute
 
-   tSeries[i] = y["time"];
-   ySeries[i,:] = [y[name_y] for name_y in y_of_interest];
+   tSeries[i]     = y["time"];
+   ySeries[i,:]   = [y[name_y] for name_y in y_of_interest];
    allSeries[i,:] = [y[name_y] for name_y in setdiff(measurements,["time"])];
    if rem(i,max(1,floor(tlen/20)))==0
-      println("[status] $(Dates.format(now(),"HH:MM")) GMT -- complete $(Int64(round(i/tlen*100)))%")
+      println("[status @ $(Dates.format(now(),"HH:MM")) GMT] -- complete $(Int64(round(i/tlen*100)))%")
    end
 
    # convert time into dd-hh-mm-ss format
