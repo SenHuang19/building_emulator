@@ -1,6 +1,6 @@
 import socket
 import requests
-from flask import Flask
+from flask import Flask, request, redirect
 
 # @author: Sai Pushpak Nandanoori 
 def CallJulia(Keys,Values):
@@ -84,12 +84,11 @@ app = Flask(__name__)
 @app.route("/name")
 @app.route("/stop")
 def emulator():
-	r = requests.get('https://emulator:5000' + request.path)
-	print(r)
-	return r
+	r= requests.get('http://emulator:5000' + request.path)
+	return r.content
 
 # main function
 if __name__ == '__main__':
 	
 	# run the app
-	app.run(port=5000)
+	app.run(host='0.0.0.0', port=5000)
