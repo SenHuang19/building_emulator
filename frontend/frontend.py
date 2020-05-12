@@ -1,9 +1,11 @@
 # import libraries
-import os.path
-from os import path
 import uuid
 import json
+import socket
+import os.path
 import pandas as pd
+
+from os import path
 from flask import Flask, render_template, request, jsonify, redirect
 
 # create a flast app
@@ -157,4 +159,4 @@ def build():
 if __name__ == '__main__':
 	
 	# run the app
-	app.run(debug=True)
+	app.run(host='0.0.0.0', port=5000)
