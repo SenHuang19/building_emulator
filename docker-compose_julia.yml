@@ -1,0 +1,7 @@
+version: '3.1'
+
+services:
+  control:
+    build: './julia_control'
+    working_dir: /usr/myapp
+    command: julia interface.jl

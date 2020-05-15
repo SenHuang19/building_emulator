@@ -1,23 +1,9 @@
 version: '3.1'
 
 services:
-  backend:
-    build: './backend'
-    working_dir: /home/developer
-    command: python backend.py
-  control:
-    build: './control'
-    working_dir: /usr/myapp
-    command: julia interface.jl
   emulator:
     build: './emulator'
     working_dir: /home/developer
     logging:
             driver: none 
     command: python startREST.py --fmuPath=/home/developer/models/wrapped.fmu --fmuStep=60
-  frontend:
-    build: './frontend'
-    working_dir: /home/developer
-    command: python frontend.py
-    ports:
-      - 5000:5000

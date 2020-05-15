@@ -1,0 +1,13 @@
+version: '3.1'
+
+services:
+  backend:
+    build: './backend'
+    working_dir: /home/developer
+    command: python backend.py
+  frontend:
+    build: './frontend'
+    working_dir: /home/developer
+    command: python frontend.py
+    ports:
+      - 5000:5000

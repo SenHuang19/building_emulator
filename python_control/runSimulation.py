@@ -15,6 +15,8 @@ import getopt
 import os
 import csv
 import time
+import urllib
+
 # ----------------------
 
 def ctrlInitialize(inputs):
@@ -55,8 +57,12 @@ def main(argv):
       dayOfYear = int(arg)
     elif opt in ("-o", "--dayOffset"):
       dayOffset = int(arg)
-  url='http://emulator:5000'
-  time.sleep(10)
+
+
+  time.sleep(60)
+                
+              
+                
   # GET TEST INFORMATION
   # --------------------
   print('\nSIMULATION SETUP INFORMATION\n---------------------')

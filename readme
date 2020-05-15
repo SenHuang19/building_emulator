@@ -2,13 +2,18 @@ This repo is set up for facilitating the testing of load prioritization methods,
 
 1. To run the test, please
 
-   - build the images by executing "make build"
+   - build the images by executing "make build_*client*"
+      
+	 noted that *client* is an argument for specifying the version of the client that connects the emulator docker.
+	 
+	 Currently, *client* can be either "python" or "julia"
 
-   - run the images by executing "make run"
 
-   - copy the result files out of the images by executing "make copy"
+   - run the images by executing "make run_*client*"
 
-   - remove the images by executing "make remove-image"
+   - copy the result files out of the images by executing "make copy_*client*"
+
+   - remove the images by executing "make remove_*client*"
    
    - update the emulator inventory by executing "make update" 
       
@@ -27,16 +32,33 @@ This repo is set up for facilitating the testing of load prioritization methods,
 3. The following options can be modified for your needs:
 
    - Simulation period:
-     simulation length [s] is defined in the line 19 of control/interface.jl
-     starting time [s] is defined in the line 44 of control/interface.jl
+   
+     for the julia client
+	 
+           simulation length [s] is defined in the line 33 of julia_control/interface.jl
+		   
+           starting time [s] is defined in the line 110 of julia_control/interface.jl
+
+     for the python client
+	 
+           simulation length [s] and starting time [s] are defined in the line 7 of docker-compose_python.yml
+
 
    - Control sampling:
-     interval [s] is defined in the line 20 of control/interface.jl
+   
+   
+     for the julia client
 	 
-   - Testing results
-     The variables to be included in the output csv file is defined in the line 77 of control/interface.jl.
-	 Please add as many points as possible
+           interval [s] is defined in the line 34 of julia_control/interface.jl
+
+
+     for the python client
+	 
+           interval [s] is defined in the line 7 of docker-compose_python.yml 
+	 
 	 
    - Testing control
-     The testing control is implemented in control/controls.jl. 
-	 Please replace it with your control deployment.
+   
+     Example clients are implemented in julia_control/interface.jl and python_control/runSimulation.py
+	 
+	 Please develop your control deployment based on those examples.
