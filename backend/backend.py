@@ -115,7 +115,7 @@ SITE_NAME = "http://emulator:5000"
 @app.route("/kpi", methods=["GET"])
 @app.route("/name", methods=["GET"])
 @app.route("/stop", methods=["PUT"])
-def emulator():
+def proxy():
 	
 	# if requested method is get - step, inputs, measurements, results, kpi, name
 	if request.method=='GET':
@@ -143,6 +143,11 @@ def emulator():
 
 	# return the response to the controller
 	return response
+
+@app.route("/update", methods=["POST"])
+def update():
+	# dummy placeholder
+	return 0
 
 """
 -------------------------------------  Communicate with Frontend  ---------------------------------
