@@ -1,12 +1,12 @@
-build_julia:
-	docker-compose -f docker-compose.yml -f docker-compose_julia.yml build
+build:
+	docker-compose -f docker-compose.yml -f docker-compose_julia.yml -f docker-compose_app.yml build
 
-run_julia:
-	docker-compose -f docker-compose.yml -f docker-compose_julia.yml up
+run:
+	docker-compose -f docker-compose.yml -f docker-compose_julia.yml -f docker-compose_app.yml up
 
-remove_julia:
-	docker-compose -f docker-compose.yml -f docker-compose_julia.yml down
-	
+clean:
+	docker-compose -f docker-compose.yml -f docker-compose_julia.yml -f docker-compose_app.yml down
+
 copy_julia:
 	docker cp c3po_control_1:/usr/myapp/all_result_testcase2.csv 	results/all_result.csv
 	docker cp c3po_control_1:/usr/myapp/control_inputs.csv 				results/all_control_inputs.csv

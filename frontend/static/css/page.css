@@ -1,3 +1,4 @@
+/* css for the common attributes on the page */
 html,
 body {
     height: 100%;
@@ -6,19 +7,29 @@ body {
     margin: 0;
     padding: 0;
 }
-
 div.hidden {
   display: none;
 }
-
 .mainbox {
     min-height: 80vh;
 }
-.panel {
-    margin: 1vw 1vw 2vw 1vw;
-    padding: 1vw 0vw 2vw 0vw;
+.tag {
+    font-size: 1vw;
+    margin-top: 1vw;
+    margin-bottom: 1vw;
+}
+.row-simage {
+    background-size:contain;
+    background-repeat:no-repeat;
+    display:inline-block;
+    width:1.5vw; height:auto;
 }
 
+/* panel box */
+.panel {
+    margin: 1vw 0vw 2vw 1vw;
+    padding: 1vw 0vw 0vw 0vw;
+}
 fieldset.scheduler-border {
     border: 1px groove #ddd !important;
     padding: 0 0 1vw 2vw !important;
@@ -33,55 +44,31 @@ legend.scheduler-border {
     padding:0 10px;
     border-bottom:none;
 }
-.selection-panel {
-    margin: 0;
-    padding: 0;
+fieldset.scheduler-border .fieldset-row {
+    margin: 0.5vw 0vw 0.5vw -2vw;
+    padding: 0.5vw 0vw 0.5vw 0vw;
 }
-.selection-panel .type-row {
-    margin: 0 0 0 0;
-    padding: 0.5vw 0 0 0;
+
+/* fieldset common elements */
+.fieldset-row label {
+    margin: 0.5vw 0vw 0.5vw 0vw;
+    padding: 0vw 0vw 0vw 1vw;
+    font-size: 1.2vw;
 }
-.selection-panel .selection-box {
+.fieldset-row .floor-input {
+    margin: 0.5vw 0vw 0.5vw 0vw;
+    padding: 0vw 0.5vw 0vw 0.5vw;
+}
+.fieldset-row input {
+    margin: 0vw 0vw 0vw 0vw;
+    padding: 0vw 0vw 0vw 0vw;
+    font-size: 1.2vw;
+}
+
+/* back button within a fieldset row*/
+.fieldset-row .back-button-div {
     text-align: center;
-    margin: 0 0.6vw 1vw 0.6vw;
-    padding: 0 1vw 0 1vw; 
-    justify-content: center;
-}
-.selection-box input{
-    margin:0; padding:0;
-    -webkit-appearance:none;
-       -moz-appearance:none;
-            appearance:none;
-}
-.selection-box .label-image{
-    cursor:pointer;
-    background-size:contain;
-    background-repeat:no-repeat;
-    display:inline-block;
-    width:70%; height:auto;
-    -webkit-transition: all 100ms ease-in;
-       -moz-transition: all 100ms ease-in;
-            transition: all 100ms ease-in;
-    -webkit-filter: brightness(1.8) grayscale(1) opacity(.7);
-       -moz-filter: brightness(1.8) grayscale(1) opacity(.7);
-            filter: brightness(1.8) grayscale(1) opacity(.7);
-}
-
-.selection-box .label-image:hover{
-    -webkit-filter: brightness(1.2) grayscale(.5) opacity(.9);
-       -moz-filter: brightness(1.2) grayscale(.5) opacity(.9);
-            filter: brightness(1.2) grayscale(.5) opacity(.9);
-}
-
-.tag {
-    font-size: 1vw;
-    margin-top: 1vw;
-    margin-bottom: 1vw;
-}
-
-.back-button-div {
-    text-align: center;
-    margin: 0 0vw 2vw 0vw;
+    margin: 0vw 0vw 0vw 0vw;
 }
 .back-button-div .back-button{
     width:auto;
@@ -104,6 +91,42 @@ legend.scheduler-border {
             filter: brightness(1.2) grayscale(.5) opacity(.9);
 }
 
+/* selection box within a fieldset row*/
+.fieldset-row .selection-box {
+    text-align: center;
+    justify-content: center;
+}
+.selection-box input {
+    margin:0; padding:0;
+    -webkit-appearance:none;
+       -moz-appearance:none;
+            appearance:none;
+}
+.selection-box figure {
+    margin: 0.5vw 0vw 0.5vw 0vw;
+    padding: 0.5vw 0vw 0.5vw 0vw;
+}
+.selection-box .label-image{
+    margin:0; padding:0;
+    cursor:pointer;
+    background-size:contain;
+    background-repeat:no-repeat;
+    display:inline-block;
+    width:70%; height:auto;
+    -webkit-transition: all 100ms ease-in;
+       -moz-transition: all 100ms ease-in;
+            transition: all 100ms ease-in;
+    -webkit-filter: brightness(1.8) grayscale(1) opacity(.7);
+       -moz-filter: brightness(1.8) grayscale(1) opacity(.7);
+            filter: brightness(1.8) grayscale(1) opacity(.7);
+}
+.selection-box .label-image:hover{
+    -webkit-filter: brightness(1.2) grayscale(.5) opacity(.9);
+       -moz-filter: brightness(1.2) grayscale(.5) opacity(.9);
+            filter: brightness(1.2) grayscale(.5) opacity(.9);
+}
+
+/* leaf node within the selection box */
 .leaf {
   border: 1px solid #fff;
   display: block;
@@ -142,21 +165,21 @@ legend.scheduler-border {
   z-index: -1;
 }
 
+/* generic table parameters */
 .table > thead > tr > th {
     font-size: 1.1vw;
     text-align: center;
 }
-
 .table > tbody > tr > th {
     vertical-align: middle;
     text-align: center;
 }
-
 .table > tbody > tr > td {
     vertical-align: middle;
     font-size: 1.2vw;
     text-align: center;
 }
+/* clickable table cell */
 td.clickable-link:hover {
     color: green;
     background-color: aqua;
@@ -170,70 +193,8 @@ td.clickable-link a {
 td.clickable-link a:target {
     display:block;
 }
-
-.row-simage {
-    background-size:contain;
-    background-repeat:no-repeat;
-    display:inline-block;
-    width:1.5vw; height:auto;
-}
-
-.configuration-form {
-    margin: 0vw 0vw 0vw 0vw;
-    padding: 0vw 0vw 0vw 0vw;
-}
-.configuration-form .row {
-    margin: 0vw 0vw 1vw 0vw;
-}
-.configuration-form label {
-    margin: 0vw 0vw 0vw 0vw;
-    padding: 0vw 0vw 0vw 0vw;
-    font-size: 1.2vw;
-}
-.configuration-form input {
-    text-align: center;
-    font-size: 1.2vw;
-}
-.configuration-form .col-form-label {
-    margin: 0vw 0vw 2vw 0vw;
-}
-.configuration-form .floor-wise {
-    margin: 0vw 0vw 0vw 0vw;
-    padding: 0vw 0vw 0vw 0vw;
-}
-.configuration-form .floor-div {
-    margin: 0vw 2vw 0vw 0vw;
-    padding: 0vw 0vw 2vw 0vw;
-}
-.configuration-form .floor-input {
-    margin: 0vw 0vw 0vw 0vw;
-    padding: 0vw 0vw 0vw 0vw;
-}
-
-.summary-panel {
-    margin: 1vw 1vw 2vw 1vw;
-    padding: 1vw 0vw 2vw 0vw;
-}
-.summary-panel .building-box-row {
-    margin: 1vw 1vw 0vw 0vw;
-    padding: 0vw 0vw 0vw 0vw;
-}
-
-.building-box-row .building-box {
-    margin: 0vw 0vw 0vw 0vw;
-    padding: 0vw 0vw 0vw 0vw;
-}
-.building-box-row .list-of-appliances {
-    margin: 0vw 0vw 0vw 2vw;
-    padding: 0vw 0vw 0vw 0vw;    
-}
-
-.summary-panel .building-box-buttons {
-    margin: 0vw 0vw 0vw 0vw;
-    padding: 0vw 0vw 1vw 0vw;
-}
-.building-box-buttons input {
-    margin: 0vw 2vw 0vw 0vw;
+/* icons within the table cell */
+td .fas {
     font-size: 1.2vw;
 }
 

@@ -1,6 +1,7 @@
 {
 	"indx": "0",
 	"value": "building",
+	"parent": "opts",
 	"children": [
 		{
 			"indx": "0_1",
