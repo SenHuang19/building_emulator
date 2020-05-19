@@ -38,6 +38,22 @@ def get_jobs():
 	# read and return response
 	return r.json()
 
+# fetch emulator
+def fetch_emulator(job_id):
+	# send building map and appliance list to the backend server
+	data = json.dumps({'job_id':job_id})
+	
+	# headers for the packet request
+	headers = {'content-type': 'application/json'}
+
+	# send post request to the backend server
+	r = requests.post(SITE + '/fetch', \
+						headers = headers, \
+						data = data)
+
+	# read and return response
+	return r.json()
+
 # initiate controller
 def initiate_controller(buildingMAP, applianceList):
 	# send building map and appliance list to the backend server
@@ -48,22 +64,6 @@ def initiate_controller(buildingMAP, applianceList):
 
 	# send post request to the backend server
 	r = requests.post(SITE + '/initiate', \
-						headers = headers, \
-						data = data)
-
-	# read and return response
-	return r.json()
-
-# fetch controller
-def fetch_controller(job_id):
-	# send building map and appliance list to the backend server
-	data = json.dumps({'job_id':job_id})
-	
-	# headers for the packet request
-	headers = {'content-type': 'application/json'}
-
-	# send post request to the backend server
-	r = requests.post(SITE + '/fetch', \
 						headers = headers, \
 						data = data)
 
@@ -115,44 +115,39 @@ def build():
 		elif request.json['query_type'] == 'get_default_alist':
 			return jsonify(default_appliances)
 		
-		# save the building, create job_id, and move to data analysis panel
-		elif request.json['query_type'] == 'train':
-			
-			# initiate controller
-			res = initiate_controller(request.json['map'], request.json['appliances'])
-			
-			# JSON packet for UI
-			data = dict(uuid=res['job_id'], \
-						parameters=res['parameters'], \
-						page=render_template('model.html'))
-
-			return jsonify(data)
-		
 		# fetch model through job id
 		elif request.json['query_type'] == 'fetch_model':
 			
 			# fetch controller
-			job_id = request.json['uuid']
-			res = fetch_controller(job_id)
+			job_id = request.json['job_id']
 			
 			# JSON packet for UI
-			data = dict(uuid=res['job_id'],
-						parameters=res['parameters'], \
-						page=render_template('model.html'))
+			data = fetch_emulator(job_id)
+			if data['status_code'] == 1:
+ 				data['page']=render_template('model.html')
 
 			# return the json packet
+			return jsonify(data)
+		
+		# save the building, create job_id, and move to data analysis panel
+		elif request.json['query_type'] == 'train':
+			
+			# initiate controller
+			data = initiate_controller(request.json['map'], request.json['appliances'])
+			if data['status_code'] == 1:
+ 				data['page']=render_template('model.html')
+
 			return jsonify(data)
 		
 		# to access data for the selected parameters
 		elif request.json['query_type'] == 'get_data':
 			
 			# get job id
-			job_id = request.json['uuid']
+			job_id = request.json['job_id']
 
 			# get selected columns
 			cols = list(request.json['parameters'])
-			cols.append('datetime')
-
+			
 			# get data
 			res = get_data(job_id, cols)
 			
@@ -171,4 +166,4 @@ def build():
 if __name__ == '__main__':
 	
 	# run the app
-	app.run(host='0.0.0.0', port=5000, debug=True)
+	app.run(host='0.0.0.0', port=5000)

@@ -4,10 +4,14 @@ services:
   backend:
     build: './backend'
     working_dir: /home/developer
-    command: python backend.py
+    command: python -u backend.py
+    depends_on:
+      - emulator
   frontend:
     build: './frontend'
     working_dir: /home/developer
-    command: python frontend.py
+    command: python -u frontend.py
+    depends_on:
+      - backend
     ports:
       - 5000:5000

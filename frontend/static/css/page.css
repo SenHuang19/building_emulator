@@ -195,7 +195,8 @@ td.clickable-link a:target {
 }
 /* icons within the table cell */
 td .fas {
-    font-size: 1.2vw;
+    font-size: 1.5vw;
+    cursor: pointer;
 }
 
 .service-panel-button {

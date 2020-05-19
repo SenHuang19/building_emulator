@@ -2,513 +2,99 @@ var globalBuildingTypes,
     globalBuildingMap, 
     globalDefaultAppList, 
     globalParametersList,
-    globalUUID, 
     c_indx, fileObj;
 var globalApplianceList = {}
+var globalRedList = []
 var sysVariables = { max_nzones: 0 };
 
-//------------------------------------ for index page ----------------------------------- //
-// update the global appliance list
-function updateGlobalList(id) {
-    if (document.getElementById(id).checked) {
-        split_arr = id.split('-')[1].split('_')
-        if (split_arr.length == 2) {
-            globalApplianceList[id] = {"streams": globalBuildingMap["building"]["appliances"][split_arr[0]]}
-        } else if (split_arr.length == 3) {
-            globalApplianceList[id] = {"streams": globalBuildingMap["building"]["floors"][split_arr[0]]["appliances"][split_arr[1]]}
-        } else {
-            globalApplianceList[id] = {"streams": globalBuildingMap["building"]["floors"][split_arr[0]]["zones"][split_arr[1]][split_arr[2]]}
+/******************************************************************************************
+
+-------------------------------   On Loading the Index Page    ----------------------------
+  
+*******************************************************************************************/
+jQuery(function(){
+
+    // if user decides to make building from scratch
+    jQuery('#btn-make-building').on('click', function() {
+        try {
+            get_btree();
+            drw_bld_tree(globalBuildingTypes);
+        } catch(err) {
+            alert(err.message);
         }
-    } else {
-        delete globalApplianceList[id]
-    }
-}
-
-// show a list of data streams for a selected appliance
-function showStreams(streamInfo, streamList) {
-
-    // show modal and remove previous content 
-    $('#streamList').modal('show');
-    d3.select("#mdlbdy-stream-list").selectAll("*").remove();
-    
-    // add a table for the new list
-    var streamTable = d3.select("#mdlbdy-stream-list").append('table')
-                            .attr('class', 'table table-sm table-bordered stream-table')
-    
-    var streamBody = streamTable.append('tbody')
-    
-    // for each stream
-    var i = 0;
-    streamList.forEach(function(d){
-        streamRow = streamBody.append('tr').attr('id', 'sr' + i.toString());
-        
-        // data label
-        streamRow.append('td')
-                    .style('text-align', 'left')
-                    .text(d.label)
-        
-        // to link it to a data stream
-        streamRow.append('td')
-                .append('img')
-                    .attr('class', 'row-simage')
-                    .attr('src', 'static/icons/link.png');
-        streamRow.append('td')
-                .text(d.stream);
-
-        // to get data from the file
-        streamRow.append('td')
-                .append('img')
-                    .attr('class', 'row-simage')
-                    .attr('src', 'static/icons/upload.png');
-        streamRow.append('td')
-                .text(d.filename);
-
-        // to delete a particular data stream
-        streamRow.append('td')
-                .append('img')
-                    .attr('class', 'row-simage')
-                    .attr('id', streamInfo + '_' + i.toString())
-                    .attr('style', 'cursor:pointer;')
-                    .attr('src', 'static/icons/cancel.png')
-                .on('click', function() {
-                    // on delete, update the global building map
-                    var tag_list = this.id.split('_');
-                    if (tag_list.length == 5) {
-                        jQuery("#sr" + tag_list[4].toString()).remove();
-                        delete globalBuildingMap["building"]["floors"][tag_list[0]]["zones"][tag_list[1]][tag_list[2]][tag_list[4]]
-                    } else if (tag_list.length == 4) {
-                        jQuery("#sr" + tag_list[3].toString()).remove();
-                        delete globalBuildingMap["building"]["floors"][tag_list[0]]["appliances"][tag_list[1]][tag_list[3]]
-                    } else if (tag_list.length == 3) {
-                        jQuery("#sr" + tag_list[2].toString()).remove();
-                        delete globalBuildingMap["building"]["appliances"][tag_list[0]][tag_list[2]]
-                    }
-                });
-        i = i + 1;
-    });
-}
-
-// print a list of appliances present in building/floor/zone
-function printApplianceList(iType, id) {
-    var label = "";
-    var cross_tag = "";
-    var appliances = [];
-    
-    // get a list of appliances for building, floor, and zone
-    if (iType == "building") {
-        label = "Building Loads";
-        cross_tag = ""
-        appliances = globalBuildingMap["building"]["appliances"];
-    } else if (iType == "floor") {
-        var floor_no = parseInt(id.split('F')[1])
-
-        label = "Floor-" + floor_no.toString() + " Loads"
-        cross_tag = "F" + floor_no.toString()
-        appliances = globalBuildingMap["building"]["floors"][floor_no-1]["appliances"];
-    } else if (iType == "zone") {
-        var floor_no = parseInt(id.split('_')[0].split('F')[1])
-        var zone_no = parseInt(id.split('_')[1].split('Z')[1])
-        
-        label = "Floor-" + floor_no.toString() + " Zone-" + zone_no.toString() + " Loads";
-        cross_tag = "F" + floor_no.toString() + "_Z" + zone_no.toString()
-        appliances = globalBuildingMap["building"]["floors"][floor_no-1]["zones"][zone_no-1]["appliances"];
-    }
-    
-    // clear the previous appliance list
-    var applianceDiv = d3.select(".list-of-appliances");
-    applianceDiv.selectAll("*").remove();
-    
-    // add a new appliance list
-    var applianceTable = applianceDiv.append('table')
-                            .attr('class', 'table table-sm table-bordered appliance-table')
-    
-    // appliance list heading
-    var tableHead = applianceTable.append('thead').append('tr').append('th')
-            .attr('scope', 'col')
-            .attr('colspan', 5)
-            .text(label);
-    
-    var tableBody = applianceTable.append('tbody')
-    
-    // add all the appliances
-    for (var i=0; i<Object.keys(appliances).length; i++) {
-        // label of the appliance
-        var appliance = appliances[i].label;
-
-        // tag for unique identification of the appliance
-        var app_cross_tag = cross_tag + '_' + i.toString();
-        
-        // add a table row for the appliance
-        var tableRow = tableBody.append('tr').attr('id', 'r' + i.toString());
-        
-        // clickable link for each appliance
-        tableRow.append('td')
-                    .attr('class', 'clickable-link')
-                    .style('text-align', 'left')
-                .append('a')
-                    .attr('href', 'javascript:void(0);')
-                    .text(appliance)
-                .on('click', function(data) {
-                    // for each appliance, show a list of data streams available
-                    showStreams(app_cross_tag, appliances[appliance]);
-                });
-
-        tableRow.append('td')
-                    .attr('id', 'name-' + app_cross_tag)
-                    .attr('contenteditable', 'true')
-                    .style('text-align', 'left')
-                    .text(appliance)
-                .on('blur', function(){
-                    alert(jQuery(this).text());
-                    alert(this.id);
-                });
-        
-        checkBoxCell = tableRow.append('td')
-                                .append('div')
-                                    .attr('class', 'custom-control custom-checkbox')
-
-        checkBoxCell.append('input')
-                        .attr('class', 'custom-control-input float-right')
-                        .attr('type', 'checkbox')
-                        .attr('id', 'chk-' + app_cross_tag)
-                        .property('checked', function(){
-                            if (this.id in globalApplianceList) {
-                                return true
-                            } else {
-                                return false
-                            }
-                        })
-                    .on('change', function() {
-                        updateGlobalList(this.id);
-                    });
-                  
-        checkBoxCell.append('label')
-                        .attr('class', 'custom-control-label')
-                        .attr('for', 'chk-' + app_cross_tag)
-
-        tableRow.append('td')
-                .append('button')
-                    .attr('class', 'btn btn-light')
-                    .attr('id', 'edit-' + app_cross_tag)
-                .on('click', function(){
-                    // on delete, update the building map
-                    var tag = this.id.split('-')
-                    var tag_list = tag[1].split('_');
-                    if (tag_list.length == 4) {
-                        jQuery("#r" + tag_list[3].toString()).remove();
-                        delete globalBuildingMap["building"]["floors"][tag_list[0]]["zones"][tag_list[1]][tag_list[2]]
-                    } else if (tag_list.length == 3) {
-                        jQuery("#r" + tag_list[2].toString()).remove();
-                        delete globalBuildingMap["building"]["floors"][tag_list[0]]["appliances"][tag_list[1]]
-                    } else if (tag_list.length == 2) {
-                        jQuery("#r" + tag_list[1].toString()).remove();
-                        delete globalBuildingMap["building"]["appliances"][tag_list[0]]
-                    }
-                })
-                .append('i')
-                    .attr('class', 'fas fa-edit')
-
-        tableRow.append('td')
-                .append('button')
-                    .attr('class', 'btn btn-light')
-                    .attr('id', 'del-' + app_cross_tag)
-                .on('click', function(){
-                    // on delete, update the building map
-                    var tag = this.id.split('-')
-                    var tag_list = tag[1].split('_');
-                    if (tag_list.length == 4) {
-                        jQuery("#r" + tag_list[3].toString()).remove();
-                        delete globalBuildingMap["building"]["floors"][tag_list[0]]["zones"][tag_list[1]][tag_list[2]]
-                    } else if (tag_list.length == 3) {
-                        jQuery("#r" + tag_list[2].toString()).remove();
-                        delete globalBuildingMap["building"]["floors"][tag_list[0]]["appliances"][tag_list[1]]
-                    } else if (tag_list.length == 2) {
-                        jQuery("#r" + tag_list[1].toString()).remove();
-                        delete globalBuildingMap["building"]["appliances"][tag_list[0]]
-                    }
-                })
-                .append('i')
-                    .attr('class', 'fas fa-trash-alt')
-
-        // for each appliance, add a cancel image to delete that appliance
-        /*
-        tableRow.append('td')
-                .append('img')
-                    .attr('class', 'row-simage')
-                    .attr('id', app_cross_tag)
-                    .attr('src', 'static/icons/cancel.png')
-                    .attr('style', 'cursor:pointer;')
-                .on('click', function(){
-                    // on delete, update the building map
-                    var tag_list = this.id.split('_');
-                    if (tag_list.length == 4) {
-                        jQuery("#r" + tag_list[3].toString()).remove();
-                        delete globalBuildingMap["building"]["floors"][tag_list[0]]["zones"][tag_list[1]][tag_list[2]]
-                    } else if (tag_list.length == 3) {
-                        jQuery("#r" + tag_list[2].toString()).remove();
-                        delete globalBuildingMap["building"]["floors"][tag_list[0]]["appliances"][tag_list[1]]
-                    } else if (tag_list.length == 2) {
-                        jQuery("#r" + tag_list[1].toString()).remove();
-                        delete globalBuildingMap["building"]["appliances"][tag_list[0]]
-                    }
-                });
-            */
-    }
-
-    applianceTable.append('tfoot')
-                    .append('tr')
-                    .append('td')
-                        .attr('colspan', 5)
-                        .style('text-align', 'left')
-                    .append('input')
-                        .attr('type', 'button')
-                        .attr('class', 'btn btn-block btn-secondary')
-                        .attr('id', 'add-' + cross_tag)
-                        .attr('value', 'Add Appliance')
-                    .on('click', function(){
-                        console.log(this.id)
-                    })
-}
-
-// print summary table in the right most panel
-function generateTable() {
-
-    // select building box to append table
-    var buildingModel = d3.select('.building-box');
-    
-    // remove previous building model and append a table
-    buildingModel.selectAll('*').remove();
-    buildingTable = buildingModel.append('table')
-                        .attr('class', 'table table-sm table-bordered building-model')
-    
-    // add body to the table
-    var tableBody = buildingTable.append('tbody');
-    
-    // add floors and zones
-    var nfloors = Object.keys(globalBuildingMap["building"]["floors"]).length;
-    for (var i=nfloors-1; i>=0; i--) {
-
-        // add a row to each floor
-        floorRow = tableBody.append('tr').attr('class', 'F' + (i+1).toString() + '-row')
-
-        // get number of zones
-        nzones = Object.keys(globalBuildingMap["building"]["floors"][i]["zones"]).length;
-        
-        // fit in the zones
-        var nzoneArraylen = nzones * Math.ceil(sysVariables['max_nzones'] % nzones);
-        nzoneArray = new Array(nzones).fill(0);
-        for (var j=0; j<sysVariables['max_nzones']; j++) {
-            nzoneArray[j%nzones] = nzoneArray[j%nzones] + 1;
-        }
-        
-        // add a clickable link to get the list of appliances for each zone
-        for (var j=0; j<nzones; j++) {
-            floorRow.append('td')
-                        .attr('colspan', nzoneArray[j])
-                        .attr('class', 'zone-block clickable-link')
-                    .append('a')
-                        .attr('href', 'javascript:void(0);')
-                        .attr('id', 'F' + (i+1).toString() + '_Z' + (j+1).toString())
-                        .text('Z' + (j+1).toString())
-                    .on('click', function(data) {
-                        // print list of appliances for the selected zone
-                        printApplianceList('zone', this.id);
-                    });
-        }
-        
-        // add a clickable link to get the list of appliances for each floor
-        floorRow.append('td')
-                    .attr('class', 'floor-block clickable-link')
-                .append('a')
-                    .attr('href', 'javascript:void(0);')
-                    .attr('id', 'F' + (i+1).toString())
-                    .text('F' + (i+1).toString())
-                .on('click', function(data) {
-                    // print list of appliances for the selected floor
-                    printApplianceList('floor', this.id);
-                });
-    }
-    
-    // add a clickable link to get the list of common appliances for the building
-    tableBody.append('tr').append('td')
-            .attr('scope', 'col')
-            .attr('colspan', sysVariables['max_nzones'])
-            .attr('class', 'building-block clickable-link')
-        .append('a')
-            .attr('href', 'javascript:void(0);')
-            .attr('id', 'B0')
-            .text("Building Loads")
-        .on('click', function(data) {
-            // print list of appliances for the building
-            printApplianceList('building', this.id);
-        });
-}
-
-// print summary panel
-function addFloor(f_no, nZones=1) {
-
-    // select floor panel and compare number of floors with stored system variables
-    var floorPanel = d3.select('#floor-list');
-
-    // set number of zones in the new floor
-    var currentNZones = nZones;
-    if (currentNZones > sysVariables['max_nzones']) { sysVariables['max_nzones'] = currentNZones; }
-    
-
-    // append a floor panel 
-    var panel = floorPanel
-                    .append('div')
-                        .attr('class', 'col-sm-3 floor-div f' + (f_no+1).toString() + '-div')
-    
-    // add a label in the floor panel
-    panel
-        .append('label')
-            .text('F' + (f_no+1).toString())
-            .attr('class', 'col-sm-12')
-
-    // append an input block to write number of zones in the floor
-    panel
-        .append('div')
-            .attr('class', 'col-sm-12 floor-input')
-        .append('input')
-            .attr('id', 'f' + (f_no+1).toString() + '-zones')
-            .attr('name', 'nzones')
-            .attr('class', 'form-control floor-input text-center')
-            .attr('type', 'text')
-            .attr('value', currentNZones)
-        .on('change', function() {
-
-            // update global building map
-            var floorID = this.id.split('-')[0].toUpperCase();
-            var floorNum = parseInt(floorID.split('F')[1]);
-            
-            // previous number of floors by checking number of cell within the table
-            var currentNZones = $("." + floorID + "-row" + " > td").length-1
-            var updatedNZones = parseInt(jQuery('#' + this.id).val());
-
-            // if new number of zones are more than previous maximum, update maximum
-            if (updatedNZones > sysVariables['max_nzones']) { sysVariables['max_nzones'] = updatedNZones; }
-            
-            // if new zones are added
-            if (updatedNZones > currentNZones) {
-                for (var i=currentNZones; i<updatedNZones; i++) {
-                    // we subtract 1 from floorNum because array is zero indexed
-                    globalBuildingMap["building"]["floors"][floorNum-1]["zones"].push({"label":"Z"+(i+1).toString(), "appliances":globalDefaultAppList});
-                }
-            } 
-            else if (updatedNZones < currentNZones) {
-                // remove zones from the end
-                for (var i=currentNZones-1; i>=updatedNZones; i--) {
-                    // we subtract 1 from floorNum because array is zero indexed
-                    globalBuildingMap["building"]["floors"][floorNum-1]["zones"].splice(i, 1);
-                }
-            }
-
-            // update summary table
-            generateTable();
-        });
-}
-
-// update number of floors and number of zones at each floor when number of floors get updated
-function update_zones() {
-    var floorPanel = d3.select('#floor-list');
-
-    // previous number of floors
-    var currentNFloors = $("#floor-list > div").length
-    
-    // update number of floors
-    var updatedNFloors = parseInt(jQuery('#nfloors').val());
-    
-    // if now the number of floors is more
-    if (updatedNFloors > currentNFloors) {
-        
-        // add new floors in the building
-        for (var i=currentNFloors; i<updatedNFloors; i++) {
-            
-            // add new floor
-            addFloor(i);
-            
-            // update building configuration json
-            globalBuildingMap["building"]["floors"].push({"label":"F"+(i+1).toString()});
-            globalBuildingMap["building"]["floors"][i]["appliances"] = globalDefaultAppList;
-            globalBuildingMap["building"]["floors"][i]["zones"] = [{"label":"Z1", "appliances":globalDefaultAppList}];
-        }
-    } // if now the number of floors is less
-    else if (updatedNFloors < currentNFloors) {
-        // remove floors from the end
-        for (var i=currentNFloors-1; i>=updatedNFloors; i--) {
-            
-            // remove floor
-            d3.select('.f' + (i+1).toString() + '-div').remove();
-            
-            // update json
-            globalBuildingMap["building"]["floors"].splice(i, 1);
-        }
-        
-        // update max_nzones
-        sysVariables['max_nzones'] = 0
-        for (var i=0; i<updatedNFloors; i++) {
-            
-            var nZones = Object.keys(globalBuildingMap["building"]["floors"][i]["zones"]).length
-            if (nZones > sysVariables['max_nzones']) {
-                sysVariables['max_nzones'] = nZones;
-            }
-        }
-    }
-
-    // build summary table
-    generateTable();
-}
-
-// layout floor plan in the middle panel
-function build_floormap() {
-
-    // update configuration panel
-
-    // remove previous list
-    d3.select('#floor-list').selectAll('*').remove();
-    
-    // get number of floors from the default building file and set in the configuration panel
-    var nfloors = Object.keys(globalBuildingMap["building"]["floors"]).length;
-    jQuery('#nfloors').val(nfloors);
-
-    jQuery('#nfloors').on('change', function(){
-        update_zones();
     });
 
-    // update number of floors
-    for (var i=0; i<nfloors; i++) {
-        var nZones = Object.keys(globalBuildingMap["building"]["floors"][i]["zones"]).length;
-        addFloor(i, nZones);
-    }
+    // if user decides to select one of the available buildings
+    jQuery('#select-job-id').on('change', function() {
+        $.ajax({
+            url: "/query",
+            type : "POST",
+            data: JSON.stringify({'query_type': 'fetch_model', 'job_id': jQuery(this).find("option:selected").val()}),
+            dataType : "html",
+            contentType:"application/json",
+            success: function(response) {
+                res = JSON.parse(response);
+                
+                // initiate global building map
+                globalBuildingMap = res["map"];
+                
+                // get default appliance list
+                getDefaultAppList();    
+                    
+                if (res.status_code == 0) {
+                    // make sure we have the building tree
+                    get_btree();
 
-    // show configuration panel
-    jQuery('#middle-panel').show();  
+                    // get c_indx to show selection on building box
+                    c_indx = globalBuildingMap["building"]["index"];
+                    var indx_split = c_indx.split("_");
 
-    // update summary table
-    generateTable();
-    
-    // show summary panel
-    jQuery('#right-most-panel').show();                 
-}
+                    // update left most panel
+                    var tempJSON = globalBuildingTypes;
+                    for (i = 1; i < indx_split.length-1; i++) {
+                        tempJSON = tempJSON["children"][(+indx_split[i])-1];
+                    }
+                    drw_bld_tree(tempJSON);
 
-// get floor layout for the selected building
-function get_floormap(b_type, b_indx) {
+                    // check the selected building type
+                    jQuery('#' + globalBuildingMap["building"]["type"]).prop('checked', true);
+
+                    // update middle and rightmost containers
+                    build_floormap();
+                } else if (res.status_code == 1) {
+                    // initiate model page
+                    init_modelpage(res);
+                }
+            },
+            error: function(error) {
+                console.log("failure!!!");
+                console.log(error);
+            }
+        });
+    })
+});
+
+/******************************************************************************************
+
+------------------------------   When Building from Scratch    ----------------------------
+  
+*******************************************************************************************/
+// get building tree depicting different types of building available
+function get_btree() {
     jQuery.ajax({
         type: "POST",
         url: "/query",
-        data: JSON.stringify({"query_type": "get_default_bmap", "build_type": b_type, "build_indx": b_indx}),
+        async: false,
+        data: JSON.stringify({"query_type": "get_btree"}),
         dataType : "html",
         contentType: "application/json",
         success: function(response) {
-            globalBuildingMap = JSON.parse(response);
-            get_default();
-            build_floormap();
+            globalBuildingTypes = JSON.parse(response);
         },
         error: function() {
             alert( "error" );
         }
-    });
+    })
 }
 
 // function to draw building tree
@@ -598,14 +184,795 @@ function drw_bld_tree (building_json) {
             .text(function (d){ return d.name; });
 }
 
-// when making the building from scratch
-jQuery('#btn-make-building').on('click', function() {
-    try {
-        drw_bld_tree(globalBuildingTypes);
-    } catch(err) {
-        alert(err.message);
+// back button in the left most panel
+function back_button(b_val) {
+    
+    // remove panel when changing buildings
+    jQuery('#middle-panel').hide();
+    jQuery('#right-most-panel').hide();
+    
+    // change the view to parent building
+    var indx_split = c_indx.split("_");
+    if (indx_split.length > 1) {
+        var tempJSON = globalBuildingTypes;
+        for (i = 1; i < indx_split.length-1; i++) {
+            tempJSON = tempJSON["children"][(+indx_split[i])-1];
+        }
+        drw_bld_tree(tempJSON);
+    } else {
+        // move to index page
+        document.location.href = "/";
     }
-});
+}
+
+// get floor layout for the selected building
+function get_floormap(b_type, b_indx) {
+    jQuery.ajax({
+        type: "POST",
+        url: "/query",
+        data: JSON.stringify({"query_type": "get_default_bmap", "build_type": b_type, "build_indx": b_indx}),
+        dataType : "html",
+        contentType: "application/json",
+        success: function(response) {
+            globalBuildingMap = JSON.parse(response);
+            getDefaultAppList();
+            build_floormap();
+        },
+        error: function() {
+            alert( "error" );
+        }
+    });
+}
+
+// layout floor plan in the middle panel
+function build_floormap() {
+
+    // remove previous list
+    d3.select('#floor-list').selectAll('*').remove();
+    
+    // get number of floors from the default building file and set in the configuration panel
+    var nfloors = Object.keys(globalBuildingMap["building"]["floors"]).length;
+    jQuery('#nfloors').val(nfloors);
+
+    // update number of floors
+    for (var i=0; i<nfloors; i++) {
+        var nZones = Object.keys(globalBuildingMap["building"]["floors"][i]["zones"]).length;
+        addFloor(i, nZones);
+    }
+
+    // show configuration panel
+    jQuery('#middle-panel').show();  
+
+    // update summary table
+    generateTable();
+    
+    // show summary panel
+    jQuery('#right-most-panel').show();     
+
+    // if we change the number of floors in the building
+    jQuery('#nfloors').on('change', function(){
+        update_zones();
+    });            
+}
+
+// print summary panel
+function addFloor(f_no, nZones=1) {
+
+    // select floor panel and compare number of floors with stored system variables
+    var floorPanel = d3.select('#floor-list');
+
+    // set number of zones in the new floor
+    var currentNZones = nZones;
+    if (currentNZones > sysVariables['max_nzones']) { 
+        sysVariables['max_nzones'] = currentNZones; 
+    }
+
+    // append a floor panel 
+    var panel = floorPanel
+                    .append('div')
+                        .attr('class', 'col-sm-3 floor-div f' + (f_no+1).toString() + '-div')
+    
+    // add a label in the floor panel
+    panel
+        .append('label')
+            .text('F' + (f_no+1).toString())
+            .attr('class', 'col-sm-12')
+
+    // append an input block to write number of zones in the floor
+    panel
+        .append('div')
+            .attr('class', 'col-sm-12 floor-input')
+        .append('input')
+            .attr('id', 'f' + (f_no+1).toString() + '-zones')
+            .attr('name', 'nzones')
+            .attr('class', 'form-control floor-input text-center')
+            .attr('type', 'text')
+            .attr('value', currentNZones)
+        .on('change', function() {
+
+            // update global building map
+            var floorID = this.id.split('-')[0].toUpperCase();
+            var floorNum = parseInt(floorID.split('F')[1]);
+            
+            // previous number of floors by checking number of cell within the table
+            var currentNZones = $("." + floorID + "-row" + " > td").length-1
+            var updatedNZones = parseInt(jQuery('#' + this.id).val());
+
+            // if new number of zones are more than previous maximum, update maximum
+            if (updatedNZones > sysVariables['max_nzones']) { sysVariables['max_nzones'] = updatedNZones; }
+            
+            // if new zones are added
+            if (updatedNZones > currentNZones) {
+                for (var i=currentNZones; i<updatedNZones; i++) {
+                    // personalize appliance list
+                    var applianceList = globalDefaultAppList;
+                    applianceList.forEach(element => element["id"] = ("b_" + floorID + "_Z" + (i+1).toString() + "_" + element["label"]).toLowerCase());
+
+                    // we subtract 1 from floorNum because array is zero indexed
+                    globalBuildingMap["building"]["floors"][floorNum-1]["zones"].push({"label":"Z"+(i+1).toString(), "appliances":applianceList});
+                    globalRedList.push(floorID + "_Z" + (i+1).toString())
+                }
+            } 
+            else if (updatedNZones < currentNZones) {
+                // remove zones from the end
+                for (var i=currentNZones-1; i>=updatedNZones; i--) {
+                    // we subtract 1 from floorNum because array is zero indexed
+                    globalBuildingMap["building"]["floors"][floorNum-1]["zones"].splice(i, 1);
+                }
+            }
+
+            // update summary table
+            generateTable();
+        });
+}
+
+// update number of floors and number of zones at each floor when number of floors get updated
+function update_zones() {
+
+    // list of floor
+    var floorPanel = d3.select('#floor-list');
+
+    // previous number of floors
+    var currentNFloors = $("#floor-list > div").length
+    
+    // update number of floors
+    var updatedNFloors = parseInt(jQuery('#nfloors').val());
+    
+    // if now the number of floors is more
+    if (updatedNFloors > currentNFloors) {
+        
+        // add new floors in the building
+        for (var i=currentNFloors; i<updatedNFloors; i++) {
+            
+            // add new floor
+            addFloor(i);
+            
+            // update building configuration json
+            globalBuildingMap["building"]["floors"].push({"label":"F"+(i+1).toString()});
+
+            // personalize appliance list
+            var applianceList = globalDefaultAppList;
+            applianceList.forEach(element => element["id"] = "b_f" + (i+1).toString() + "_" + element["label"].toLowerCase());
+            globalBuildingMap["building"]["floors"][i]["appliances"] = applianceList;
+            
+            var applianceList = globalDefaultAppList;
+            applianceList.forEach(element => element["id"] = "b_f" + (i+1).toString() + "_z1_" + element["label"].toLowerCase());
+            globalBuildingMap["building"]["floors"][i]["zones"] = [{"label":"Z1", "appliances":applianceList}];
+
+            // add new floors and zones to the red list
+            globalRedList.push("F"+(i+1).toString())
+            globalRedList.push("F"+(i+1).toString() + "_Z1")
+        }
+    } 
+    // if now the number of floors is less
+    else if (updatedNFloors < currentNFloors) {
+        // remove floors from the end
+        for (var i=currentNFloors-1; i>=updatedNFloors; i--) {
+            
+            // remove floor
+            d3.select('.f' + (i+1).toString() + '-div').remove();
+            
+            // update json
+            globalBuildingMap["building"]["floors"].splice(i, 1);
+        }
+        
+        // update max_nzones
+        sysVariables['max_nzones'] = 0
+        for (var i=0; i<updatedNFloors; i++) {
+            
+            var nZones = Object.keys(globalBuildingMap["building"]["floors"][i]["zones"]).length
+            if (nZones > sysVariables['max_nzones']) {
+                sysVariables['max_nzones'] = nZones;
+            }
+        }
+    }
+
+    // build summary table
+    generateTable();
+}
+
+// print summary table in the right most panel
+function generateTable() {
+
+    // select building box to append table
+    var buildingModel = d3.select('.building-box');
+    
+    // remove previous building model and append a table
+    buildingModel.selectAll('*').remove();
+    buildingTable = buildingModel.append('table')
+                        .attr('class', 'table table-sm table-bordered building-model')
+    
+    // add body to the table
+    var tableBody = buildingTable.append('tbody');
+    
+    // add floors and zones
+    var nfloors = Object.keys(globalBuildingMap["building"]["floors"]).length;
+    for (var i=nfloors-1; i>=0; i--) {
+
+        // add a row to each floor
+        floorRow = tableBody.append('tr').attr('class', 'F' + (i+1).toString() + '-row')
+
+        // get number of zones
+        nzones = Object.keys(globalBuildingMap["building"]["floors"][i]["zones"]).length;
+        
+        // fit in the zones
+        var nzoneArraylen = nzones * Math.ceil(sysVariables['max_nzones'] % nzones);
+        nzoneArray = new Array(nzones).fill(0);
+        for (var j=0; j<sysVariables['max_nzones']; j++) {
+            nzoneArray[j%nzones] = nzoneArray[j%nzones] + 1;
+        }
+        
+        // add a clickable link to get the list of appliances for each zone
+        for (var j=0; j<nzones; j++) {
+            floorRow.append('td')
+                        .attr('colspan', nzoneArray[j])
+                        .attr('class', 'zone-block clickable-link')
+                        .attr('id', 'td-' + 'F' + (i+1).toString() + '_Z' + (j+1).toString())
+                        .style('background-color', function() {
+                            if (globalRedList.includes(this.id.split('-')[1])) {
+                                return "tomato";
+                            } else {
+                                return "white";
+                            }
+                        })
+                        .on("mouseover", function() { 
+                            d3.select(this).style('background-color', 'aqua');
+                        })
+                        .on("mouseout", function() { 
+                            d3.select(this).style('background-color', function() {
+                                if (globalRedList.includes(this.id.split('-')[1])) {
+                                    return "tomato";
+                                } else {
+                                    return "white";
+                                }
+                            })
+                        })
+                    .append('a')
+                        .attr('href', 'javascript:void(0);')
+                        .attr('id', 'F' + (i+1).toString() + '_Z' + (j+1).toString())
+                        .text('Z' + (j+1).toString())
+                    .on('click', function(data) {
+                        // print list of appliances for the selected zone
+                        printApplianceList('zone', this.id);
+                    });
+        }
+        
+        // add a clickable link to get the list of appliances for each floor
+        floorRow.append('td')
+                    .attr('class', 'floor-block clickable-link')
+                    .attr('id', 'td-' + 'F' + (i+1).toString())
+                    .style('background-color', function() {
+                            if (globalRedList.includes(this.id.split('-')[1])) {
+                                return "tomato";
+                            } else {
+                                return "white";
+                            }
+                        })
+                    .on("mouseover", function() { 
+                            d3.select(this).style('background-color', 'aqua');
+                        })
+                    .on("mouseout", function() { 
+                        d3.select(this).style('background-color', function() {
+                            if (globalRedList.includes(this.id.split('-')[1])) {
+                                return "tomato";
+                            } else {
+                                return "white";
+                            }
+                        })
+                    })
+                .append('a')
+                    .attr('href', 'javascript:void(0);')
+                    .attr('id', 'F' + (i+1).toString())
+                    .text('F' + (i+1).toString())
+                    .on('click', function(data) {
+                        // print list of appliances for the selected floor
+                        printApplianceList('floor', this.id);
+                    });
+    }
+    
+    // add a clickable link to get the list of common appliances for the building
+    tableBody.append('tr').append('td')
+            .attr('scope', 'col')
+            .attr('colspan', sysVariables['max_nzones'])
+            .attr('class', 'building-block clickable-link')
+        .append('a')
+            .attr('href', 'javascript:void(0);')
+            .attr('id', 'B0')
+            .text("Building Loads")
+        .on('click', function(data) {
+            // print list of appliances for the building
+            printApplianceList('building', this.id);
+        });
+}
+
+// print a list of appliances present in building/floor/zone
+function printApplianceList(iType, id) {
+    var label = "";
+    var cross_tag = "";
+    var appliances = [];
+    
+    // get a list of appliances for building, floor, and zone
+    if (iType == "building") {
+        label = "Building Loads";
+        appliances = globalBuildingMap["building"]["appliances"];
+    } else if (iType == "floor") {
+        var floor_no = parseInt(id.split('F')[1])
+
+        label = "Floor-" + floor_no.toString() + " Loads"
+        appliances = globalBuildingMap["building"]["floors"][floor_no-1]["appliances"];
+    } else if (iType == "zone") {
+        var floor_no = parseInt(id.split('_')[0].split('F')[1])
+        var zone_no = parseInt(id.split('_')[1].split('Z')[1])
+        
+        label = "Floor-" + floor_no.toString() + " Zone-" + zone_no.toString() + " Loads";
+        appliances = globalBuildingMap["building"]["floors"][floor_no-1]["zones"][zone_no-1]["appliances"];
+    }
+    
+    // clear the previous appliance list
+    var applianceDiv = d3.select(".list-of-appliances");
+    applianceDiv.selectAll("*").remove();
+    
+    // add a new appliance list
+    var applianceTable = applianceDiv.append('table')
+                            .attr('class', 'table table-sm table-bordered appliance-table')
+    
+    // appliance list heading
+    var tableHead = applianceTable.append('thead').append('tr').append('th')
+            .attr('scope', 'col')
+            .attr('colspan', 3)
+            .text(label);
+    
+    var tableBody = applianceTable.append('tbody')
+    
+    // add all the appliances
+    for (var i=0; i<Object.keys(appliances).length; i++) {
+
+        // label of the appliance
+        var appliance = appliances[i].label;
+
+        // tag for unique identification of the appliance
+        var app_cross_tag = appliances[i].id;
+        
+        // add a table row for the appliance
+        var tableRow = tableBody.append('tr').attr('id', 'r-' + app_cross_tag);
+        
+        // clickable link for each appliance
+        tableRow.append('td')
+                    .attr('class', 'clickable-link')
+                    .style('text-align', 'left')
+                .append('a')
+                    .attr('href', 'javascript:void(0);')
+                    .attr('id', 'app-' + app_cross_tag)
+                    .text(appliance)
+                .on('click', function() {
+                    // for each appliance, show a list of data streams available
+                    showStreams(this.id.split('-')[1]);
+                });
+
+        // appliance selection for control
+        checkBoxCell = tableRow.append('td')
+                                .append('div')
+                                    .attr('class', 'custom-control custom-checkbox')
+
+        checkBoxCell.append('input')
+                        .attr('class', 'custom-control-input float-right')
+                        .attr('type', 'checkbox')
+                        .attr('id', 'chk-' + app_cross_tag)
+                        .property('checked', function(){
+                            if (this.id in globalApplianceList) {
+                                return true
+                            } else {
+                                return false
+                            }
+                        })
+                    .on('change', function() {
+                        updateGlobalList(this.id);
+                    });
+                  
+        checkBoxCell.append('label')
+                        .attr('class', 'custom-control-label')
+                        .attr('for', 'chk-' + app_cross_tag)
+        
+        // for each appliance, add a delete button
+        tableRow.append('td')
+                .append('i')
+                    .attr('id', 'del-' + app_cross_tag)
+                    .attr('class', 'fas fa-trash-alt')
+                .on('click', function(){
+                    // on delete, update the building map
+                    var tag = this.id.split('-')[1];
+                    
+                    if (tag.split('_').length == 4) {
+                        deleteInfo(tag, "zone_appliance");
+                    } else if (tag.split('_').length == 3) {
+                        deleteInfo(tag, "floor_appliance");
+                    } else if (tag.split('_').length == 2) {
+                        deleteInfo(tag, "building_appliance");
+                    }
+
+                    d3.select("#r-" + tag).remove()
+                });
+    }
+
+    applianceTable.append('tfoot')
+                    .append('tr')
+                    .append('td')
+                        .attr('colspan', 3)
+                        .style('text-align', 'left')
+                    .append('input')
+                        .attr('type', 'button')
+                        .attr('class', 'btn btn-block btn-secondary')
+                        .attr('id', 'add-' + cross_tag)
+                        .attr('value', 'Add Appliance')
+                    .on('click', function(){
+                        console.log(this.id)
+                    })
+}
+
+function getApplianceList(tag) {
+
+    var tag_list = tag.split('_')
+    var app_list = [];
+    
+    if (tag_list.length == 4) {
+        var floor_no = parseInt(tag_list[1].split("f")[1]);
+        var zone_no = parseInt(tag_list[2].split("z")[1]);
+
+        app_list = globalBuildingMap["building"]["floors"][floor_no-1]["zones"][zone_no-1]["appliances"];
+        
+        var index = app_list.findIndex(function(appliance) {
+            return appliance.id == tag;
+        });
+        
+        return app_list[index]
+
+    } else if (tag_list.length == 3) {
+        var floor_no = parseInt(tag_list[1].split("f")[1]);
+
+        app_list = globalBuildingMap["building"]["floors"][floor_no-1]["appliances"];
+        
+        var index = app_list.findIndex(function(appliance) {
+            return appliance.id == tag;
+        });
+
+        return app_list[index]
+
+    } else if (tag_list.length == 2) {
+        app_list = globalBuildingMap["building"]["appliances"]
+        
+        var index = app_list.findIndex(function(appliance) {
+            return appliance.id == tag;
+        });
+
+        return app_list[index]
+    }
+
+                    
+}
+
+function deleteInfo(tag, type) {
+
+    var tag_list = tag.split('_')
+
+    // delete complete building
+    if (type == "building") {
+        delete globalBuildingMap["building"]
+    } 
+    // delete an appliance within the building
+    else if (type == "building_appliance") {    
+        var index = globalBuildingMap["building"]["appliances"].findIndex(function(appliance) {
+            return appliance.id == tag;
+        });
+
+        globalBuildingMap["building"]["appliances"].splice(index, 1)
+    } 
+    // delete an appliance measurement stream within the building
+    else if (type == "building_appliance_measurement") {
+        var index = globalBuildingMap["building"]["appliances"].findIndex(function(appliance) {
+            return appliance.id == tag_list.slice(0, 2).join('_');
+        });
+
+        var index = globalBuildingMap["building"]["appliances"][index]["measurement"].findIndex(function(measurement) {
+            return measurement.p_name == tag;
+        });
+
+        globalBuildingMap["building"]["appliances"][index]["measurement"].splice(index, 1)
+
+    } 
+    // delete an appliance control stream within the building
+    else if (type == "building_appliance_control") {
+        var index = globalBuildingMap["building"]["appliances"].findIndex(function(appliance) {
+            return appliance.id == tag_list.slice(0, 2).join('_');
+        });
+
+        var index = globalBuildingMap["building"]["appliances"][index]["control_inputs"].findIndex(function(control) {
+            return control.p_name == tag;
+        });
+
+        globalBuildingMap["building"]["appliances"][index]["measurement"].splice(index, 1)
+    } 
+    // delete a floor
+    else if (type == "floor") {
+        var floor_no = parseInt(tag_list[1].split("f")[1]);
+        globalBuildingMap["building"]["floors"].splice(floor_no-1, 1);
+    } 
+    // delete a floor appliance
+    else if (type == "floor_appliance") {
+        var floor_no = parseInt(tag_list[1].split("f")[1]);
+        
+        var index = globalBuildingMap["building"]["floors"][floor_no-1]["appliances"].findIndex(function(appliance) {
+            return appliance.id == tag;
+        });
+        
+        globalBuildingMap["building"]["floors"][floor_no-1]["appliances"].splice(index, 1)
+    } 
+    // delete an appliance measurement stream of a floor within the building
+    else if (type == "floor_appliance_measurement") {
+        var floor_no = parseInt(tag_list[1].split("f")[1]);
+        
+        var index = globalBuildingMap["building"]["floors"][floor_no-1]["appliances"].findIndex(function(appliance) {
+            return appliance.id == tag_list.slice(0, 3).join('_');
+        });
+
+        var index = globalBuildingMap["building"]["floors"][floor_no-1]["appliances"][index]["measurement"].findIndex(function(measurement) {
+            return measurement.p_name == tag;
+        });
+
+        globalBuildingMap["building"]["floors"][floor_no-1]["appliances"][index]["measurement"].splice(index, 1)
+    } 
+    // delete an appliance measurement stream of a floor within the building
+    else if (type == "floor_appliance_measurement") {
+        var floor_no = parseInt(tag_list[1].split("f")[1]);
+        
+        var index = globalBuildingMap["building"]["floors"][floor_no-1]["appliances"].findIndex(function(appliance) {
+            return appliance.id == tag_list.slice(0, 3).join('_');
+        });
+
+        var index = globalBuildingMap["building"]["floors"][floor_no-1]["appliances"][index]["control_inputs"].findIndex(function(control) {
+            return control.p_name == tag;
+        });
+
+        globalBuildingMap["building"]["floors"][floor_no-1]["appliances"][index]["control_inputs"].splice(index, 1)
+    } 
+    // delete a zone
+    else if (type == "zone") {
+        var floor_no = parseInt(tag_list[1].split("f")[1]);
+        var zone_no = parseInt(tag_list[2].split("z")[1]);
+        
+        globalBuildingMap["building"]["floors"][floor_no-1]["zones"].splice(zone_no-1, 1)
+    } 
+    // delete an appliance within a zone
+    else if (type == "zone_appliance") {
+        var floor_no = parseInt(tag_list[1].split("f")[1]);
+        var zone_no = parseInt(tag_list[2].split("z")[1]);
+        
+        var index = globalBuildingMap["building"]["floors"][floor_no-1]["zones"][zone_no-1]["appliances"].findIndex(function(appliance) {
+            return appliance.id == tag;
+        });
+        
+        globalBuildingMap["building"]["floors"][floor_no-1]["zones"][zone_no-1]["appliances"].splice(index, 1)
+
+    } 
+    // delete an appliance measurement within a zone
+    else if (type == "zone_appliance_measurement") {
+        var floor_no = parseInt(tag_list[1].split("f")[1]);
+        var zone_no = parseInt(tag_list[2].split("z")[1]);
+        
+        var index = globalBuildingMap["building"]["floors"][floor_no-1]["zones"][zone_no-1]["appliances"].findIndex(function(appliance) {
+            return appliance.id == tag_list.slice(0, 4).join('_');
+        });
+
+        var index = globalBuildingMap["building"]["floors"][floor_no-1]["zones"][zone_no-1]["appliances"][index]["measurements"].findIndex(function(measurement) {
+            return measurement.p_name == tag;
+        });
+
+        globalBuildingMap["building"]["floors"][floor_no-1]["zones"][zone_no-1]["appliances"][index]["measurements"].splice(index, 1)
+    } 
+    // delete an appliance measurement within a zone
+    else if (type == "zone_appliance_control") {
+        var floor_no = parseInt(tag_list[1].split("f")[1]);
+        var zone_no = parseInt(tag_list[2].split("z")[1]);
+        
+        var index = globalBuildingMap["building"]["floors"][floor_no-1]["zones"][zone_no-1]["appliances"].findIndex(function(appliance) {
+            return appliance.id == tag_list.slice(0, 4).join('_');
+        });
+
+        var index = globalBuildingMap["building"]["floors"][floor_no-1]["zones"][zone_no-1]["appliances"][index]["control_inputs"].findIndex(function(control) {
+            return control.p_name == tag;
+        });
+
+        globalBuildingMap["building"]["floors"][floor_no-1]["zones"][zone_no-1]["appliances"][index]["control_inputs"].splice(index, 1)
+    }       
+}
+
+// show a list of data streams for a selected appliance
+function showStreams(appID) {
+
+    var font_size = '1vw'
+
+    // get list of streams
+    app_info = getApplianceList(appID);
+    
+    // show modal and remove previous content 
+    $('#stream-list').modal('show');
+    d3.select("#mdlbdy-stream-list").selectAll("*").remove();
+    
+    // add a table for the new list
+    var stream_table = d3.select("#mdlbdy-stream-list").append('table')
+                            .attr('class', 'table table-sm table-bordered stream-table')
+    
+    stream_table.append('thead')
+                .append('tr')
+                .selectAll('th')
+                .data(['Label', 'Source Type', 'Parameter Name', 'Source Name', ''])
+                .enter()
+                .append('th')
+                    .attr('scope', 'col')
+                    .style('text-align', 'left')
+                    .style('font-size', font_size)
+                    .text(function(d){return d;})
+
+    var stream_body = stream_table.append('tbody')
+    
+    // for each stream
+    app_info["measurements"].forEach(function(appliance){
+        stream_row = stream_body.append('tr').attr('id', 'sr' + appliance["p_id"]);
+        
+        // data label
+        stream_row.append('td')
+                    .attr('class', 'form-label')
+                    .style('text-align', 'left')
+                    .style('font-size', font_size)
+                    .text(appliance.label)
+        
+        // to link it to a data stream
+        stream_row.append('td')
+                .append('select')
+                    .attr('class', 'selectpicker form-control')
+                    .attr('title', 'Source Type')
+                    .attr('id', 'select-source-type')
+                .selectAll('option')
+                .data(['file', 'stream'])
+                    .enter()
+                .append('option')
+                    .style('font-size', font_size)
+                    .text(function(d) {
+                        return d.charAt(0).toUpperCase() + d.slice(1);
+                    });
+
+        jQuery('select').selectpicker();
+
+        // to get data from the file
+        stream_row.append('td')
+                    .style('text-align', 'left')
+                    .style('font-size', font_size)
+                    .text(appliance.p_name);
+
+        // to get data from the file
+        stream_row.append('td')
+                .style('text-align', 'left')
+                .style('font-size', font_size)
+                .text(appliance.source_name);
+
+        // to delete a particular data stream
+        stream_row.append('td')
+                .append('i')
+                    .attr('class', 'fas fa-trash-alt')
+                    .attr('id', "del-" + appliance["p_id"])
+                .on('click', function() {
+                    var tag = this.id.split('-')[1];
+                    
+                    // on delete, update the global building map
+                    if (tag.split('_').length == 5) {
+                        deleteInfo(tag, "zone_appliance_measurement");
+                    } else if (tag.split('_').length == 4) {
+                        deleteInfo(tag, "floor_appliance_measurement");
+                    } else if (tag.split('_').length == 3) {
+                        deleteInfo(tag, "building_appliance_measurement");
+                    }
+
+                    // delete the html code
+                    jQuery("#sr" + tag).remove();
+                });
+    });
+
+    app_info["control_inputs"].forEach(function(appliance){
+        stream_row = stream_body.append('tr').attr('id', 'sr' + appliance["p_id"]);
+        
+        // data label
+        stream_row.append('td')
+                    .style('text-align', 'left')
+                    .style('text-align', 'left')
+                    .style('font-size', font_size)
+                    .text(appliance.label)
+        
+        // to link it to a data stream
+        stream_row.append('td')
+                .append('select')
+                    .attr('class', 'selectpicker form-control')
+                    .attr('title', 'Source Type')
+                    .attr('id', 'select-source-type')
+                .selectAll('option')
+                .data(['file', 'stream'])
+                    .enter()
+                .append('option')
+                    .style('font-size', font_size)
+                    .text(function(d) {
+                        return d.charAt(0).toUpperCase() + d.slice(1);
+                    });
+
+        jQuery('select').selectpicker();
+
+        // to get data from the file
+        stream_row.append('td')
+                .style('text-align', 'left')
+                .style('font-size', font_size)
+                .text(appliance.p_name);
+
+        // to get data from the file
+        stream_row.append('td')
+                .style('text-align', 'left')
+                .style('font-size', font_size)
+                .text(appliance.source_name);
+
+        // to delete a particular data stream
+        stream_row.append('td')
+                .append('i')
+                    .attr('class', 'fas fa-trash-alt')
+                    .attr('id', "del-" + appliance["p_id"])
+                .on('click', function() {
+                    var tag = this.id.split('-')[1];
+                    
+                    // on delete, update the global building map
+                    if (tag.split('_').length == 5) {
+                        deleteInfo(tag, "zone_appliance_control");
+                    } else if (tag.split('_').length == 4) {
+                        deleteInfo(tag, "floor_appliance_control");
+                    } else if (tag.split('_').length == 3) {
+                        deleteInfo(tag, "building_appliance_control");
+                    }
+
+                    // delete the html code
+                    jQuery("#sr" + tag).remove();
+                });
+    });
+}
+
+// update the global appliance list
+function updateGlobalList(id) {
+    var tag = id.split('-')[1]
+    if (document.getElementById(id).checked) {
+        globalApplianceList[tag] = getApplianceList(tag);
+    } else {
+        delete globalApplianceList[tag]
+    }
+}
+
+/******************************************************************************************
+
+---------------------------   When Uploading the Building Map    --------------------------
+  
+*******************************************************************************************/
 
 // load the JSON file
 function onFileSelect(event) {
@@ -638,9 +1005,12 @@ jQuery('#btn-upload-selected-file').on('click', function() {
     // if uploaded file is valid
     if (validBuildingFile) {
 
+        // make sure we have the building tree
+        get_btree();
+        
         // parse the building map and get default appliance list
-        globalBuildingMap = JSON.parse(fileObj);
-        get_default();
+        globalBuildingMap = fileObj;
+        getDefaultAppList();
         
         // get c_indx to show selection on building box
         c_indx = globalBuildingMap["building"]["index"];
@@ -661,32 +1031,12 @@ jQuery('#btn-upload-selected-file').on('click', function() {
     }
 });
 
-// back button in the left most panel
-function back_button(b_val) {
-    
-    // remove panel when changing buildings
-    jQuery('#middle-panel').hide();
-    jQuery('#right-most-panel').hide();
-    
-    // change the view to parent building
-    var indx_split = c_indx.split("_");
-    if (indx_split.length > 1) {
-        var tempJSON = globalBuildingTypes;
-        for (i = 1; i < indx_split.length-1; i++) {
-            tempJSON = tempJSON["children"][(+indx_split[i])-1];
-        }
-        drw_bld_tree(tempJSON);
-    } else {
-        // move to index page
-        document.location.href = "/";
-    }
-}
-
 // get default parameters
-function get_default() {
+function getDefaultAppList() {
     jQuery.ajax({
         type: "POST",
         url: "/query",
+        async: false,
         data: JSON.stringify({"query_type": "get_default_alist", "build_type": globalBuildingMap["building"]["type"]}),
         dataType : "html",
         contentType: "application/json",
@@ -756,7 +1106,7 @@ function get_data_streams() {
     $.ajax({
         url: "/query",
         type : "POST",
-        data: JSON.stringify({"query_type": "get_data", "parameters":selected, "uuid": globalUUID}),
+        data: JSON.stringify({"query_type": "get_data", "parameters":selected, "job_id": globalBuildingMap["id"]}),
         dataType : "html",
         contentType:"application/json",
         success: function(response) {
@@ -773,11 +1123,9 @@ function get_data_streams() {
 
 // initiate model page
 function init_modelpage(response) {
+    
     // show model page panels
     jQuery('#input').html(response.page);
-
-    // maintain uuid
-    globalUUID = response.uuid
 
     // show parameters in the dropdown 
     globalParametersList = response.parameters;
@@ -811,50 +1159,16 @@ jQuery('#btn-learn-model').on('click', function(){
         contentType:"application/json",
         success: function(response) {
             res = JSON.parse(response)
-            alert("Please note down the job id: " + res["uuid"]);
-            init_modelpage(res);
+            if (res['status_code'] == 1) {
+                alert("Initiating Controller");
+                init_modelpage(res);
+            } else {
+                alert("Couldn't Connect to the Controller!");
+            }
         },
         error: function(error) {
             console.log("failure!!!");
             console.log(error);
         }
     });
-});
-
-// javascript when page loads
-jQuery(function(){
-
-    // get building tree
-    jQuery.ajax({
-        type: "POST",
-        url: "/query",
-        data: JSON.stringify({"query_type": "get_btree"}),
-        dataType : "html",
-        contentType: "application/json",
-        success: function(response) {
-            globalBuildingTypes = JSON.parse(response);
-        },
-        error: function() {
-            alert( "error" );
-        }
-    })
-
-    // on job selection
-    jQuery('#select-job-id').on('change', function() {
-        $.ajax({
-            url: "/query",
-            type : "POST",
-            data: JSON.stringify({'query_type': 'fetch_model', 'uuid': jQuery(this).find("option:selected").val()}),
-            dataType : "html",
-            contentType:"application/json",
-            success: function(response) {
-                res = JSON.parse(response);
-                init_modelpage(res);
-            },
-            error: function(error) {
-                console.log("failure!!!");
-                console.log(error);
-            }
-        });
-    })
 });
