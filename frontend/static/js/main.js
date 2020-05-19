@@ -61,7 +61,7 @@ jQuery(function(){
 
                     // update middle and rightmost containers
                     build_floormap();
-                } else if (res.status_code == 1) {
+                } else {
                     // initiate model page
                     init_modelpage(res);
                 }
@@ -1112,7 +1112,22 @@ function get_data_streams() {
         success: function(response) {
             // parse and plot data
             var data = JSON.parse(response);
-            plot_data_streams(selected, data);
+            
+            // if no data found, add a notification for the user
+            if (jQuery.isEmptyObject(data)) {
+                d3.select('#div-chart1')
+                    .append('div')
+                        .attr('class', 'col-sm-12')
+                    .append('div')
+                        .attr('class', 'jumbotron')
+                    .append('p')
+                        .attr('class', 'lead')
+                        .text('Sorry, no data found ... ')
+            } 
+            // if data exists, plot the data
+            else {
+                plot_data_streams(selected, data);
+            }
         },
         error: function(error) {
             console.log("failure!!!");
@@ -1147,6 +1162,237 @@ function init_modelpage(response) {
     jQuery("#btn-plot-data").on('click', function(){
         get_data_streams();
     });
+
+    if (response['status_code'] == 2) {
+        jQuery('#training-panel').hide();
+        jQuery('#service-panel').show();
+
+        services = response['services'];
+        for (var i=0; i<Object.keys(services).length; i++) {
+            var key = Object.keys(services)[i];
+            addService(key, services[key]["label"]);
+        }
+
+        jQuery("#selected-services").on('click', function(){
+            plotRankings(services);
+        });
+    }
+
+}
+
+function addService(key, label) {
+    var selectionBox = d3.select('#select-service')
+                            .append('div')
+                                .attr('class', 'col-md-3 selection-box');
+
+    selectionBox.append('input')
+        .attr('class', 'form-check-input')
+        .attr('type', 'checkbox')
+        .attr('name', 'service-type')
+        .attr('id', key)
+        .attr('value', key);
+
+    var figure = selectionBox.append('label')
+                                .attr('class', 'form-check-label leaf')
+                                .attr('for', key)
+                            .append('figure');
+    
+    figure.append('i')
+            .attr('class', 'label-image fab fa-servicestack fa-5x');
+    
+    figure.append('figcaption')
+            .attr('class', 'tag')
+            .text(label);
+}
+
+function plotRankings(services) {
+    var service_list = [];
+    jQuery.each(jQuery('input[type=checkbox][name=service-type]:checked'), function(){
+        service_list.push(jQuery(this).val());
+    });
+    
+    if (service_list.length > 0) {
+        
+        jQuery('#service-panel').hide();
+        jQuery('#ranking-panel').show();
+
+        d3.select("#div-app-rankings").selectAll('*').remove();
+        d3.select("#div-app-labels").selectAll('*').remove();
+
+        for (var i=0; i<service_list.length; i++) {
+            var key = service_list[i];
+            addGridService(key, services[key]["label"], services[key]["ranks"]);
+        }
+
+        jQuery('#back-to-selection').on('click', function(){
+            jQuery('#ranking-panel').hide();
+            jQuery('#service-panel').show();
+        });
+    } else {
+        alert('Please select at least one service.');
+    }
+}
+
+function addGridService(tag, label, applianceRanking) {
+    var dragging = {};
+    
+    var div = d3.select("#div-app-rankings").append('div').attr('class', 'col-sm-3 ' + tag)
+    var margin = {top: 0, right: 0, bottom: 20, left: 0},
+        actualWidth = +d3.select('.' + tag).style('width').slice(0, -2)
+        actualWidth = actualWidth * 0.65
+        width = actualWidth - margin.left - margin.right,
+        height = 2*actualWidth - margin.top - margin.bottom;
+
+    var textDiv = d3.select("#div-app-labels").append('div')
+                        .attr('class', 'col-sm-3 text-wrap text-left')
+                        .text(label)
+                        .style("font-size", function(d) { return width * 0.17 + "px"; })
+        
+    var svg = div
+              .append("svg")
+                .attr("class", 'mx-auto')
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+                .style("margin-left", margin.left + "px")
+              .append("g")
+                .attr("id", "matrix")
+                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    
+    var applianceMatrix = [], 
+        appliances = Object.keys(applianceRanking),
+        n = appliances.length;
+    
+    appliances.forEach(function(app, i){
+        applianceMatrix[i] = {x: i, y: +applianceRanking[app]-1, z: app};
+    });
+    
+    var y = d3.scaleBand().range([0, height], 0, 1),
+        c = d3.scaleOrdinal(d3.schemeCategory10).domain(d3.range(n));
+    
+    // Default order
+    var orders = {
+        appliance: d3.range(n).sort(function(a, b) { return d3.ascending(applianceMatrix[a].y, applianceMatrix[b].y); })
+    };
+    
+    // The default sort order.
+    y.domain(orders.appliance);
+    
+    svg.append("rect")
+      .attr("class", "background")
+      .attr("width", width)
+      .attr("height", height);
+    
+    
+    var row = svg.selectAll("." + tag + "G")
+                    .data(applianceMatrix)
+                        .enter()
+                    .append("g")
+                        .attr("class", tag + "G")
+                        .attr("transform", function(d, i) { 
+                            return "translate(0," + y(d.y) + ")"; 
+                        })
+                    
+    row.append("rect")
+        .attr("x", 0)
+        .attr("width", width * 0.75)
+        .attr("height", y.bandwidth())
+        .attr("fill", 'None')
+        .style("stroke", function(d) { 
+            return c(d.y); 
+        })
+        .style("stroke-width", 2);
+    
+    row.append("image")
+        .attr("id", tag + "Image")
+        .attr("x", width * 0.8)
+        .attr("y", y.bandwidth() * 0.23)
+        .attr("width", width * 0.12)
+        .attr("height", y.bandwidth())
+        .attr('class', 'row-simage')
+        .style('cursor', 'pointer')
+        .attr('xlink:href', 'static/images/icons/cancel.png');
+    
+    row.append("rect")
+        .attr("x", width * 0.75)
+        .attr("width", width * 0.25)
+        .attr("height", y.bandwidth())
+        .attr("fill", 'None')
+        .style("stroke", function(d) { 
+            return c(d.y); 
+        })
+        .style("stroke-width", 0)
+        .style("padding-top", 4)
+        .attr("fill", "url(#" + tag + "Image)");
+    
+    row.append("text")
+        .attr("class", tag + "Rect")
+        .attr("x", width * 0.05)
+        .attr("dy", y.bandwidth() * 0.6)
+        .style("font-size", function(d) { return y.bandwidth() * 0.35 + "px"; })
+        .style("cursor", "pointer")
+        .text(function(d) { 
+            return appliances[d.y]; 
+        });
+    
+    var drag_behavior = d3.drag();
+    var trigger;
+    
+    d3.selectAll("." + tag + "G")
+        .call(d3.drag()
+                .subject(function(d) { 
+                    return {y: y(d.y)}; 
+                })
+                .on("start", function(d) {
+                    trigger = d3.event.sourceEvent.target.className.baseVal;
+                    
+                    if (trigger == tag + "Rect") {
+                        d3.selectAll("." + tag + "Rect").attr("opacity", 1);
+                        dragging[d.y] = y(d.y);
+                        
+                        // Move the row that is moving on the front
+                        sel = d3.select(this);
+                        sel.moveToFront();
+                    }
+                })
+                .on("drag", function(d) {
+                    // Hide what is in the back
+                    
+                    if (trigger == tag + "Rect") {
+                        dragging[d.y] = Math.min(height, Math.max(-1, d3.event.y));
+                        orders.appliance.sort(function(a, b) { 
+                            return position(a) - position(b); 
+                        });
+                        
+                        y.domain(orders.appliance);
+                        
+                        d3.selectAll("." + tag + "G").attr("transform", function(d, i) {
+                            return "translate(0," + position(d.y) + ")"; 
+                        });
+                    }
+                })
+                .on("end", function(d) {
+                    if (trigger == tag + "Rect") {
+                        delete dragging[d.y];
+                        
+                        transition(d3.select(this)).attr("transform", "translate(0," + position(d.y) + ")");
+                    }
+                })
+        );
+    
+    d3.selection.prototype.moveToFront = function() {
+        return this.each(function(){
+            this.parentNode.appendChild(this);
+        });
+    };
+
+    function position(d) {
+        var v = dragging[d];
+        return v == null ? y(d) : v;
+    }
+
+    function transition(g) {
+        return g.transition().duration(500);
+    }
 }
 
 // on initiating model training
@@ -1159,11 +1405,11 @@ jQuery('#btn-learn-model').on('click', function(){
         contentType:"application/json",
         success: function(response) {
             res = JSON.parse(response)
-            if (res['status_code'] == 1) {
+            if (res['status_code'] == 0) {
+                alert("Couldn't Connect to the Controller!");
+            } else {
                 alert("Initiating Controller");
                 init_modelpage(res);
-            } else {
-                alert("Couldn't Connect to the Controller!");
             }
         },
         error: function(error) {

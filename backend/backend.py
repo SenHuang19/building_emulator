@@ -260,15 +260,19 @@ def fetch_job():
 	# fetch building map of selected emulator
 	b_map = get_bmap(job_info["map_file"])
 	
-	# if user didn't initiate the controller
-	if job_info['status_code'] == 0:
-		return jsonify({'status_code': 0, 'map':b_map})
+	# response for the user
+	response = {'status_code': job_info['status_code'], 'map':b_map}
 
 	# if user initiated the controller but controller is not predicting - 
 	# get parameters for visualization
-	elif job_info['status_code'] == 1:	
-		parameters = get_parameters(request.json['job_id'])
-		return jsonify({'status_code': 1, 'map':b_map, 'parameters': parameters})
+	if job_info['status_code'] != 0:	
+		response['parameters'] = get_parameters(request.json['job_id'])
+	
+	if job_info['status_code'] == 2:
+		resp = open("data/sample/sample_rankings.json")
+		response['services'] = json.load(resp)
+
+	return jsonify(response)
 
 # Initiate the controller
 @app.route("/initiate", methods=["POST"])
@@ -305,10 +309,14 @@ def init_controller():
 	response = {'job_id': job_id, 'status_code': status_code}
 
 	# get parameters for visualization
-	if status_code == 1:
+	if status_code != 0:
 		parameters = get_parameters(job_id)
 		response['parameters'] = parameters
 	
+	if status_code == 2:
+		resp = open("data/sample/sample_rankings.json")
+		response['services'] = json.load(resp)
+
 	return jsonify(response) 
 
 # access data for a particular emulator instance
@@ -320,8 +328,12 @@ def get_data():
 	# read data
 	df = pd.read_csv(RESULTS_FOLDER + job_info["data_file"], index_col=['time'])
 
+	response = {}
+	if not df.empty:
+		response = df[request.json['cols']].to_json(orient='records')
+
 	# return data
-	return df[request.json['cols']].to_json(orient='records')
+	return response
 
 def get_bmap(map_file):
 	map_file = open(BMAP_FOLDER + map_file, 'r')
@@ -351,7 +363,7 @@ def get_job_info(job_id):
 if __name__ == '__main__':
 	
 	print("--------------- Connecting to Emulator Server")
-	time.sleep(20)
+	time.sleep(15)
 	while True:
 		response = requests.get(SITE_NAME + '/step')
 		if response.status_code != 200:
@@ -366,5 +378,5 @@ if __name__ == '__main__':
 	get_emulators()
 
 	# run the app
-	app.run(host='0.0.0.0', port=5000)		
+	app.run(host='0.0.0.0', port=5000, debug=True)		
 	

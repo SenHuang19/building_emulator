@@ -123,7 +123,7 @@ def build():
 			
 			# JSON packet for UI
 			data = fetch_emulator(job_id)
-			if data['status_code'] == 1:
+			if data['status_code'] != 0:
  				data['page']=render_template('model.html')
 
 			# return the json packet
@@ -134,7 +134,7 @@ def build():
 			
 			# initiate controller
 			data = initiate_controller(request.json['map'], request.json['appliances'])
-			if data['status_code'] == 1:
+			if data['status_code'] != 0:
  				data['page']=render_template('model.html')
 
 			return jsonify(data)

@@ -199,15 +199,6 @@ td .fas {
     cursor: pointer;
 }
 
-.service-panel-button {
-    margin: 0vw 0vw 0vw 0vw;
-    padding: 0vw 0vw 1vw 3vw;
-}
-
-.service-panel-button button {
-    font-size: 1.2vw;
-}
-
 .grid-buttons button {
     font-size: 1.2vw;
     margin: 0vw 2vw 0vw 0vw;

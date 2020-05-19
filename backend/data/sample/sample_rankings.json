@@ -1,0 +1,38 @@
+{
+	"curtailment": {
+		"label": "Curtailment", 
+		"ranks": {
+			"HVAC":1, 
+			"Lighting":2, 
+			"Desktops":3, 
+			"Laptops":4
+		}
+	},
+	"frequency_regulation": {
+		"label": "Frequency Regulation", 
+		"ranks": {
+			"HVAC":2, 
+			"Lighting":3, 
+			"Desktops":1, 
+			"Laptops":4
+		}
+	}, 
+	"ramping": {
+		"label": "Ramping", 
+		"ranks": {
+			"HVAC":1, 
+			"Lighting":4, 
+			"Desktops":3, 
+			"Laptops":2
+		}
+	},
+	"reactive_power_control": {
+		"label": "Reactive Power Control", 
+		"ranks": {
+			"HVAC":4, 
+			"Lighting":1, 
+			"Desktops":3, 
+			"Laptops":2
+		}
+	}
+}

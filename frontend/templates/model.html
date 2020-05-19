@@ -1,19 +1,7 @@
-    <div class="col-sm-6 panel analysis-panel">
-        <fieldset class="scheduler-border">
-            <legend class="scheduler-border">Analyze yourData</legend>
-            <div class="row ml-0 mr-2" id="div-sel-options">
-                <!--
-                <div class="col-sm-4">
-                    <div class="form-group">
-                        <select class="selectpicker form-control" title="Select Floors" id="select-floor" multiple></select>
-                    </div>
-                </div>
-                <div class="col-sm-4">
-                    <div class="form-group">
-                        <select class="selectpicker form-control" title="Select Zones" id="select-zone" multiple></select>
-                    </div>
-                </div>
-                -->
+    <div class="col-sm-6 panel" id="left-most-panel-sc2">
+        <fieldset class="scheduler-border" id="fieldset-lmp-sc2">
+            <legend class="scheduler-border" id="legend-lmp-sc2">Analyze yourData</legend>
+            <div class="row form-group fieldset-row" id="div-sel-options">
                 <div class="col-sm-10">
                     <div class="form-group">
                         <select class="selectpicker form-control" title="Select Parameters" id="select-parameter" data-max-options="3" data-live-search="true" data-selected-text-format="count" multiple></select>
@@ -25,44 +13,56 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-12 px-0 mx-0" id="div-chart1"></div>
-            <div class="col-sm-12 px-0 mx-0" id="div-chart2"></div>
+            <div class="row form-group fieldset-row" id="div-chart1"></div>
         </fieldset>
     </div>
-    <div class="col-sm-5 panel service-selection-panel">
-        <fieldset class="scheduler-border">
-            <legend class="scheduler-border">Service Selection</legend>
-            <div class="col-sm-12 selection-panel service-selection-panel">
-                <div class="row type-row" id="select-service">
-                    <i id="gear1" class="fa fa-5x fa-gear spin"></i>
-                    <i id="gear2" class="fa fa-5x fa-gear spin-back"></i>
-                    <i id="gear3" class="fa fa-5x fa-gear spin"></i>
-                </div>
-                <div class="row type-row">
-                    <div class="col-md-12 service-panel-button">
-                        <button type="button" class="btn btn-primary" id="service-selected">Continue</button>
+    <div class="col-sm-5 panel" id="training-panel">
+        <fieldset class="scheduler-border" id="fieldset-rmp-sc2">
+            <legend class="scheduler-border" id="legend-rmp-sc2">Model Training</legend>
+            <div class="row form-group fieldset-row">
+                <div class="col-md-12">
+                    <div class="jumbotron">
+                        <p class="lead text-center"><i class="fas fa-3x fa-cog fa-spin"></i></p>
+                        <p class="lead">We are learning about your building. Until then, sit back, relax, and analyze your data!</p>
                     </div>
                 </div>
             </div>
         </fieldset>
     </div>
-    <div class="col-sm-6 panel model-panel hidden">
+    <div class="col-sm-5 panel hidden" id="service-panel">
         <fieldset class="scheduler-border">
-            <legend class="scheduler-border">Grid Services</legend>
-            <div class="col-sm-12 selection-panel">
-                <div class="row">
-                    <div class="col-sm-12 back-button-div text-center">
-                        <button type="button" id="back-to-selection" class="btn btn-default back-button"></button>
-                    </div>
-                </div>
-                <div class="row service-labels service-app-selected"></div>
-                <div class="row grid-services service-app-selected"></div>
-                <div class="row grid-buttons service-app-selected">
-                    <div class="col-sm-12">
-                        <button type="button" class="btn btn-primary" id="reconfigure">Reconfigure</button>
-                        <button type="button" class="btn btn-primary">Serve myGrid</button>
-                    </div>
+            <legend class="scheduler-border">Select Grid Services</legend>
+            <div class="row form-group fieldset-row" id="select-service">
+            </div>
+            <div class="row form-group fieldset-row" id="select-service-btns">
+                <div class="col-sm-12 text-center">
+                    <button type="button" class="btn btn-primary" id="selected-services">Continue</button>    
                 </div>
             </div>
         </fieldset>
     </div>
+    <div class="col-sm-5 panel hidden" id="ranking-panel">
+        <fieldset class="scheduler-border">
+            <legend class="scheduler-border">Appliance Rankings</legend>
+            <div class="row form-group fieldset-row" id="grid-back-btn">
+                <div class="col-sm-12 back-button-div text-center">
+                    <button type="button" id="back-to-selection" class="btn btn-default back-button"></button>
+                </div>
+            </div>
+            <div class="row form-group fieldset-row" id="div-app-labels">
+            </div>
+            <div class="row form-group fieldset-row grid-services" id="div-app-rankings">
+            </div>
+            <div class="row form-group fieldset-row" id="div-app-rankings-btns">
+                <div class="col-sm-4">
+                    <button type="button" class="btn btn-primary btn-block" id="reconfigure">Reconfigure</button>    
+                </div>
+                <div class="col-sm-4">
+                    <button type="button" class="btn btn-primary btn-block">Serve myGrid</button>   
+                </div>
+            </div>
+        </fieldset>
+    </div>
+            
+            
+    
