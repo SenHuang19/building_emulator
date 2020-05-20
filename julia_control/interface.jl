@@ -16,6 +16,18 @@ mutable struct occModel
      TPM     ::Array{Any}        # transition probability matrices, in EACH slot
  end
 
+ # DEFINE a struct variable to contain the device information
+ mutable struct devInfo
+     label           ::String
+     control_inputs  ::String
+     measurements    ::String
+     devType         ::String
+     floorId         ::Any
+     zoneIdx         ::Any
+     devParam        ::Any
+     senseIdx        ::Any
+ end
+
 # TEST CONTROLLER IMPORT
 # ----------------------
 include("./controllers.jl")
@@ -47,18 +59,6 @@ inputs = JSON.parse(String(HTTP.get("$url/inputs").body))
 # Measurements available
 measurements = JSON.parse(String(HTTP.get("$url/measurements").body))
 
-# define a struct variable to contain the device information
-mutable struct devInfo
-    devType::String
-    devParam::Any          # [OPTIONAL] only if needed for calculation of scores
-    senseKey::Any
-    senseVal::Any
-    senseIdx::Any
-    transProb::Any
-    allStates::Any
-    uniqueSeq::Any
-end
-
 # Default simulation step
 step_def = JSON.parse(String(HTTP.get("$url/step").body))
 println("Default Simulation Step:\t$step_def")
@@ -71,29 +71,63 @@ CSV.write("measurements.csv", sort!(df))
 
 # specify the zone(s) and floor(s) you are interested in
 
-typeDev  = ["PC","Light","Misc"];
+if isfile("appList.json") # if the file exists, read from it
+   read_file_in_dict = JSON.parsefile("appList.json"; dicttype=Dict, inttype=Int64, use_mmap=true)
+   if !haskey(read_file_in_dict,"appliances")
+      error("appliances NOT found in the JSON file!")
+   end
+   app_list = read_file_in_dict["appliances"];
+   numDev   = length(app_list);
 
-numDev   = length(typeDev);
-allDev   = Array{devInfo}(undef,numDev);
+   list_of_zones = [];
+   u_of_interest = [];
+   y_of_interest = [];
+   for iD = 1:numDev
+      allDev[iDev]                  = devInfo(undef,undef,undef,undef,undef,undef,undef,undef);
+      allDev[iDev].label            = app_list[iDev]["label"];
+      allDev[iDev].control_inputs   = app_list[iDev]["control_inputs"];
+      allDev[iDev].measurements     = app_list[iDev]["measurement"];
 
-list_of_zones = [(1,4), (1,2)];
+      strip_info = split(app_list[iDev]["label"],r"[-_]");
+      allDev[iDev].devType = strip_info[4];
+      allDev[iDev].floorId = split(strip_info[2],r"F")[2];
+      allDev[iDev].zoneIdx = split(strip_info[3],r"Z")[2];
 
-if isa(list_of_zones, Tuple)     # only one floor-zone combo is specified
-   list_of_zones = [list_of_zones];    # convert into an array of tuples
-end
+      append!(u_of_interest,allDev[iDev].control_inputs)
+      append!(y_of_interest,allDev[iDev].measurements)
+      append!(list_of_zones,[(allDev[iDev].floorId,allDev[iDev].zoneIdx)])
+   end
+   for iD = 1:numDev
+      for jD = 1:length(allDev[iDev].measurements)
+         allDev[iDev].senseIdx[jD] = findfirst(x->occursin(allDev[iDev].measurements[jD],x),y_of_interest);
+      end
+   end
 
-u_of_interest = inputs[occursin.("floor$(list_of_zones[1][1])_zon$(list_of_zones[1][2])",inputs)];
-y_of_interest = measurements[occursin.("floor$(list_of_zones[1][1])_zon$(list_of_zones[1][2])",measurements)];
-for id = 2:length(list_of_zones)
-   global u_of_interest = [u_of_interest; inputs[occursin.("floor$(list_of_zones[id][1])_zon$(list_of_zones[id][2])",inputs)]];
-   global y_of_interest = [y_of_interest; measurements[occursin.("floor$(list_of_zones[id][1])_zon$(list_of_zones[id][2])",measurements)]];
-end
+else     # define the list manually
 
-for iDev = 1:numDev
-   allDev[iDev] = devInfo(typeDev[iDev],undef,undef,undef,undef,undef,undef,undef);
-   allDev[iDev].senseKey = string("pow",typeDev[iDev][1:min(3,length(typeDev[iDev]))]);
-   allDev[iDev].senseIdx = findfirst(x->occursin(Regex(allDev[iDev].senseKey,"i"),x),y_of_interest);
-   allDev[iDev].devParam = [2.3, rand(Int64(24*60*60/simStep_inSec)), 0.9];  # comfort paramter ALPHA, usage probabilities
+   list_of_zones = [(1,4), (1,2)];
+   typeDev  = ["PC","Light","Misc"];
+
+   numDev   = length(typeDev)*length(list_of_zones);
+   allDev   = Array{devInfo}(undef,numDev);
+
+   if isa(list_of_zones, Tuple)     # only one floor-zone combo is specified
+      list_of_zones = [list_of_zones];    # convert into an array of tuples
+   end
+
+   u_of_interest = inputs[occursin.("floor$(list_of_zones[1][1])_zon$(list_of_zones[1][2])",inputs)];
+   y_of_interest = measurements[occursin.("floor$(list_of_zones[1][1])_zon$(list_of_zones[1][2])",measurements)];
+   for id = 2:length(list_of_zones)
+      global u_of_interest = [u_of_interest; inputs[occursin.("floor$(list_of_zones[id][1])_zon$(list_of_zones[id][2])",inputs)]];
+      global y_of_interest = [y_of_interest; measurements[occursin.("floor$(list_of_zones[id][1])_zon$(list_of_zones[id][2])",measurements)]];
+   end
+
+   for iDev = 1:numDev
+      allDev[iDev] = devInfo(undef,undef,undef,undef,undef,undef,undef,undef);
+      allDev[iDev].sensekey = string("pow",typeDev[iDev][1:min(3,length(typeDev[iDev]))]);
+      allDev[iDev].senseIdx = findfirst(x->occursin(Regex(allDev[iDev].senseKey,"i"),x),y_of_interest);
+      allDev[iDev].devParam = [2.3, rand(Int64(24*60*60/simStep_inSec)), 0.9];  # comfort paramter ALPHA, usage probabilities
+   end
 end
 
 df = DataFrame(select_control_inputs=u_of_interest)
@@ -114,7 +148,7 @@ println("Running test case ...")
 println("Setting simulation step to $simStep_inSec")
 res = HTTP.put("$url/step",["Content-Type" => "application/json"], JSON.json(Dict("step" => simStep_inSec)))
 
-# create the variables arrays to be filled witth time-series data
+# create the variables arrays to be filled with time-series data
 tlen = convert(Int, floor(simLength_inSec/simStep_inSec));
 ylen = length(y_of_interest);
 
