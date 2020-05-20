@@ -18,10 +18,10 @@ mutable struct occModel
 
  # DEFINE a struct variable to contain the device information
  mutable struct devInfo
-     label           ::String
-     control_inputs  ::String
-     measurements    ::String
-     devType         ::String
+     label           ::Any
+     control_inputs  ::Any
+     measurements    ::Any
+     devType         ::Any
      floorId         ::Any
      zoneIdx         ::Any
      devParam        ::Any
@@ -72,35 +72,50 @@ CSV.write("measurements.csv", sort!(df))
 # specify the zone(s) and floor(s) you are interested in
 
 if isfile("appList.json") # if the file exists, read from it
+   println("Reading the list of appliances from the appList.json file.")
    read_file_in_dict = JSON.parsefile("appList.json"; dicttype=Dict, inttype=Int64, use_mmap=true)
    if !haskey(read_file_in_dict,"appliances")
       error("appliances NOT found in the JSON file!")
    end
    app_list = read_file_in_dict["appliances"];
+   env_list = read_file_in_dict["exogenous"];
+
+   # first add the devices
    numDev   = length(app_list);
+   allDev   = Array{devInfo}(undef,numDev);
 
    list_of_zones = [];
    u_of_interest = [];
    y_of_interest = [];
    for iD = 1:numDev
-      allDev[iDev]                  = devInfo(undef,undef,undef,undef,undef,undef,undef,undef);
-      allDev[iDev].label            = app_list[iDev]["label"];
-      allDev[iDev].control_inputs   = app_list[iDev]["control_inputs"];
-      allDev[iDev].measurements     = app_list[iDev]["measurement"];
+      allDev[iD]                  = devInfo(undef,undef,undef,undef,undef,undef,undef,undef);
+      allDev[iD].label            = app_list[iD]["label"];
+      allDev[iD].control_inputs   = app_list[iD]["control_inputs"];
+      allDev[iD].measurements     = app_list[iD]["measurements"];
 
-      strip_info = split(app_list[iDev]["label"],r"[-_]");
-      allDev[iDev].devType = strip_info[4];
-      allDev[iDev].floorId = split(strip_info[2],r"F")[2];
-      allDev[iDev].zoneIdx = split(strip_info[3],r"Z")[2];
+      strip_info = split(app_list[iD]["label"],r"[-_]");
+      allDev[iD].devType = strip_info[4];
+      allDev[iD].floorId = split(strip_info[2],r"F")[2];
+      allDev[iD].zoneIdx = split(strip_info[3],r"Z")[2];
+      allDev[iD].devParam = [2.3, rand(Int64(24*60*60/simStep_inSec)), 0.9];  # comfort paramter ALPHA, usage probabilities
 
-      append!(u_of_interest,allDev[iDev].control_inputs)
-      append!(y_of_interest,allDev[iDev].measurements)
-      append!(list_of_zones,[(allDev[iDev].floorId,allDev[iDev].zoneIdx)])
+      append!(u_of_interest,allDev[iD].control_inputs)
+      append!(y_of_interest,allDev[iD].measurements)
+      append!(list_of_zones,[(allDev[iD].floorId,allDev[iD].zoneIdx)])
    end
+   unique!(list_of_zones)
+   
    for iD = 1:numDev
-      for jD = 1:length(allDev[iDev].measurements)
-         allDev[iDev].senseIdx[jD] = findfirst(x->occursin(allDev[iDev].measurements[jD],x),y_of_interest);
+      allDev[iD].senseIdx = Array{Int64}(undef,length(allDev[iD].measurements));
+      for jD = 1:length(allDev[iD].measurements)
+         allDev[iD].senseIdx[jD] = findfirst(x->occursin(allDev[iD].measurements[jD],x),y_of_interest);
       end
+   end
+
+   # next add the exogenous environmental information (e.g. occupancy)
+   for iE = 1:length(env_list)
+      append!(u_of_interest,env_list[iE]["control_inputs"])
+      append!(y_of_interest,env_list[iE]["measurements"])
    end
 
 else     # define the list manually
@@ -122,11 +137,11 @@ else     # define the list manually
       global y_of_interest = [y_of_interest; measurements[occursin.("floor$(list_of_zones[id][1])_zon$(list_of_zones[id][2])",measurements)]];
    end
 
-   for iDev = 1:numDev
-      allDev[iDev] = devInfo(undef,undef,undef,undef,undef,undef,undef,undef);
-      allDev[iDev].sensekey = string("pow",typeDev[iDev][1:min(3,length(typeDev[iDev]))]);
-      allDev[iDev].senseIdx = findfirst(x->occursin(Regex(allDev[iDev].senseKey,"i"),x),y_of_interest);
-      allDev[iDev].devParam = [2.3, rand(Int64(24*60*60/simStep_inSec)), 0.9];  # comfort paramter ALPHA, usage probabilities
+   for iD = 1:numDev
+      allDev[iD] = devInfo(undef,undef,undef,undef,undef,undef,undef,undef);
+      allDev[iD].sensekey = string("pow",typeDev[iD][1:min(3,length(typeDev[iD]))]);
+      allDev[iD].senseIdx = findfirst(x->occursin(Regex(allDev[iD].senseKey,"i"),x),y_of_interest);
+      allDev[iD].devParam = [2.3, rand(Int64(24*60*60/simStep_inSec)), 0.9];  # comfort paramter ALPHA, usage probabilities
    end
 end
 

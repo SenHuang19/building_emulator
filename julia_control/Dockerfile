@@ -11,3 +11,5 @@ ADD exogenous.jl /usr/myapp/
 ADD test.jl /usr/myapp/
 
 ADD custom_input/occParams.out /usr/myapp/
+
+ADD temp_files_for_testing/appList.json /usr/myapp/

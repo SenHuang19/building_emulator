@@ -3,44 +3,47 @@
 	"appliances":
 	[
 		{
-			"label": "chk-F1_Z4_PC_1",
-			"control_inputs": ["floor1_zon4_zon_powPC_1_u", "floor1_zon4_zon_powPC_1_activate"],
-			"measurements": [ "floor1_zon4_zon_powPC_1_y"]
+			"label": "chk-F1_Z4_PC",
+			"control_inputs": ["floor1_zon4_zon_powPC_u", "floor1_zon4_zon_powPC_activate"],
+			"measurements": [ "floor1_zon4_zon_powPC_y"]
 		},
 		{
-			"label": "chk-F1_Z4_Light_1",
-			"control_inputs": ["floor1_zon4_zon_PowLig_1_u", "floor1_zon4_zon_PowLig_1_activate"],
-			"measurements": [ "floor1_zon4_zon_PowLig_1_y"]
+			"label": "chk-F1_Z4_Light",
+			"control_inputs": ["floor1_zon4_zon_PowLig_u", "floor1_zon4_zon_PowLig_activate"],
+			"measurements": [ "floor1_zon4_zon_PowLig_y"]
 		},
 		{
-			"label": "chk-F1_Z4_Light_2",
-			"control_inputs": ["floor1_zon4_zon_PowLig_2_u", "floor1_zon4_zon_PowLig_2_activate"],
-			"measurements": [ "floor1_zon4_zon_PowLig_2_y"]
+			"label": "chk-F1_Z4_Misc",
+			"control_inputs": ["floor1_zon4_zon_powMis_u", "floor1_zon4_zon_powMis_activate"],
+			"measurements": [ "floor1_zon4_zon_powMis_y"]
 		},
 		{
-			"label": "chk-F1_Z4_Misc_1",
-			"control_inputs": ["floor1_zon4_zon_Mis_1_u", "floor1_zon4_zon_Mis_1_activate"],
-			"measurements": [ "floor1_zon4_zon_Mis_1_y"]
+			"label": "chk-F1_Z2_PC",
+			"control_inputs": ["floor1_zon2_zon_powPC_u", "floor1_zon2_zon_powPC_activate"],
+			"measurements": [ "floor1_zon2_zon_powPC_y"]
 		},
 		{
-			"label": "chk-F1_Z2_PC_1",
-			"control_inputs": ["floor1_zon2_zon_powPC_1_u", "floor1_zon2_zon_powPC_1_activate"],
-			"measurements": [ "floor1_zon2_zon_powPC_1_y"]
+			"label": "chk-F1_Z2_Light",
+			"control_inputs": ["floor1_zon2_zon_PowLig_u", "floor1_zon2_zon_PowLig_activate"],
+			"measurements": [ "floor1_zon2_zon_PowLig_y"]
 		},
 		{
-			"label": "chk-F1_Z2_PC_2",
-			"control_inputs": ["floor1_zon2_zon_powPC_2_u", "floor1_zon2_zon_powPC_2_activate"],
-			"measurements": [ "floor1_zon2_zon_powPC_2_y"]
+			"label": "chk-F1_Z2_Misc",
+			"control_inputs": ["floor1_zon2_zon_powMis_u", "floor1_zon2_zon_powMis_activate"],
+			"measurements": [ "floor1_zon2_zon_powMis_y"]
+		}
+	],
+	"exogenous":
+	[
+		{
+			"label": "chk-F1_Z4_Occ",
+			"control_inputs": ["floor1_zon4_OccSch_u", "floor1_zon4_OccSch_activate"],
+			"measurements": [ "floor1_zon4_OccSch_y"]
 		},
 		{
-			"label": "chk-F1_Z2_Light_1",
-			"control_inputs": ["floor1_zon2_zon_PowLig_1_u", "floor1_zon2_zon_PowLig_1_activate"],
-			"measurements": [ "floor1_zon2_zon_PowLig_1_y"]
-		},
-		{
-			"label": "chk-F1_Z2_Misc_1",
-			"control_inputs": ["floor1_zon2_zon_Mis_1_u", "floor1_zon2_zon_Mis_1_activate"],
-			"measurements": [ "floor1_zon2_zon_Mis_1_y"]
+			"label": "chk-F1_Z2_Occ",
+			"control_inputs": ["floor1_zon2_OccSch_u", "floor1_zon2_OccSch_activate"],
+			"measurements": [ "floor1_zon2_OccSch_y"]
 		}
 	]
 }
