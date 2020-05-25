@@ -36,12 +36,12 @@
 	"exogenous":
 	[
 		{
-			"app_id": "b_f1_z4_occ",
+			"exo_id": "b_f1_z4_occ",
 			"control_inputs": ["floor1_zon4_OccSch_u", "floor1_zon4_OccSch_activate"],
 			"measurements": [ "floor1_zon4_OccSch_y"]
 		},
 		{
-			"app_id": "b_f1_z2_occ",
+			"exo_id": "b_f1_z2_occ",
 			"control_inputs": ["floor1_zon2_OccSch_u", "floor1_zon2_OccSch_activate"],
 			"measurements": [ "floor1_zon2_OccSch_y"]
 		}
