@@ -41,7 +41,7 @@ def call_julia(json_data):
 	print('Connecting')
 	
 	# Server and port address. Make sure the same address were used in Julia code too! 
-	HOST = 'control'
+	HOST = 'julia'
 	PORT =  65432 
 	# Defining the socket 
 	s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -74,7 +74,7 @@ def call_julia(json_data):
 
 # create a flast app
 app = Flask(__name__)
-SITE_NAME = "http://emulator:5000"
+SITE_NAME = "http://building_emulator:5000"
 
 '''
 	function: create_job
@@ -385,7 +385,7 @@ def process_json(appList):
 if __name__ == '__main__':
 	
 	print("--------------- Connecting to Emulator Server")
-	# time.sleep(15)
+	time.sleep(15)
 	while True:
 		response = requests.get(SITE_NAME + '/step')
 		if response.status_code != 200:
