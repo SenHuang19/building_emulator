@@ -3,5 +3,6 @@ version: '3.1'
 services:
   control:
     build: './python_control'
+    container_name: python
     working_dir: /usr/src/app
-    command: python runSimulation.py --url="http://emulator:5000" --dayOfYear=152 --dayOffset=0 --simDuration=172800 --fmuStep=600
+    command: python runSimulation.py --url="http://emulator:5000" --dayOfYear=152 --dayOffset=0 --simDuration=1200 --fmuStep=600

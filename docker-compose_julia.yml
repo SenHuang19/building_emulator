@@ -3,5 +3,6 @@ version: '3.1'
 services:
   control:
     build: './julia_control'
+    container_name: julia
     working_dir: /usr/myapp
     command: julia test.jl

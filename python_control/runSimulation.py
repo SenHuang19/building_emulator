@@ -71,7 +71,7 @@ def main(argv):
   print('Name:\t\t\t\t{0}'.format(name))
   # Inputs available
   inputs = requests.get('{0}/inputs'.format(url)).json()
-  # print('Control Inputs:\t\t\t{0}'.format(inputs))
+  print('Control Inputs:\t\t\t{0}'.format(inputs))
   inputFileName = "controlInputsList.csv"
   if os.path.exists(inputFileName):
     os.remove(inputFileName)
@@ -138,6 +138,7 @@ def main(argv):
     timeStep += 1
     print("Current time {0} seconds.\n".format(y["time"]))
     writer.writerow(dict(sorted(y.items(), key = lambda x: x[0])))
+  requests.put('{0}/stop'.format(url))
   print('============= Simulation complete. =================\n')
   # -------------
 
