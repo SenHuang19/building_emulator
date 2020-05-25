@@ -2,10 +2,12 @@
 	"building": {
 		"type": "building_residential_mra",
 		"index": "0_1_1",
-		"appliances": [{
-				"id": "b_hvac",
+		"appliances": [
+			{
+				"app_id": "b_hvac",
 				"label": "HVAC",
-				"measurements": [{
+				"measurements": [
+					{
 						"label": "Power Consumption",
 						"source_type": "file",
 						"source_name": "all_results.csv",
@@ -20,16 +22,18 @@
 						"p_name": "b_hvac_temp"
 					}
 				],
-				"control_inputs": [{
-					"label": "Set Point Temperature",
-					"source_type": "file",
-					"source_name": "all_results.csv",
-					"p_id": "b_hvac_spt",
-					"p_name": "b_hvac_spt"
-				}]
+				"control_inputs": [
+					{
+						"label": "Set Point Temperature",
+						"source_type": "file",
+						"source_name": "all_results.csv",
+						"p_id": "b_hvac_spt",
+						"p_name": "b_hvac_spt"
+					}
+				]
 			},
 			{
-				"id": "b_lighting",
+				"app_id": "b_lighting",
 				"label": "Lighting",
 				"measurements": [{
 						"label": "Power Consumption",
@@ -55,7 +59,7 @@
 				}]
 			},
 			{
-				"id": "b_desktops",
+				"app_id": "b_desktops",
 				"label": "Desktops",
 				"measurements": [{
 						"label": "Power Consumption",
@@ -81,7 +85,7 @@
 				}]
 			},
 			{
-				"id": "b_laptops",
+				"app_id": "b_laptops",
 				"label": "Laptops",
 				"measurements": [{
 						"label": "Power Consumption",
@@ -107,12 +111,46 @@
 				}]
 			}
 		],
-		"floors": [{
+		"exogenous": [
+			{
+				"exo_id": "b_weather",
+				"label": "Weather Sensor",
+				"measurements": [
+					{
+						"label": "Temperature",
+						"source_type": "file",
+						"source_name": "all_results.csv",
+						"p_id": "b_weather_temperature",
+						"p_name": "b_weather_temperature"
+					},
+					{
+						"label": "Humidity",
+						"source_type": "file",
+						"source_name": "all_results.csv",
+						"p_id": "b_weather_humidity",
+						"p_name": "b_weather_humidity"
+					}
+				],
+				"control_inputs": [
+					{
+						"label": "Sampling Rate",
+						"source_type": "file",
+						"source_name": "all_results.csv",
+						"p_id": "b_weather_sr",
+						"p_name": "b_weather_sr"
+					}
+				]
+			}
+		],
+		"floors": [
+			{
 				"label": "F1",
-				"appliances": [{
-						"id": "b_f1_hvac",
+				"appliances": [
+					{
+						"app_id": "b_f1_hvac",
 						"label": "HVAC",
-						"measurements": [{
+						"measurements": [
+							{
 								"label": "Power Consumption",
 								"source_type": "file",
 								"source_name": "all_results.csv",
@@ -127,18 +165,21 @@
 								"p_name": "b_f1_hvac_temp"
 							}
 						],
-						"control_inputs": [{
-							"label": "Set Point Temperature",
-							"source_type": "file",
-							"source_name": "all_results.csv",
-							"p_id": "b_f1_hvac_spt",
-							"p_name": "b_f1_hvac_spt"
-						}]
+						"control_inputs": [
+							{
+								"label": "Set Point Temperature",
+								"source_type": "file",
+								"source_name": "all_results.csv",
+								"p_id": "b_f1_hvac_spt",
+								"p_name": "b_f1_hvac_spt"
+							}
+						]
 					},
 					{
-						"id": "b_f1_lighting",
+						"app_id": "b_f1_lighting",
 						"label": "Lighting",
-						"measurements": [{
+						"measurements": [
+							{
 								"label": "Power Consumption",
 								"source_type": "file",
 								"source_name": "all_results.csv",
@@ -153,18 +194,21 @@
 								"p_name": "b_f1_lighting_temp"
 							}
 						],
-						"control_inputs": [{
-							"label": "Set Point Temperature",
-							"source_type": "file",
-							"source_name": "all_results.csv",
-							"p_id": "b_f1_lighting_spt",
-							"p_name": "b_f1_lighting_spt"
-						}]
+						"control_inputs": [
+							{
+								"label": "Set Point Temperature",
+								"source_type": "file",
+								"source_name": "all_results.csv",
+								"p_id": "b_f1_lighting_spt",
+								"p_name": "b_f1_lighting_spt"
+							}
+						]
 					},
 					{
-						"id": "b_f1_desktops",
+						"app_id": "b_f1_desktops",
 						"label": "Desktops",
-						"measurements": [{
+						"measurements": [
+							{
 								"label": "Power Consumption",
 								"source_type": "file",
 								"source_name": "all_results.csv",
@@ -179,18 +223,21 @@
 								"p_name": "b_f1_desktops_temp"
 							}
 						],
-						"control_inputs": [{
-							"label": "Set Point Temperature",
-							"source_type": "file",
-							"source_name": "all_results.csv",
-							"p_id": "b_f1_desktops_spt",
-							"p_name": "b_f1_desktops_spt"
-						}]
+						"control_inputs": [
+							{
+								"label": "Set Point Temperature",
+								"source_type": "file",
+								"source_name": "all_results.csv",
+								"p_id": "b_f1_desktops_spt",
+								"p_name": "b_f1_desktops_spt"
+							}
+						]
 					},
 					{
-						"id": "b_f1_laptops",
+						"app_id": "b_f1_laptops",
 						"label": "Laptops",
-						"measurements": [{
+						"measurements": [
+							{
 								"label": "Power Consumption",
 								"source_type": "file",
 								"source_name": "all_results.csv",
@@ -205,130 +252,225 @@
 								"p_name": "b_f1_laptops_temp"
 							}
 						],
-						"control_inputs": [{
-							"label": "Set Point Temperature",
-							"source_type": "file",
-							"source_name": "all_results.csv",
-							"p_id": "b_f1_laptops_spt",
-							"p_name": "b_f1_laptops_spt"
-						}]
+						"control_inputs": [
+							{
+								"label": "Set Point Temperature",
+								"source_type": "file",
+								"source_name": "all_results.csv",
+								"p_id": "b_f1_laptops_spt",
+								"p_name": "b_f1_laptops_spt"
+							}
+						]
 					}
 				],
-				"zones": [{
-					"label": "Z1",
-					"appliances": [{
-							"id": "b_f1_z1_hvac",
-							"label": "HVAC",
-							"measurements": [{
-									"label": "Power Consumption",
-									"source_type": "file",
-									"source_name": "all_results.csv",
-									"p_id": "b_f1_z1_hvac_pc",
-									"p_name": "b_f1_z1_hvac_pc"
-								},
-								{
-									"label": "Temperature",
-									"source_type": "file",
-									"source_name": "all_results.csv",
-									"p_id": "b_f1_z1_hvac_temp",
-									"p_name": "b_f1_z1_hvac_temp"
-								}
-							],
-							"control_inputs": [{
-								"label": "Set Point Temperature",
+				"exogenous": [
+					{
+						"exo_id": "b_f1_ambient",
+						"label": "Ambient Sensor",
+						"measurements": [
+							{
+								"label": "Temperature",
 								"source_type": "file",
 								"source_name": "all_results.csv",
-								"p_id": "b_f1_z1_hvac_spt",
-								"p_name": "b_f1_z1_hvac_spt"
-							}]
-						},
-						{
-							"id": "b_f1_z1_lighting",
-							"label": "Lighting",
-							"measurements": [{
-									"label": "Power Consumption",
-									"source_type": "file",
-									"source_name": "all_results.csv",
-									"p_id": "b_f1_z1_lighting_pc",
-									"p_name": "b_f1_z1_lighting_pc"
-								},
-								{
-									"label": "Temperature",
-									"source_type": "file",
-									"source_name": "all_results.csv",
-									"p_id": "b_f1_z1_lighting_temp",
-									"p_name": "b_f1_z1_lighting_temp"
-								}
-							],
-							"control_inputs": [{
-								"label": "Set Point Temperature",
+								"p_id": "b_f1_ambient_temperature",
+								"p_name": "b_f1_ambient_temperature"
+							},
+							{
+								"label": "Humidity",
 								"source_type": "file",
 								"source_name": "all_results.csv",
-								"p_id": "b_f1_z1_lighting_spt",
-								"p_name": "b_f1_z1_lighting_spt"
-							}]
-						},
-						{
-							"id": "b_f1_z1_desktops",
-							"label": "Desktops",
-							"measurements": [{
-									"label": "Power Consumption",
-									"source_type": "file",
-									"source_name": "all_results.csv",
-									"p_id": "b_f1_z1_desktops_pc",
-									"p_name": "b_f1_z1_desktops_pc"
-								},
-								{
-									"label": "Temperature",
-									"source_type": "file",
-									"source_name": "all_results.csv",
-									"p_id": "b_f1_z1_desktops_temp",
-									"p_name": "b_f1_z1_desktops_temp"
-								}
-							],
-							"control_inputs": [{
-								"label": "Set Point Temperature",
+								"p_id": "b_f1_ambient_humidity",
+								"p_name": "b_f1_ambient_humidity"
+							}
+						],
+						"control_inputs": [
+							{
+								"label": "Sampling Rate",
 								"source_type": "file",
 								"source_name": "all_results.csv",
-								"p_id": "b_f1_z1_desktops_spt",
-								"p_name": "b_f1_z1_desktops_spt"
-							}]
-						},
-						{
-							"id": "b_f1_z1_laptops",
-							"label": "Laptops",
-							"measurements": [{
-									"label": "Power Consumption",
-									"source_type": "file",
-									"source_name": "all_results.csv",
-									"p_id": "b_f1_z1_laptops_pc",
-									"p_name": "b_f1_z1_laptops_pc"
-								},
-								{
-									"label": "Temperature",
-									"source_type": "file",
-									"source_name": "all_results.csv",
-									"p_id": "b_f1_z1_laptops_temp",
-									"p_name": "b_f1_z1_laptops_temp"
-								}
-							],
-							"control_inputs": [{
-								"label": "Set Point Temperature",
-								"source_type": "file",
-								"source_name": "all_results.csv",
-								"p_id": "b_f1_z1_laptops_spt",
-								"p_name": "b_f1_z1_laptops_spt"
-							}]
-						}
-					]
-				}]
+								"p_id": "b_f1_ambient_sr",
+								"p_name": "b_f1_ambient_sr"
+							}
+						]
+					}
+				],
+				"zones": [
+					{
+						"label": "Z1",
+						"appliances": [
+							{
+								"app_id": "b_f1_z1_hvac",
+								"label": "HVAC",
+								"measurements": [
+									{
+										"label": "Power Consumption",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f1_z1_hvac_pc",
+										"p_name": "b_f1_z1_hvac_pc"
+									},
+									{
+										"label": "Temperature",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f1_z1_hvac_temp",
+										"p_name": "b_f1_z1_hvac_temp"
+									}
+								],
+								"control_inputs": [
+									{
+										"label": "Set Point Temperature",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f1_z1_hvac_spt",
+										"p_name": "b_f1_z1_hvac_spt"
+									}
+								]
+							},
+							{
+								"app_id": "b_f1_z1_lighting",
+								"label": "Lighting",
+								"measurements": [
+									{
+										"label": "Power Consumption",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f1_z1_lighting_pc",
+										"p_name": "b_f1_z1_lighting_pc"
+									},
+									{
+										"label": "Temperature",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f1_z1_lighting_temp",
+										"p_name": "b_f1_z1_lighting_temp"
+									}
+								],
+								"control_inputs": [
+									{
+										"label": "Set Point Temperature",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f1_z1_lighting_spt",
+										"p_name": "b_f1_z1_lighting_spt"
+									}
+								]
+							},
+							{
+								"app_id": "b_f1_z1_desktops",
+								"label": "Desktops",
+								"measurements": [
+									{
+										"label": "Power Consumption",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f1_z1_desktops_pc",
+										"p_name": "b_f1_z1_desktops_pc"
+									},
+									{
+										"label": "Temperature",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f1_z1_desktops_temp",
+										"p_name": "b_f1_z1_desktops_temp"
+									}
+								],
+								"control_inputs": [
+									{
+										"label": "Set Point Temperature",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f1_z1_desktops_spt",
+										"p_name": "b_f1_z1_desktops_spt"
+									}
+								]
+							},
+							{
+								"app_id": "b_f1_z1_laptops",
+								"label": "Laptops",
+								"measurements": [
+									{
+										"label": "Power Consumption",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f1_z1_laptops_pc",
+										"p_name": "b_f1_z1_laptops_pc"
+									},
+									{
+										"label": "Temperature",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f1_z1_laptops_temp",
+										"p_name": "b_f1_z1_laptops_temp"
+									}
+								],
+								"control_inputs": [
+									{
+										"label": "Set Point Temperature",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f1_z1_laptops_spt",
+										"p_name": "b_f1_z1_laptops_spt"
+									}
+								]
+							}
+						],
+						"exogenous": [
+							{
+								"exo_id": "b_f1_z1_ambient",
+								"label": "Ambient Sensor",
+								"measurements": [
+									{
+										"label": "Temperature",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f1_z1_ambient_temperature",
+										"p_name": "b_f1_z1_ambient_temperature"
+									},
+									{
+										"label": "Humidity",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f1_z1_ambient_humidity",
+										"p_name": "b_f1_z1_ambient_humidity"
+									},
+									{
+										"label": "Occupancy",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f1_z1_ambient_occupancy",
+										"p_name": "b_f1_z1_ambient_occupancy"
+									}
+								],
+								"control_inputs": [
+									{
+										"label": "Sampling Rate",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f1_z1_ambient_sr",
+										"p_name": "b_f1_z1_ambient_sr"
+									},
+									{
+										"label": "Occupancy",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f1_z1_ambient_occupancy",
+										"p_name": "b_f1_z1_ambient_occupancy"
+									}
+								]
+							}
+						]
+					}
+				]
 			},
 			{
 				"label": "F2",
-				"appliances": [{
-						"id": "b_f2_hvac",
+				"appliances": [
+					{
+						"app_id": "b_f2_hvac",
 						"label": "HVAC",
-						"measurements": [{
+						"measurements": [
+							{
 								"label": "Power Consumption",
 								"source_type": "file",
 								"source_name": "all_results.csv",
@@ -343,18 +485,21 @@
 								"p_name": "b_f2_hvac_temp"
 							}
 						],
-						"control_inputs": [{
-							"label": "Set Point Temperature",
-							"source_type": "file",
-							"source_name": "all_results.csv",
-							"p_id": "b_f2_hvac_spt",
-							"p_name": "b_f2_hvac_spt"
-						}]
+						"control_inputs": [
+							{
+								"label": "Set Point Temperature",
+								"source_type": "file",
+								"source_name": "all_results.csv",
+								"p_id": "b_f2_hvac_spt",
+								"p_name": "b_f2_hvac_spt"
+							}
+						]
 					},
 					{
-						"id": "b_f2_lighting",
+						"app_id": "b_f2_lighting",
 						"label": "Lighting",
-						"measurements": [{
+						"measurements": [
+							{
 								"label": "Power Consumption",
 								"source_type": "file",
 								"source_name": "all_results.csv",
@@ -369,18 +514,21 @@
 								"p_name": "b_f2_lighting_temp"
 							}
 						],
-						"control_inputs": [{
-							"label": "Set Point Temperature",
-							"source_type": "file",
-							"source_name": "all_results.csv",
-							"p_id": "b_f2_lighting_spt",
-							"p_name": "b_f2_lighting_spt"
-						}]
+						"control_inputs": [
+							{
+								"label": "Set Point Temperature",
+								"source_type": "file",
+								"source_name": "all_results.csv",
+								"p_id": "b_f2_lighting_spt",
+								"p_name": "b_f2_lighting_spt"
+							}
+						]
 					},
 					{
-						"id": "b_f2_desktops",
+						"app_id": "b_f2_desktops",
 						"label": "Desktops",
-						"measurements": [{
+						"measurements": [
+							{
 								"label": "Power Consumption",
 								"source_type": "file",
 								"source_name": "all_results.csv",
@@ -395,18 +543,21 @@
 								"p_name": "b_f2_desktops_temp"
 							}
 						],
-						"control_inputs": [{
-							"label": "Set Point Temperature",
-							"source_type": "file",
-							"source_name": "all_results.csv",
-							"p_id": "b_f2_desktops_spt",
-							"p_name": "b_f2_desktops_spt"
-						}]
+						"control_inputs": [
+							{
+								"label": "Set Point Temperature",
+								"source_type": "file",
+								"source_name": "all_results.csv",
+								"p_id": "b_f2_desktops_spt",
+								"p_name": "b_f2_desktops_spt"
+							}
+						]
 					},
 					{
-						"id": "b_f2_laptops",
+						"app_id": "b_f2_laptops",
 						"label": "Laptops",
-						"measurements": [{
+						"measurements": [
+							{
 								"label": "Power Consumption",
 								"source_type": "file",
 								"source_name": "all_results.csv",
@@ -421,21 +572,57 @@
 								"p_name": "b_f2_laptops_temp"
 							}
 						],
-						"control_inputs": [{
-							"label": "Set Point Temperature",
-							"source_type": "file",
-							"source_name": "all_results.csv",
-							"p_id": "b_f2_laptops_spt",
-							"p_name": "b_f2_laptops_spt"
-						}]
+						"control_inputs": [
+							{
+								"label": "Set Point Temperature",
+								"source_type": "file",
+								"source_name": "all_results.csv",
+								"p_id": "b_f2_laptops_spt",
+								"p_name": "b_f2_laptops_spt"
+							}
+						]
 					}
 				],
-				"zones": [{
+				"exogenous": [
+					{
+						"exo_id": "b_f2_ambient",
+						"label": "Ambient Sensor",
+						"measurements": [
+							{
+								"label": "Temperature",
+								"source_type": "file",
+								"source_name": "all_results.csv",
+								"p_id": "b_f2_ambient_temperature",
+								"p_name": "b_f2_ambient_temperature"
+							},
+							{
+								"label": "Humidity",
+								"source_type": "file",
+								"source_name": "all_results.csv",
+								"p_id": "b_f2_ambient_humidity",
+								"p_name": "b_f2_ambient_humidity"
+							}
+						],
+						"control_inputs": [
+							{
+								"label": "Sampling Rate",
+								"source_type": "file",
+								"source_name": "all_results.csv",
+								"p_id": "b_f2_ambient_sr",
+								"p_name": "b_f2_ambient_sr"
+							}
+						]
+					}
+				],
+				"zones": [
+					{
 						"label": "Z1",
-						"appliances": [{
-								"id": "b_f2_z1_hvac",
+						"appliances": [
+							{
+								"app_id": "b_f2_z1_hvac",
 								"label": "HVAC",
-								"measurements": [{
+								"measurements": [
+									{
 										"label": "Power Consumption",
 										"source_type": "file",
 										"source_name": "all_results.csv",
@@ -450,18 +637,21 @@
 										"p_name": "b_f2_z1_hvac_temp"
 									}
 								],
-								"control_inputs": [{
-									"label": "Set Point Temperature",
-									"source_type": "file",
-									"source_name": "all_results.csv",
-									"p_id": "b_f2_z1_hvac_spt",
-									"p_name": "b_f2_z1_hvac_spt"
-								}]
+								"control_inputs": [
+									{
+										"label": "Set Point Temperature",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f2_z1_hvac_spt",
+										"p_name": "b_f2_z1_hvac_spt"
+									}
+								]
 							},
 							{
-								"id": "b_f2_z1_lighting",
+								"app_id": "b_f2_z1_lighting",
 								"label": "Lighting",
-								"measurements": [{
+								"measurements": [
+									{
 										"label": "Power Consumption",
 										"source_type": "file",
 										"source_name": "all_results.csv",
@@ -476,18 +666,21 @@
 										"p_name": "b_f2_z1_lighting_temp"
 									}
 								],
-								"control_inputs": [{
-									"label": "Set Point Temperature",
-									"source_type": "file",
-									"source_name": "all_results.csv",
-									"p_id": "b_f2_z1_lighting_spt",
-									"p_name": "b_f2_z1_lighting_spt"
-								}]
+								"control_inputs": [
+									{
+										"label": "Set Point Temperature",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f2_z1_lighting_spt",
+										"p_name": "b_f2_z1_lighting_spt"
+									}
+								]
 							},
 							{
-								"id": "b_f2_z1_desktops",
+								"app_id": "b_f2_z1_desktops",
 								"label": "Desktops",
-								"measurements": [{
+								"measurements": [
+									{
 										"label": "Power Consumption",
 										"source_type": "file",
 										"source_name": "all_results.csv",
@@ -502,18 +695,21 @@
 										"p_name": "b_f2_z1_desktops_temp"
 									}
 								],
-								"control_inputs": [{
-									"label": "Set Point Temperature",
-									"source_type": "file",
-									"source_name": "all_results.csv",
-									"p_id": "b_f2_z1_lighting_spt",
-									"p_name": "b_f2_z1_lighting_spt"
-								}]
+								"control_inputs": [
+									{
+										"label": "Set Point Temperature",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f2_z1_lighting_spt",
+										"p_name": "b_f2_z1_lighting_spt"
+									}
+								]
 							},
 							{
-								"id": "b_f2_z1_laptops",
+								"app_id": "b_f2_z1_laptops",
 								"label": "Laptops",
-								"measurements": [{
+								"measurements": [
+									{
 										"label": "Power Consumption",
 										"source_type": "file",
 										"source_name": "all_results.csv",
@@ -528,22 +724,71 @@
 										"p_name": "b_f2_z1_laptops_temp"
 									}
 								],
-								"control_inputs": [{
-									"label": "Set Point Temperature",
-									"source_type": "file",
-									"source_name": "all_results.csv",
-									"p_id": "b_f2_z1_lighting_spt",
-									"p_name": "b_f2_z1_lighting_spt"
-								}]
+								"control_inputs": [
+									{
+										"label": "Set Point Temperature",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f2_z1_lighting_spt",
+										"p_name": "b_f2_z1_lighting_spt"
+									}
+								]
+							}
+						],
+						"exogenous": [
+							{
+								"exo_id": "b_f2_z1_ambient",
+								"label": "Ambient Sensor",
+								"measurements": [
+									{
+										"label": "Temperature",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f2_z1_ambient_temperature",
+										"p_name": "b_f2_z1_ambient_temperature"
+									},
+									{
+										"label": "Humidity",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f2_z1_ambient_humidity",
+										"p_name": "b_f2_z1_ambient_humidity"
+									},
+									{
+										"label": "Occupancy",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f2_z1_ambient_occupancy",
+										"p_name": "b_f2_z1_ambient_occupancy"
+									}
+								],
+								"control_inputs": [
+									{
+										"label": "Sampling Rate",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f2_z1_ambient_sr",
+										"p_name": "b_f2_z1_ambient_sr"
+									},
+									{
+										"label": "Occupancy",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f2_z1_ambient_occupancy",
+										"p_name": "b_f2_z1_ambient_occupancy"
+									}
+								]
 							}
 						]
 					},
 					{
 						"label": "Z2",
-						"appliances": [{
-								"id": "b_f2_z2_hvac",
+						"appliances": [
+							{
+								"app_id": "b_f2_z2_hvac",
 								"label": "HVAC",
-								"measurements": [{
+								"measurements": [
+									{
 										"label": "Power Consumption",
 										"source_type": "file",
 										"source_name": "all_results.csv",
@@ -558,18 +803,21 @@
 										"p_name": "b_f2_z2_hvac_temp"
 									}
 								],
-								"control_inputs": [{
-									"label": "Set Point Temperature",
-									"source_type": "file",
-									"source_name": "all_results.csv",
-									"p_id": "b_f2_z2_hvac_spt",
-									"p_name": "b_f2_z2_hvac_spt"
-								}]
+								"control_inputs": [
+									{
+										"label": "Set Point Temperature",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f2_z2_hvac_spt",
+										"p_name": "b_f2_z2_hvac_spt"
+									}
+								]
 							},
 							{
-								"id": "b_f2_z2_lighting",
+								"app_id": "b_f2_z2_lighting",
 								"label": "Lighting",
-								"measurements": [{
+								"measurements": [
+									{
 										"label": "Power Consumption",
 										"source_type": "file",
 										"source_name": "all_results.csv",
@@ -584,18 +832,21 @@
 										"p_name": "b_f2_z2_lighting_temp"
 									}
 								],
-								"control_inputs": [{
-									"label": "Set Point Temperature",
-									"source_type": "file",
-									"source_name": "all_results.csv",
-									"p_id": "b_f2_z2_lighting_spt",
-									"p_name": "b_f2_z2_lighting_spt"
-								}]
+								"control_inputs": [
+									{
+										"label": "Set Point Temperature",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f2_z2_lighting_spt",
+										"p_name": "b_f2_z2_lighting_spt"
+									}
+								]
 							},
 							{
-								"id": "b_f2_z2_desktops",
+								"app_id": "b_f2_z2_desktops",
 								"label": "Desktops",
-								"measurements": [{
+								"measurements": [
+									{
 										"label": "Power Consumption",
 										"source_type": "file",
 										"source_name": "all_results.csv",
@@ -610,18 +861,21 @@
 										"p_name": "b_f2_z2_desktops_temp"
 									}
 								],
-								"control_inputs": [{
-									"label": "Set Point Temperature",
-									"source_type": "file",
-									"source_name": "all_results.csv",
-									"p_id": "b_f2_z2_desktops_spt",
-									"p_name": "b_f2_z2_desktops_spt"
-								}]
+								"control_inputs": [
+									{
+										"label": "Set Point Temperature",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f2_z2_desktops_spt",
+										"p_name": "b_f2_z2_desktops_spt"
+									}
+								]
 							},
 							{
-								"id": "b_f2_z2_laptops",
+								"app_id": "b_f2_z2_laptops",
 								"label": "Laptops",
-								"measurements": [{
+								"measurements": [
+									{
 										"label": "Power Consumption",
 										"source_type": "file",
 										"source_name": "all_results.csv",
@@ -636,22 +890,71 @@
 										"p_name": "b_f2_z2_laptops_temp"
 									}
 								],
-								"control_inputs": [{
-									"label": "Set Point Temperature",
-									"source_type": "file",
-									"source_name": "all_results.csv",
-									"p_id": "b_f2_z2_laptops_spt",
-									"p_name": "b_f2_z2_laptops_spt"
-								}]
+								"control_inputs": [
+									{
+										"label": "Set Point Temperature",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f2_z2_laptops_spt",
+										"p_name": "b_f2_z2_laptops_spt"
+									}
+								]
+							}
+						],
+						"exogenous": [
+							{
+								"exo_id": "b_f2_z2_ambient",
+								"label": "Ambient Sensor",
+								"measurements": [
+									{
+										"label": "Temperature",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f2_z2_ambient_temperature",
+										"p_name": "b_f2_z2_ambient_temperature"
+									},
+									{
+										"label": "Humidity",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f2_z2_ambient_humidity",
+										"p_name": "b_f2_z2_ambient_humidity"
+									},
+									{
+										"label": "Occupancy",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f2_z2_ambient_occupancy",
+										"p_name": "b_f2_z2_ambient_occupancy"
+									}
+								],
+								"control_inputs": [
+									{
+										"label": "Sampling Rate",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f2_z2_ambient_sr",
+										"p_name": "b_f2_z2_ambient_sr"
+									},
+									{
+										"label": "Occupancy",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f2_z2_ambient_occupancy",
+										"p_name": "b_f2_z2_ambient_occupancy"
+									}
+								]
 							}
 						]
 					},
 					{
 						"label": "Z3",
-						"appliances": [{
-								"id": "b_f2_z3_hvac",
+						"appliances": [
+							{
+								"app_id": "b_f2_z3_hvac",
 								"label": "HVAC",
-								"measurements": [{
+								"measurements": [
+									{
 										"label": "Power Consumption",
 										"source_type": "file",
 										"source_name": "all_results.csv",
@@ -666,18 +969,21 @@
 										"p_name": "b_f2_z3_hvac_temp"
 									}
 								],
-								"control_inputs": [{
-									"label": "Set Point Temperature",
-									"source_type": "file",
-									"source_name": "all_results.csv",
-									"p_id": "b_f2_z3_hvac_spt",
-									"p_name": "b_f2_z3_hvac_spt"
-								}]
+								"control_inputs": [
+									{
+										"label": "Set Point Temperature",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f2_z3_hvac_spt",
+										"p_name": "b_f2_z3_hvac_spt"
+									}
+								]
 							},
 							{
-								"id": "b_f2_z3_lighting",
+								"app_id": "b_f2_z3_lighting",
 								"label": "Lighting",
-								"measurements": [{
+								"measurements": [
+									{
 										"label": "Power Consumption",
 										"source_type": "file",
 										"source_name": "all_results.csv",
@@ -692,18 +998,21 @@
 										"p_name": "b_f2_z3_lighting_temp"
 									}
 								],
-								"control_inputs": [{
-									"label": "Set Point Temperature",
-									"source_type": "file",
-									"source_name": "all_results.csv",
-									"p_id": "b_f2_z3_lighting_spt",
-									"p_name": "b_f2_z3_lighting_spt"
-								}]
+								"control_inputs": [
+									{
+										"label": "Set Point Temperature",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f2_z3_lighting_spt",
+										"p_name": "b_f2_z3_lighting_spt"
+									}
+								]
 							},
 							{
-								"id": "b_f2_z3_desktops",
+								"app_id": "b_f2_z3_desktops",
 								"label": "Desktops",
-								"measurements": [{
+								"measurements": [
+									{
 										"label": "Power Consumption",
 										"source_type": "file",
 										"source_name": "all_results.csv",
@@ -718,18 +1027,21 @@
 										"p_name": "b_f2_z3_desktops_temp"
 									}
 								],
-								"control_inputs": [{
-									"label": "Set Point Temperature",
-									"source_type": "file",
-									"source_name": "all_results.csv",
-									"p_id": "b_f2_z3_desktops_spt",
-									"p_name": "b_f2_z3_desktops_spt"
-								}]
+								"control_inputs": [
+									{
+										"label": "Set Point Temperature",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f2_z3_desktops_spt",
+										"p_name": "b_f2_z3_desktops_spt"
+									}
+								]
 							},
 							{
-								"id": "b_f2_z3_laptops",
+								"app_id": "b_f2_z3_laptops",
 								"label": "Laptops",
-								"measurements": [{
+								"measurements": [
+									{
 										"label": "Power Consumption",
 										"source_type": "file",
 										"source_name": "all_results.csv",
@@ -744,22 +1056,71 @@
 										"p_name": "b_f2_z3_laptops_temp"
 									}
 								],
-								"control_inputs": [{
-									"label": "Set Point Temperature",
-									"source_type": "file",
-									"source_name": "all_results.csv",
-									"p_id": "b_f2_z3_laptops_spt",
-									"p_name": "b_f2_z3_laptops_spt"
-								}]
+								"control_inputs": [
+									{
+										"label": "Set Point Temperature",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f2_z3_laptops_spt",
+										"p_name": "b_f2_z3_laptops_spt"
+									}
+								]
+							}
+						],
+						"exogenous": [
+							{
+								"exo_id": "b_f2_z3_ambient",
+								"label": "Ambient Sensor",
+								"measurements": [
+									{
+										"label": "Temperature",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f2_z3_ambient_temperature",
+										"p_name": "b_f2_z3_ambient_temperature"
+									},
+									{
+										"label": "Humidity",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f2_z3_ambient_humidity",
+										"p_name": "b_f2_z3_ambient_humidity"
+									},
+									{
+										"label": "Occupancy",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f2_z3_ambient_occupancy",
+										"p_name": "b_f2_z3_ambient_occupancy"
+									}
+								],
+								"control_inputs": [
+									{
+										"label": "Sampling Rate",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f2_z3_ambient_sr",
+										"p_name": "b_f2_z3_ambient_sr"
+									},
+									{
+										"label": "Occupancy",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f2_z3_ambient_occupancy",
+										"p_name": "b_f2_z3_ambient_occupancy"
+									}
+								]
 							}
 						]
 					},
 					{
 						"label": "Z4",
-						"appliances": [{
-								"id": "b_f2_z4_hvac",
+						"appliances": [
+							{
+								"app_id": "b_f2_z4_hvac",
 								"label": "HVAC",
-								"measurements": [{
+								"measurements": [
+									{
 										"label": "Power Consumption",
 										"source_type": "file",
 										"source_name": "all_results.csv",
@@ -774,18 +1135,21 @@
 										"p_name": "b_f2_z4_hvac_temp"
 									}
 								],
-								"control_inputs": [{
-									"label": "Set Point Temperature",
-									"source_type": "file",
-									"source_name": "all_results.csv",
-									"p_id": "b_f2_z4_hvac_spt",
-									"p_name": "b_f2_z4_hvac_spt"
-								}]
+								"control_inputs": [
+									{
+										"label": "Set Point Temperature",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f2_z4_hvac_spt",
+										"p_name": "b_f2_z4_hvac_spt"
+									}
+								]
 							},
 							{
-								"id": "b_f2_z4_lighting",
+								"app_id": "b_f2_z4_lighting",
 								"label": "Lighting",
-								"measurements": [{
+								"measurements": [
+									{
 										"label": "Power Consumption",
 										"source_type": "file",
 										"source_name": "all_results.csv",
@@ -800,18 +1164,21 @@
 										"p_name": "b_f2_z4_lighting_temp"
 									}
 								],
-								"control_inputs": [{
-									"label": "Set Point Temperature",
-									"source_type": "file",
-									"source_name": "all_results.csv",
-									"p_id": "b_f2_z4_lighting_spt",
-									"p_name": "b_f2_z4_lighting_spt"
-								}]
+								"control_inputs": [
+									{
+										"label": "Set Point Temperature",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f2_z4_lighting_spt",
+										"p_name": "b_f2_z4_lighting_spt"
+									}
+								]
 							},
 							{
-								"id": "b_f2_z4_desktops",
+								"app_id": "b_f2_z4_desktops",
 								"label": "Desktops",
-								"measurements": [{
+								"measurements": [
+									{
 										"label": "Power Consumption",
 										"source_type": "file",
 										"source_name": "all_results.csv",
@@ -826,18 +1193,21 @@
 										"p_name": "b_f2_z4_desktops_temp"
 									}
 								],
-								"control_inputs": [{
-									"label": "Set Point Temperature",
-									"source_type": "file",
-									"source_name": "all_results.csv",
-									"p_id": "b_f2_z4_desktops_spt",
-									"p_name": "b_f2_z4_desktops_spt"
-								}]
+								"control_inputs": [
+									{
+										"label": "Set Point Temperature",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f2_z4_desktops_spt",
+										"p_name": "b_f2_z4_desktops_spt"
+									}
+								]
 							},
 							{
-								"id": "b_f2_z4_laptops",
+								"app_id": "b_f2_z4_laptops",
 								"label": "Laptops",
-								"measurements": [{
+								"measurements": [
+									{
 										"label": "Power Consumption",
 										"source_type": "file",
 										"source_name": "all_results.csv",
@@ -852,22 +1222,71 @@
 										"p_name": "b_f2_z4_laptops_temp"
 									}
 								],
-								"control_inputs": [{
-									"label": "Set Point Temperature",
-									"source_type": "file",
-									"source_name": "all_results.csv",
-									"p_id": "b_f2_z4_laptops_spt",
-									"p_name": "b_f2_z4_laptops_spt"
-								}]
+								"control_inputs": [
+									{
+										"label": "Set Point Temperature",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f2_z4_laptops_spt",
+										"p_name": "b_f2_z4_laptops_spt"
+									}
+								]
+							}
+						],
+						"exogenous": [
+							{
+								"exo_id": "b_f2_z4_ambient",
+								"label": "Ambient Sensor",
+								"measurements": [
+									{
+										"label": "Temperature",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f2_z4_ambient_temperature",
+										"p_name": "b_f2_z4_ambient_temperature"
+									},
+									{
+										"label": "Humidity",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f2_z4_ambient_humidity",
+										"p_name": "b_f2_z4_ambient_humidity"
+									},
+									{
+										"label": "Occupancy",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f2_z4_ambient_occupancy",
+										"p_name": "b_f2_z4_ambient_occupancy"
+									}
+								],
+								"control_inputs": [
+									{
+										"label": "Sampling Rate",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f2_z4_ambient_sr",
+										"p_name": "b_f2_z4_ambient_sr"
+									},
+									{
+										"label": "Occupancy",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f2_z4_ambient_occupancy",
+										"p_name": "b_f2_z4_ambient_occupancy"
+									}
+								]
 							}
 						]
 					},
 					{
 						"label": "Z5",
-						"appliances": [{
-								"id": "b_f2_z5_hvac",
+						"appliances": [
+							{
+								"app_id": "b_f2_z5_hvac",
 								"label": "HVAC",
-								"measurements": [{
+								"measurements": [
+									{
 										"label": "Power Consumption",
 										"source_type": "file",
 										"source_name": "all_results.csv",
@@ -882,18 +1301,21 @@
 										"p_name": "b_f2_z5_hvac_temp"
 									}
 								],
-								"control_inputs": [{
-									"label": "Set Point Temperature",
-									"source_type": "file",
-									"source_name": "all_results.csv",
-									"p_id": "b_f2_z5_hvac_spt",
-									"p_name": "b_f2_z5_hvac_spt"
-								}]
+								"control_inputs": [
+									{
+										"label": "Set Point Temperature",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f2_z5_hvac_spt",
+										"p_name": "b_f2_z5_hvac_spt"
+									}
+								]
 							},
 							{
-								"id": "b_f2_z5_lighting",
+								"app_id": "b_f2_z5_lighting",
 								"label": "Lighting",
-								"measurements": [{
+								"measurements": [
+									{
 										"label": "Power Consumption",
 										"source_type": "file",
 										"source_name": "all_results.csv",
@@ -908,18 +1330,21 @@
 										"p_name": "b_f2_z5_lighting_temp"
 									}
 								],
-								"control_inputs": [{
-									"label": "Set Point Temperature",
-									"source_type": "file",
-									"source_name": "all_results.csv",
-									"p_id": "b_f2_z5_lighting_spt",
-									"p_name": "b_f2_z5_lighting_spt"
-								}]
+								"control_inputs": [
+									{
+										"label": "Set Point Temperature",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f2_z5_lighting_spt",
+										"p_name": "b_f2_z5_lighting_spt"
+									}
+								]
 							},
 							{
-								"id": "b_f2_z5_desktops",
+								"app_id": "b_f2_z5_desktops",
 								"label": "Desktops",
-								"measurements": [{
+								"measurements": [
+									{
 										"label": "Power Consumption",
 										"source_type": "file",
 										"source_name": "all_results.csv",
@@ -934,18 +1359,21 @@
 										"p_name": "b_f2_z5_desktops_temp"
 									}
 								],
-								"control_inputs": [{
-									"label": "Set Point Temperature",
-									"source_type": "file",
-									"source_name": "all_results.csv",
-									"p_id": "b_f2_z5_desktops_spt",
-									"p_name": "b_f2_z5_desktops_spt"
-								}]
+								"control_inputs": [
+									{
+										"label": "Set Point Temperature",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f2_z5_desktops_spt",
+										"p_name": "b_f2_z5_desktops_spt"
+									}
+								]
 							},
 							{
-								"id": "b_f2_z5_laptops",
+								"app_id": "b_f2_z5_laptops",
 								"label": "Laptops",
-								"measurements": [{
+								"measurements": [
+									{
 										"label": "Power Consumption",
 										"source_type": "file",
 										"source_name": "all_results.csv",
@@ -960,13 +1388,60 @@
 										"p_name": "b_f2_z5_laptops_temp"
 									}
 								],
-								"control_inputs": [{
-									"label": "Set Point Temperature",
-									"source_type": "file",
-									"source_name": "all_results.csv",
-									"p_id": "b_f2_z5_laptops_spt",
-									"p_name": "b_f2_z5_laptops_spt"
-								}]
+								"control_inputs": [
+									{
+										"label": "Set Point Temperature",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f2_z5_laptops_spt",
+										"p_name": "b_f2_z5_laptops_spt"
+									}
+								]
+							}
+						],
+						"exogenous": [
+							{
+								"exo_id": "b_f2_z5_ambient",
+								"label": "Ambient Sensor",
+								"measurements": [
+									{
+										"label": "Temperature",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f2_z5_ambient_temperature",
+										"p_name": "b_f2_z5_ambient_temperature"
+									},
+									{
+										"label": "Humidity",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f2_z5_ambient_humidity",
+										"p_name": "b_f2_z5_ambient_humidity"
+									},
+									{
+										"label": "Occupancy",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f2_z5_ambient_occupancy",
+										"p_name": "b_f2_z5_ambient_occupancy"
+									}
+								],
+								"control_inputs": [
+									{
+										"label": "Sampling Rate",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f2_z5_ambient_sr",
+										"p_name": "b_f2_z5_ambient_sr"
+									},
+									{
+										"label": "Occupancy",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f2_z5_ambient_occupancy",
+										"p_name": "b_f2_z5_ambient_occupancy"
+									}
+								]
 							}
 						]
 					}
@@ -974,10 +1449,12 @@
 			},
 			{
 				"label": "F3",
-				"appliances": [{
-						"id": "b_f3_hvac",
+				"appliances": [
+					{
+						"app_id": "b_f3_hvac",
 						"label": "HVAC",
-						"measurements": [{
+						"measurements": [
+							{
 								"label": "Power Consumption",
 								"source_type": "file",
 								"source_name": "all_results.csv",
@@ -992,16 +1469,18 @@
 								"p_name": "b_f3_hvac_temp"
 							}
 						],
-						"control_inputs": [{
-							"label": "Set Point Temperature",
-							"source_type": "file",
-							"source_name": "all_results.csv",
-							"p_id": "b_f3_hvac_spt",
-							"p_name": "b_f3_hvac_spt"
-						}]
+						"control_inputs": [
+							{
+								"label": "Set Point Temperature",
+								"source_type": "file",
+								"source_name": "all_results.csv",
+								"p_id": "b_f3_hvac_spt",
+								"p_name": "b_f3_hvac_spt"
+							}
+						]
 					},
 					{
-						"id": "b_f3_lighting",
+						"app_id": "b_f3_lighting",
 						"label": "Lighting",
 						"measurements": [{
 								"label": "Power Consumption",
@@ -1018,18 +1497,21 @@
 								"p_name": "b_f3_lighting_temp"
 							}
 						],
-						"control_inputs": [{
-							"label": "Set Point Temperature",
-							"source_type": "file",
-							"source_name": "all_results.csv",
-							"p_id": "b_f3_lighting_spt",
-							"p_name": "b_f3_lighting_spt"
-						}]
+						"control_inputs": [
+							{
+								"label": "Set Point Temperature",
+								"source_type": "file",
+								"source_name": "all_results.csv",
+								"p_id": "b_f3_lighting_spt",
+								"p_name": "b_f3_lighting_spt"
+							}
+						]
 					},
 					{
-						"id": "b_f3_desktops",
+						"app_id": "b_f3_desktops",
 						"label": "Desktops",
-						"measurements": [{
+						"measurements": [
+							{
 								"label": "Power Consumption",
 								"source_type": "file",
 								"source_name": "all_results.csv",
@@ -1044,18 +1526,21 @@
 								"p_name": "b_f3_desktops_temp"
 							}
 						],
-						"control_inputs": [{
-							"label": "Set Point Temperature",
-							"source_type": "file",
-							"source_name": "all_results.csv",
-							"p_id": "b_f3_desktops_spt",
-							"p_name": "b_f3_desktops_spt"
-						}]
+						"control_inputs": [
+							{
+								"label": "Set Point Temperature",
+								"source_type": "file",
+								"source_name": "all_results.csv",
+								"p_id": "b_f3_desktops_spt",
+								"p_name": "b_f3_desktops_spt"
+							}
+						]
 					},
 					{
-						"id": "b_f3_laptops",
+						"app_id": "b_f3_laptops",
 						"label": "Laptops",
-						"measurements": [{
+						"measurements": [
+							{
 								"label": "Power Consumption",
 								"source_type": "file",
 								"source_name": "all_results.csv",
@@ -1070,21 +1555,57 @@
 								"p_name": "b_f3_laptops_temp"
 							}
 						],
-						"control_inputs": [{
-							"label": "Set Point Temperature",
-							"source_type": "file",
-							"source_name": "all_results.csv",
-							"p_id": "b_f3_laptops_spt",
-							"p_name": "b_f3_laptops_spt"
-						}]
+						"control_inputs": [
+							{
+								"label": "Set Point Temperature",
+								"source_type": "file",
+								"source_name": "all_results.csv",
+								"p_id": "b_f3_laptops_spt",
+								"p_name": "b_f3_laptops_spt"
+							}
+						]
 					}
 				],
-				"zones": [{
+				"exogenous": [
+					{
+						"exo_id": "b_f3_ambient",
+						"label": "Ambient Sensor",
+						"measurements": [
+							{
+								"label": "Temperature",
+								"source_type": "file",
+								"source_name": "all_results.csv",
+								"p_id": "b_f3_ambient_temperature",
+								"p_name": "b_f3_ambient_temperature"
+							},
+							{
+								"label": "Humidity",
+								"source_type": "file",
+								"source_name": "all_results.csv",
+								"p_id": "b_f3_ambient_humidity",
+								"p_name": "b_f3_ambient_humidity"
+							}
+						],
+						"control_inputs": [
+							{
+								"label": "Sampling Rate",
+								"source_type": "file",
+								"source_name": "all_results.csv",
+								"p_id": "b_f3_ambient_sr",
+								"p_name": "b_f3_ambient_sr"
+							}
+						]
+					}
+				],
+				"zones": [
+					{
 						"label": "Z1",
-						"appliances": [{
-								"id": "b_f3_z1_hvac",
+						"appliances": [
+							{
+								"app_id": "b_f3_z1_hvac",
 								"label": "HVAC",
-								"measurements": [{
+								"measurements": [
+									{
 										"label": "Power Consumption",
 										"source_type": "file",
 										"source_name": "all_results.csv",
@@ -1099,18 +1620,21 @@
 										"p_name": "b_f3_z1_hvac_temp"
 									}
 								],
-								"control_inputs": [{
-									"label": "Set Point Temperature",
-									"source_type": "file",
-									"source_name": "all_results.csv",
-									"p_id": "b_f3_z1_hvac_spt",
-									"p_name": "b_f3_z1_hvac_spt"
-								}]
+								"control_inputs": [
+									{
+										"label": "Set Point Temperature",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f3_z1_hvac_spt",
+										"p_name": "b_f3_z1_hvac_spt"
+									}
+								]
 							},
 							{
-								"id": "b_f3_z1_lighting",
+								"app_id": "b_f3_z1_lighting",
 								"label": "Lighting",
-								"measurements": [{
+								"measurements": [
+									{
 										"label": "Power Consumption",
 										"source_type": "file",
 										"source_name": "all_results.csv",
@@ -1125,18 +1649,21 @@
 										"p_name": "b_f3_z1_lighting_temp"
 									}
 								],
-								"control_inputs": [{
-									"label": "Set Point Temperature",
-									"source_type": "file",
-									"source_name": "all_results.csv",
-									"p_id": "b_f3_z1_lighting_spt",
-									"p_name": "b_f3_z1_lighting_spt"
-								}]
+								"control_inputs": [
+									{
+										"label": "Set Point Temperature",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f3_z1_lighting_spt",
+										"p_name": "b_f3_z1_lighting_spt"
+									}
+								]
 							},
 							{
-								"id": "b_f3_z1_desktops",
+								"app_id": "b_f3_z1_desktops",
 								"label": "Desktops",
-								"measurements": [{
+								"measurements": [
+									{
 										"label": "Power Consumption",
 										"source_type": "file",
 										"source_name": "all_results.csv",
@@ -1151,18 +1678,21 @@
 										"p_name": "b_f3_z1_desktops_temp"
 									}
 								],
-								"control_inputs": [{
-									"label": "Set Point Temperature",
-									"source_type": "file",
-									"source_name": "all_results.csv",
-									"p_id": "b_f3_z1_desktops_spt",
-									"p_name": "b_f3_z1_desktops_spt"
-								}]
+								"control_inputs": [
+									{
+										"label": "Set Point Temperature",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f3_z1_desktops_spt",
+										"p_name": "b_f3_z1_desktops_spt"
+									}
+								]
 							},
 							{
-								"id": "b_f3_z1_laptops",
+								"app_id": "b_f3_z1_laptops",
 								"label": "Laptops",
-								"measurements": [{
+								"measurements": [
+									{
 										"label": "Power Consumption",
 										"source_type": "file",
 										"source_name": "all_results.csv",
@@ -1177,22 +1707,71 @@
 										"p_name": "b_f3_z1_laptops_temp"
 									}
 								],
-								"control_inputs": [{
-									"label": "Set Point Temperature",
-									"source_type": "file",
-									"source_name": "all_results.csv",
-									"p_id": "b_f3_z1_laptops_spt",
-									"p_name": "b_f3_z1_laptops_spt"
-								}]
+								"control_inputs": [
+									{
+										"label": "Set Point Temperature",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f3_z1_laptops_spt",
+										"p_name": "b_f3_z1_laptops_spt"
+									}
+								]
+							}
+						],
+						"exogenous": [
+							{
+								"exo_id": "b_f3_z1_ambient",
+								"label": "Ambient Sensor",
+								"measurements": [
+									{
+										"label": "Temperature",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f3_z1_ambient_temperature",
+										"p_name": "b_f3_z1_ambient_temperature"
+									},
+									{
+										"label": "Humidity",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f3_z1_ambient_humidity",
+										"p_name": "b_f3_z1_ambient_humidity"
+									},
+									{
+										"label": "Occupancy",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f3_z1_ambient_occupancy",
+										"p_name": "b_f3_z1_ambient_occupancy"
+									}
+								],
+								"control_inputs": [
+									{
+										"label": "Sampling Rate",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f3_z1_ambient_sr",
+										"p_name": "b_f3_z1_ambient_sr"
+									},
+									{
+										"label": "Occupancy",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f3_z1_ambient_occupancy",
+										"p_name": "b_f3_z1_ambient_occupancy"
+									}
+								]
 							}
 						]
 					},
 					{
 						"label": "Z2",
-						"appliances": [{
-								"id": "b_f3_z2_hvac",
+						"appliances": [
+							{
+								"app_id": "b_f3_z2_hvac",
 								"label": "HVAC",
-								"measurements": [{
+								"measurements": [
+									{
 										"label": "Power Consumption",
 										"source_type": "file",
 										"source_name": "all_results.csv",
@@ -1207,18 +1786,21 @@
 										"p_name": "b_f3_z2_hvac_temp"
 									}
 								],
-								"control_inputs": [{
-									"label": "Set Point Temperature",
-									"source_type": "file",
-									"source_name": "all_results.csv",
-									"p_id": "b_f3_z2_hvac_spt",
-									"p_name": "b_f3_z2_hvac_spt"
-								}]
+								"control_inputs": [
+									{
+										"label": "Set Point Temperature",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f3_z2_hvac_spt",
+										"p_name": "b_f3_z2_hvac_spt"
+									}
+								]
 							},
 							{
-								"id": "b_f3_z2_lighting",
+								"app_id": "b_f3_z2_lighting",
 								"label": "Lighting",
-								"measurements": [{
+								"measurements": [
+									{
 										"label": "Power Consumption",
 										"source_type": "file",
 										"source_name": "all_results.csv",
@@ -1233,18 +1815,21 @@
 										"p_name": "b_f3_z2_lighting_temp"
 									}
 								],
-								"control_inputs": [{
-									"label": "Set Point Temperature",
-									"source_type": "file",
-									"source_name": "all_results.csv",
-									"p_id": "b_f3_z2_lighting_spt",
-									"p_name": "b_f3_z2_lighting_spt"
-								}]
+								"control_inputs": [
+									{
+										"label": "Set Point Temperature",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f3_z2_lighting_spt",
+										"p_name": "b_f3_z2_lighting_spt"
+									}
+								]
 							},
 							{
-								"id": "b_f3_z2_desktops",
+								"app_id": "b_f3_z2_desktops",
 								"label": "Desktops",
-								"measurements": [{
+								"measurements": [
+									{
 										"label": "Power Consumption",
 										"source_type": "file",
 										"source_name": "all_results.csv",
@@ -1259,18 +1844,21 @@
 										"p_name": "b_f3_z2_desktops_temp"
 									}
 								],
-								"control_inputs": [{
-									"label": "Set Point Temperature",
-									"source_type": "file",
-									"source_name": "all_results.csv",
-									"p_id": "b_f3_z2_desktops_spt",
-									"p_name": "b_f3_z2_desktops_spt"
-								}]
+								"control_inputs": [
+									{
+										"label": "Set Point Temperature",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f3_z2_desktops_spt",
+										"p_name": "b_f3_z2_desktops_spt"
+									}
+								]
 							},
 							{
-								"id": "b_f3_z2_laptops",
+								"app_id": "b_f3_z2_laptops",
 								"label": "Laptops",
-								"measurements": [{
+								"measurements": [
+									{
 										"label": "Power Consumption",
 										"source_type": "file",
 										"source_name": "all_results.csv",
@@ -1285,22 +1873,71 @@
 										"p_name": "b_f3_z2_laptops_temp"
 									}
 								],
-								"control_inputs": [{
-									"label": "Set Point Temperature",
-									"source_type": "file",
-									"source_name": "all_results.csv",
-									"p_id": "b_f3_z2_laptops_spt",
-									"p_name": "b_f3_z2_laptops_spt"
-								}]
+								"control_inputs": [
+									{
+										"label": "Set Point Temperature",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f3_z2_laptops_spt",
+										"p_name": "b_f3_z2_laptops_spt"
+									}
+								]
+							}
+						],
+						"exogenous": [
+							{
+								"exo_id": "b_f3_z3_ambient",
+								"label": "Ambient Sensor",
+								"measurements": [
+									{
+										"label": "Temperature",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f3_z3_ambient_temperature",
+										"p_name": "b_f3_z3_ambient_temperature"
+									},
+									{
+										"label": "Humidity",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f3_z3_ambient_humidity",
+										"p_name": "b_f3_z3_ambient_humidity"
+									},
+									{
+										"label": "Occupancy",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f3_z3_ambient_occupancy",
+										"p_name": "b_f3_z3_ambient_occupancy"
+									}
+								],
+								"control_inputs": [
+									{
+										"label": "Sampling Rate",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f3_z3_ambient_sr",
+										"p_name": "b_f3_z3_ambient_sr"
+									},
+									{
+										"label": "Occupancy",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f3_z3_ambient_occupancy",
+										"p_name": "b_f3_z3_ambient_occupancy"
+									}
+								]
 							}
 						]
 					},
 					{
 						"label": "Z3",
-						"appliances": [{
-								"id": "b_f3_z3_hvac",
+						"appliances": [
+							{
+								"app_id": "b_f3_z3_hvac",
 								"label": "HVAC",
-								"measurements": [{
+								"measurements": [
+									{
 										"label": "Power Consumption",
 										"source_type": "file",
 										"source_name": "all_results.csv",
@@ -1315,18 +1952,21 @@
 										"p_name": "b_f3_z3_hvac_temp"
 									}
 								],
-								"control_inputs": [{
-									"label": "Set Point Temperature",
-									"source_type": "file",
-									"source_name": "all_results.csv",
-									"p_id": "b_f3_z3_hvac_spt",
-									"p_name": "b_f3_z3_hvac_spt"
-								}]
+								"control_inputs": [
+									{
+										"label": "Set Point Temperature",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f3_z3_hvac_spt",
+										"p_name": "b_f3_z3_hvac_spt"
+									}
+								]
 							},
 							{
-								"id": "b_f3_z3_lighting",
+								"app_id": "b_f3_z3_lighting",
 								"label": "Lighting",
-								"measurements": [{
+								"measurements": [
+									{
 										"label": "Power Consumption",
 										"source_type": "file",
 										"source_name": "all_results.csv",
@@ -1341,18 +1981,21 @@
 										"p_name": "b_f3_z3_lighting_temp"
 									}
 								],
-								"control_inputs": [{
-									"label": "Set Point Temperature",
-									"source_type": "file",
-									"source_name": "all_results.csv",
-									"p_id": "b_f3_z3_lighting_spt",
-									"p_name": "b_f3_z3_lighting_spt"
-								}]
+								"control_inputs": [
+									{
+										"label": "Set Point Temperature",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f3_z3_lighting_spt",
+										"p_name": "b_f3_z3_lighting_spt"
+									}
+								]
 							},
 							{
-								"id": "b_f3_z3_desktops",
+								"app_id": "b_f3_z3_desktops",
 								"label": "Desktops",
-								"measurements": [{
+								"measurements": [
+									{
 										"label": "Power Consumption",
 										"source_type": "file",
 										"source_name": "all_results.csv",
@@ -1367,18 +2010,21 @@
 										"p_name": "b_f3_z3_desktops_temp"
 									}
 								],
-								"control_inputs": [{
-									"label": "Set Point Temperature",
-									"source_type": "file",
-									"source_name": "all_results.csv",
-									"p_id": "b_f3_z3_desktops_spt",
-									"p_name": "b_f3_z3_desktops_spt"
-								}]
+								"control_inputs": [
+									{
+										"label": "Set Point Temperature",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f3_z3_desktops_spt",
+										"p_name": "b_f3_z3_desktops_spt"
+									}
+								]
 							},
 							{
-								"id": "b_f3_z3_laptops",
+								"app_id": "b_f3_z3_laptops",
 								"label": "Laptops",
-								"measurements": [{
+								"measurements": [
+									{
 										"label": "Power Consumption",
 										"source_type": "file",
 										"source_name": "all_results.csv",
@@ -1393,13 +2039,60 @@
 										"p_name": "b_f3_z3_laptops_temp"
 									}
 								],
-								"control_inputs": [{
-									"label": "Set Point Temperature",
-									"source_type": "file",
-									"source_name": "all_results.csv",
-									"p_id": "b_f3_z3_laptops_spt",
-									"p_name": "b_f3_z3_laptops_spt"
-								}]
+								"control_inputs": [
+									{
+										"label": "Set Point Temperature",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f3_z3_laptops_spt",
+										"p_name": "b_f3_z3_laptops_spt"
+									}
+								]
+							}
+						],
+						"exogenous": [
+							{
+								"exo_id": "b_f3_z3_ambient",
+								"label": "Ambient Sensor",
+								"measurements": [
+									{
+										"label": "Temperature",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f3_z3_ambient_temperature",
+										"p_name": "b_f3_z3_ambient_temperature"
+									},
+									{
+										"label": "Humidity",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f3_z3_ambient_humidity",
+										"p_name": "b_f3_z3_ambient_humidity"
+									},
+									{
+										"label": "Occupancy",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f3_z3_ambient_occupancy",
+										"p_name": "b_f3_z3_ambient_occupancy"
+									}
+								],
+								"control_inputs": [
+									{
+										"label": "Sampling Rate",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f3_z3_ambient_sr",
+										"p_name": "b_f3_z3_ambient_sr"
+									},
+									{
+										"label": "Occupancy",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f3_z3_ambient_occupancy",
+										"p_name": "b_f3_z3_ambient_occupancy"
+									}
+								]
 							}
 						]
 					}
@@ -1407,10 +2100,12 @@
 			},
 			{
 				"label": "F4",
-				"appliances": [{
-						"id": "b_f4_hvac",
+				"appliances": [
+					{
+						"app_id": "b_f4_hvac",
 						"label": "HVAC",
-						"measurements": [{
+						"measurements": [
+							{
 								"label": "Power Consumption",
 								"source_type": "file",
 								"source_name": "all_results.csv",
@@ -1425,18 +2120,21 @@
 								"p_name": "b_f4_hvac_temp"
 							}
 						],
-						"control_inputs": [{
-							"label": "Set Point Temperature",
-							"source_type": "file",
-							"source_name": "all_results.csv",
-							"p_id": "b_f4_hvac_spt",
-							"p_name": "b_f4_hvac_spt"
-						}]
+						"control_inputs": [
+							{
+								"label": "Set Point Temperature",
+								"source_type": "file",
+								"source_name": "all_results.csv",
+								"p_id": "b_f4_hvac_spt",
+								"p_name": "b_f4_hvac_spt"
+							}
+						]
 					},
 					{
-						"id": "b_f4_lighting",
+						"app_id": "b_f4_lighting",
 						"label": "Lighting",
-						"measurements": [{
+						"measurements": [
+							{
 								"label": "Power Consumption",
 								"source_type": "file",
 								"source_name": "all_results.csv",
@@ -1451,18 +2149,21 @@
 								"p_name": "b_f4_lighting_temp"
 							}
 						],
-						"control_inputs": [{
-							"label": "Set Point Temperature",
-							"source_type": "file",
-							"source_name": "all_results.csv",
-							"p_id": "b_f4_lighting_spt",
-							"p_name": "b_f4_lighting_spt"
-						}]
+						"control_inputs": [
+							{
+								"label": "Set Point Temperature",
+								"source_type": "file",
+								"source_name": "all_results.csv",
+								"p_id": "b_f4_lighting_spt",
+								"p_name": "b_f4_lighting_spt"
+							}
+						]
 					},
 					{
-						"id": "b_f4_desktops",
+						"app_id": "b_f4_desktops",
 						"label": "Desktops",
-						"measurements": [{
+						"measurements": [
+							{
 								"label": "Power Consumption",
 								"source_type": "file",
 								"source_name": "all_results.csv",
@@ -1477,18 +2178,21 @@
 								"p_name": "b_f4_desktops_temp"
 							}
 						],
-						"control_inputs": [{
-							"label": "Set Point Temperature",
-							"source_type": "file",
-							"source_name": "all_results.csv",
-							"p_id": "b_f4_desktops_spt",
-							"p_name": "b_f4_desktops_spt"
-						}]
+						"control_inputs": [
+							{
+								"label": "Set Point Temperature",
+								"source_type": "file",
+								"source_name": "all_results.csv",
+								"p_id": "b_f4_desktops_spt",
+								"p_name": "b_f4_desktops_spt"
+							}
+						]
 					},
 					{
-						"id": "b_f4_laptops",
+						"app_id": "b_f4_laptops",
 						"label": "Laptops",
-						"measurements": [{
+						"measurements": [
+							{
 								"label": "Power Consumption",
 								"source_type": "file",
 								"source_name": "all_results.csv",
@@ -1503,21 +2207,57 @@
 								"p_name": "b_f4_laptops_temp"
 							}
 						],
-						"control_inputs": [{
-							"label": "Set Point Temperature",
-							"source_type": "file",
-							"source_name": "all_results.csv",
-							"p_id": "b_f4_laptops_spt",
-							"p_name": "b_f4_laptops_spt"
-						}]
+						"control_inputs": [
+							{
+								"label": "Set Point Temperature",
+								"source_type": "file",
+								"source_name": "all_results.csv",
+								"p_id": "b_f4_laptops_spt",
+								"p_name": "b_f4_laptops_spt"
+							}
+						]
 					}
 				],
-				"zones": [{
+				"exogenous": [
+					{
+						"exo_id": "b_f4_ambient",
+						"label": "Ambient Sensor",
+						"measurements": [
+							{
+								"label": "Temperature",
+								"source_type": "file",
+								"source_name": "all_results.csv",
+								"p_id": "b_f4_ambient_temperature",
+								"p_name": "b_f4_ambient_temperature"
+							},
+							{
+								"label": "Humidity",
+								"source_type": "file",
+								"source_name": "all_results.csv",
+								"p_id": "b_f4_ambient_humidity",
+								"p_name": "b_f4_ambient_humidity"
+							}
+						],
+						"control_inputs": [
+							{
+								"label": "Sampling Rate",
+								"source_type": "file",
+								"source_name": "all_results.csv",
+								"p_id": "b_f4_ambient_sr",
+								"p_name": "b_f4_ambient_sr"
+							}
+						]
+					}
+				],
+				"zones": [
+					{
 						"label": "Z1",
-						"appliances": [{
-								"id": "b_f4_z1_hvac",
+						"appliances": [
+							{
+								"app_id": "b_f4_z1_hvac",
 								"label": "HVAC",
-								"measurements": [{
+								"measurements": [
+									{
 										"label": "Power Consumption",
 										"source_type": "file",
 										"source_name": "all_results.csv",
@@ -1532,18 +2272,21 @@
 										"p_name": "b_f4_z1_hvac_temp"
 									}
 								],
-								"control_inputs": [{
-									"label": "Set Point Temperature",
-									"source_type": "file",
-									"source_name": "all_results.csv",
-									"p_id": "b_f4_z1_hvac_spt",
-									"p_name": "b_f4_z1_hvac_spt"
-								}]
+								"control_inputs": [
+									{
+										"label": "Set Point Temperature",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f4_z1_hvac_spt",
+										"p_name": "b_f4_z1_hvac_spt"
+									}
+								]
 							},
 							{
-								"id": "b_f4_z1_lighting",
+								"app_id": "b_f4_z1_lighting",
 								"label": "Lighting",
-								"measurements": [{
+								"measurements": [
+									{
 										"label": "Power Consumption",
 										"source_type": "file",
 										"source_name": "all_results.csv",
@@ -1558,18 +2301,21 @@
 										"p_name": "b_f4_z1_lighting_temp"
 									}
 								],
-								"control_inputs": [{
-									"label": "Set Point Temperature",
-									"source_type": "file",
-									"source_name": "all_results.csv",
-									"p_id": "b_f4_z1_lighting_spt",
-									"p_name": "b_f4_z1_lighting_spt"
-								}]
+								"control_inputs": [
+									{
+										"label": "Set Point Temperature",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f4_z1_lighting_spt",
+										"p_name": "b_f4_z1_lighting_spt"
+									}
+								]
 							},
 							{
-								"id": "b_f4_z1_desktops",
+								"app_id": "b_f4_z1_desktops",
 								"label": "Desktops",
-								"measurements": [{
+								"measurements": [
+									{
 										"label": "Power Consumption",
 										"source_type": "file",
 										"source_name": "all_results.csv",
@@ -1584,18 +2330,21 @@
 										"p_name": "b_f4_z1_desktops_temp"
 									}
 								],
-								"control_inputs": [{
-									"label": "Set Point Temperature",
-									"source_type": "file",
-									"source_name": "all_results.csv",
-									"p_id": "b_f4_z1_desktops_spt",
-									"p_name": "b_f4_z1_desktops_spt"
-								}]
+								"control_inputs": [
+									{
+										"label": "Set Point Temperature",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f4_z1_desktops_spt",
+										"p_name": "b_f4_z1_desktops_spt"
+									}
+								]
 							},
 							{
-								"id": "b_f4_z1_laptops",
+								"app_id": "b_f4_z1_laptops",
 								"label": "Laptops",
-								"measurements": [{
+								"measurements": [
+									{
 										"label": "Power Consumption",
 										"source_type": "file",
 										"source_name": "all_results.csv",
@@ -1610,22 +2359,71 @@
 										"p_name": "b_f4_z1_laptops_temp"
 									}
 								],
-								"control_inputs": [{
-									"label": "Set Point Temperature",
-									"source_type": "file",
-									"source_name": "all_results.csv",
-									"p_id": "b_f4_z1_laptops_spt",
-									"p_name": "b_f4_z1_laptops_spt"
-								}]
+								"control_inputs": [
+									{
+										"label": "Set Point Temperature",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f4_z1_laptops_spt",
+										"p_name": "b_f4_z1_laptops_spt"
+									}
+								]
+							}
+						],
+						"exogenous": [
+							{
+								"exo_id": "b_f4_z1_ambient",
+								"label": "Ambient Sensor",
+								"measurements": [
+									{
+										"label": "Temperature",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f4_z1_ambient_temperature",
+										"p_name": "b_f4_z1_ambient_temperature"
+									},
+									{
+										"label": "Humidity",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f4_z1_ambient_humidity",
+										"p_name": "b_f4_z1_ambient_humidity"
+									},
+									{
+										"label": "Occupancy",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f4_z1_ambient_occupancy",
+										"p_name": "b_f4_z1_ambient_occupancy"
+									}
+								],
+								"control_inputs": [
+									{
+										"label": "Sampling Rate",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f4_z1_ambient_sr",
+										"p_name": "b_f4_z1_ambient_sr"
+									},
+									{
+										"label": "Occupancy",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f4_z1_ambient_occupancy",
+										"p_name": "b_f4_z1_ambient_occupancy"
+									}
+								]
 							}
 						]
 					},
 					{
 						"label": "Z2",
-						"appliances": [{
-								"id": "b_f4_z2_hvac",
+						"appliances": [
+							{
+								"app_id": "b_f4_z2_hvac",
 								"label": "HVAC",
-								"measurements": [{
+								"measurements": [
+									{
 										"label": "Power Consumption",
 										"source_type": "file",
 										"source_name": "all_results.csv",
@@ -1640,18 +2438,21 @@
 										"p_name": "b_f4_z2_hvac_temp"
 									}
 								],
-								"control_inputs": [{
-									"label": "Set Point Temperature",
-									"source_type": "file",
-									"source_name": "all_results.csv",
-									"p_id": "b_f4_z2_hvac_spt",
-									"p_name": "b_f4_z2_hvac_spt"
-								}]
+								"control_inputs": [
+									{
+										"label": "Set Point Temperature",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f4_z2_hvac_spt",
+										"p_name": "b_f4_z2_hvac_spt"
+									}	
+								]
 							},
 							{
-								"id": "b_f4_z2_lighting",
+								"app_id": "b_f4_z2_lighting",
 								"label": "Lighting",
-								"measurements": [{
+								"measurements": [
+									{
 										"label": "Power Consumption",
 										"source_type": "file",
 										"source_name": "all_results.csv",
@@ -1666,18 +2467,21 @@
 										"p_name": "b_f4_z2_lighting_temp"
 									}
 								],
-								"control_inputs": [{
-									"label": "Set Point Temperature",
-									"source_type": "file",
-									"source_name": "all_results.csv",
-									"p_id": "b_f4_z2_lighting_spt",
-									"p_name": "b_f4_z2_lighting_spt"
-								}]
+								"control_inputs": [
+									{
+										"label": "Set Point Temperature",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f4_z2_lighting_spt",
+										"p_name": "b_f4_z2_lighting_spt"
+									}
+								]
 							},
 							{
-								"id": "b_f4_z2_desktops",
+								"app_id": "b_f4_z2_desktops",
 								"label": "Desktops",
-								"measurements": [{
+								"measurements": [
+									{
 										"label": "Power Consumption",
 										"source_type": "file",
 										"source_name": "all_results.csv",
@@ -1692,18 +2496,21 @@
 										"p_name": "b_f4_z2_desktops_temp"
 									}
 								],
-								"control_inputs": [{
-									"label": "Set Point Temperature",
-									"source_type": "file",
-									"source_name": "all_results.csv",
-									"p_id": "b_f4_z2_desktops_spt",
-									"p_name": "b_f4_z2_desktops_spt"
-								}]
+								"control_inputs": [
+									{
+										"label": "Set Point Temperature",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f4_z2_desktops_spt",
+										"p_name": "b_f4_z2_desktops_spt"
+									}
+								]
 							},
 							{
-								"id": "b_f4_z2_laptops",
+								"app_id": "b_f4_z2_laptops",
 								"label": "Laptops",
-								"measurements": [{
+								"measurements": [
+									{
 										"label": "Power Consumption",
 										"source_type": "file",
 										"source_name": "all_results.csv",
@@ -1718,13 +2525,60 @@
 										"p_name": "b_f4_z2_laptops_temp"
 									}
 								],
-								"control_inputs": [{
-									"label": "Set Point Temperature",
-									"source_type": "file",
-									"source_name": "all_results.csv",
-									"p_id": "b_f4_z2_laptops_spt",
-									"p_name": "b_f4_z2_laptops_spt"
-								}]
+								"control_inputs": [
+									{
+										"label": "Set Point Temperature",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f4_z2_laptops_spt",
+										"p_name": "b_f4_z2_laptops_spt"
+									}
+								]
+							}
+						],
+						"exogenous": [
+							{
+								"exo_id": "b_f4_z2_ambient",
+								"label": "Ambient Sensor",
+								"measurements": [
+									{
+										"label": "Temperature",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f4_z2_ambient_temperature",
+										"p_name": "b_f4_z2_ambient_temperature"
+									},
+									{
+										"label": "Humidity",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f4_z2_ambient_humidity",
+										"p_name": "b_f4_z2_ambient_humidity"
+									},
+									{
+										"label": "Occupancy",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f4_z2_ambient_occupancy",
+										"p_name": "b_f4_z2_ambient_occupancy"
+									}
+								],
+								"control_inputs": [
+									{
+										"label": "Sampling Rate",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f4_z2_ambient_sr",
+										"p_name": "b_f4_z2_ambient_sr"
+									},
+									{
+										"label": "Occupancy",
+										"source_type": "file",
+										"source_name": "all_results.csv",
+										"p_id": "b_f4_z2_ambient_occupancy",
+										"p_name": "b_f4_z2_ambient_occupancy"
+									}
+								]
 							}
 						]
 					}

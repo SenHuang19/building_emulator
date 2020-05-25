@@ -1,34 +1,34 @@
 {
-	"emulator_id": "xyz",
+	"emulator_id": "emulator_1",
 	"appliances":
 	[
 		{
-			"label": "chk-F1_Z4_PC",
+			"app_id": "b_f1_z4_pc",
 			"control_inputs": ["floor1_zon4_zon_powPC_u", "floor1_zon4_zon_powPC_activate"],
 			"measurements": [ "floor1_zon4_zon_powPC_y"]
 		},
 		{
-			"label": "chk-F1_Z4_Light",
+			"app_id": "b_f1_z4_light",
 			"control_inputs": ["floor1_zon4_zon_PowLig_u", "floor1_zon4_zon_PowLig_activate"],
 			"measurements": [ "floor1_zon4_zon_PowLig_y"]
 		},
 		{
-			"label": "chk-F1_Z4_Misc",
+			"app_id": "b_f1_z4_misc",
 			"control_inputs": ["floor1_zon4_zon_powMis_u", "floor1_zon4_zon_powMis_activate"],
 			"measurements": [ "floor1_zon4_zon_powMis_y"]
 		},
 		{
-			"label": "chk-F1_Z2_PC",
+			"app_id": "b_f1_z2_pc",
 			"control_inputs": ["floor1_zon2_zon_powPC_u", "floor1_zon2_zon_powPC_activate"],
 			"measurements": [ "floor1_zon2_zon_powPC_y"]
 		},
 		{
-			"label": "chk-F1_Z2_Light",
+			"app_id": "b_f1_z2_light",
 			"control_inputs": ["floor1_zon2_zon_PowLig_u", "floor1_zon2_zon_PowLig_activate"],
 			"measurements": [ "floor1_zon2_zon_PowLig_y"]
 		},
 		{
-			"label": "chk-F1_Z2_Misc",
+			"app_id": "b_f1_z2_misc",
 			"control_inputs": ["floor1_zon2_zon_powMis_u", "floor1_zon2_zon_powMis_activate"],
 			"measurements": [ "floor1_zon2_zon_powMis_y"]
 		}
@@ -36,12 +36,12 @@
 	"exogenous":
 	[
 		{
-			"label": "chk-F1_Z4_Occ",
+			"app_id": "b_f1_z4_occ",
 			"control_inputs": ["floor1_zon4_OccSch_u", "floor1_zon4_OccSch_activate"],
 			"measurements": [ "floor1_zon4_OccSch_y"]
 		},
 		{
-			"label": "chk-F1_Z2_Occ",
+			"app_id": "b_f1_z2_occ",
 			"control_inputs": ["floor1_zon2_OccSch_u", "floor1_zon2_OccSch_activate"],
 			"measurements": [ "floor1_zon2_OccSch_y"]
 		}

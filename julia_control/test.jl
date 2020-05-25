@@ -1,4 +1,11 @@
 using Sockets
+using HTTP, JSON, CSV, DataFrames, Dates, Serialization
+
+# SETUP TEST CASE
+# ---------------
+# Set URL for testcase
+simStep_inSec   = 5*60;                # in [s]
+# ---------------
 
 #--------------- Main code starts from here ------------------------------------
 println("Julia has started and waiting for connection ....")
@@ -27,10 +34,13 @@ while true
 	read_file_in_dict = JSON.parse(appList);
 
    	if !haskey(read_file_in_dict,"appliances")
+        Message = "{status_code: 0}"
+        write(socket, Message)
+        close(socket)
       	error("appliances NOT found in the JSON file!")
    	end
    	app_list = read_file_in_dict["appliances"];
-	env_list = read_file_in_dict["exogenous"];
+	# env_list = read_file_in_dict["exogenous"];
 
 	# first add the devices
 	numDev   = length(app_list);
@@ -41,14 +51,15 @@ while true
    	y_of_interest = [];
    	for iD = 1:numDev
       	allDev[iD]                  = devInfo(undef,undef,undef,undef,undef,undef,undef,undef);
-      	allDev[iD].label            = app_list[iD]["label"];
+      	allDev[iD].label            = app_list[iD]["app_id"];
       	allDev[iD].control_inputs   = app_list[iD]["control_inputs"];
       	allDev[iD].measurements     = app_list[iD]["measurements"];
 
-      	strip_info = split(app_list[iD]["label"],r"[-_]");
+      	strip_info = split(app_list[iD]["app_id"],r"[_]");
+        println(strip_info);
       	allDev[iD].devType = strip_info[4];
-      	allDev[iD].floorId = split(strip_info[2],r"F")[2];
-      	allDev[iD].zoneIdx = split(strip_info[3],r"Z")[2];
+      	allDev[iD].floorId = split(strip_info[2],r"f")[2];
+      	allDev[iD].zoneIdx = split(strip_info[3],r"z")[2];
 		allDev[iD].devParam = [2.3, rand(Int64(24*60*60/simStep_inSec)), 0.9];  # comfort paramter ALPHA, usage probabilities
 
       	append!(u_of_interest,allDev[iD].control_inputs)
@@ -65,14 +76,15 @@ while true
    	end
 
 	# next add the exogenous environmental information (e.g. occupancy)
-   	for iE = 1:length(env_list)
-      	append!(u_of_interest,env_list[iE]["control_inputs"])
-      	append!(y_of_interest,env_list[iE]["measurements"])
-   	end
+  # 	for iE = 1:length(env_list)
+  #    	append!(u_of_interest,env_list[iE]["control_inputs"])
+  #    	append!(y_of_interest,env_list[iE]["measurements"])
+  # 	end
 
 	println("Completed Reading and Loading Appliance List.")
 
-    Message = "Found $numDev appliances in $(length(list_of_zones)) zones. Thanks!"
+    # Message = "Found $numDev appliances in $(length(list_of_zones)) zones. Thanks!"
+    Message = JSON.json(Dict("status_code"=> 1))
     write(socket, Message)
     close(socket)
 end

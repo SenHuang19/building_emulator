@@ -15,27 +15,6 @@ from flask_pymongo import PyMongo
 from requests.adapters import HTTPAdapter
 from requests.packages.urllib3.util.retry import Retry
 
-def requests_retry_session(
-	retries=3,
-	backoff_factor=0.3,
-	status_forcelist=(500, 502, 504),
-	session=None,
-):
-	session = session or requests.Session()
-	retry = Retry(
-		total=retries,
-		read=retries,
-		connect=retries,
-		backoff_factor=backoff_factor,
-		status_forcelist=status_forcelist,
-	)
-
-	adapter = HTTPAdapter(max_retries=retry)
-
-	session.mount('http://', adapter)
-	session.mount('https://', adapter)
-	return session
-
 print("--------------- Initiating Server Directories")
 
 OUTPUT_FOLDER = 'data/'
@@ -78,8 +57,16 @@ def call_julia(json_data):
 			break
 		JuliaMessage = ''.join([JuliaMessage, chunk])
 
-	print('Received from Julia')   
-	print(JuliaMessage)
+	print('Received from Julia')
+
+	status_code = 0
+	try:   
+		JSONMessage = json.loads(JuliaMessage)
+		status_code = JSONMessage["status_code"]
+	except:
+		print("--------------- Couldn't connect to Julia")
+	
+	return status_code
 
 """
 -------------------------------------  Communicate with Emulator  ---------------------------------
@@ -125,7 +112,7 @@ def create_job(bmap, parameters, job_data):
 	df.to_csv(RESULTS_FOLDER + data_file)
 	
 	# new job entry
-	entry = dict(map_file=map_file, data_file=data_file, status_code=0, appliance_file="")
+	entry = dict(map_file=map_file, data_file=data_file, status_code=0, raw_appliance_file="", processed_appliance_file="")
 	
 	# update information
 	job_data[job_id] = entry
@@ -145,7 +132,7 @@ def get_emulators():
 	# resp = requests.get(site + req)
 
 	# open file - just a sample, we will replace it with the emulator response
-	resp = open("data/sample/default_bmap.json")
+	resp = open("data/samples/default_bmap.json")
 	emulators = json.load(resp)
 
 	for emulator in emulators:
@@ -278,19 +265,32 @@ def fetch_job():
 @app.route("/initiate", methods=["POST"])
 def init_controller():
 	
+	job_id = request.json['map']['id']
+	appliance_list = request.json['applianceList']
+	
+	# save list of appliances
+	rawApplianceJSON = {"emulator_id": job_id, "appliances": list(appliance_list.values())}
+	with open(SAPP_FOLDER + 'rawAppList_' + str(job_id) + '.json', 'w+') as outfile:
+		json.dump(rawApplianceJSON, outfile)
+	
+	# processed JSON
+	processedApplianceJSON = {"emulator_id": job_id, "appliances": process_json(appliance_list)}
+	print(processedApplianceJSON)
+	print("------------------------------------------------------")
+
+	# only for demonstration purpose - fixed json
+	resp = open("data/samples/appList.json")
+	processedApplianceJSON = json.load(resp)
+	print(processedApplianceJSON)	
+	with open(SAPP_FOLDER + 'processedAppList_' + str(job_id) + '.json', 'w+') as outfile:
+		json.dump(processedApplianceJSON, outfile)
+	
 	# call julia controller
 	status_code = 0
 	try:
-		call_julia(request.json['applianceList'])
-		status_code = 1
+		status_code = call_julia(processedApplianceJSON)
 	except:
 		print("--------------- Couldn't connect to Julia")
-
-	job_id = request.json['map']['id']
-
-	# save list of appliances
-	with open(SAPP_FOLDER + 'appList_' + str(job_id) + '.json', 'w+') as outfile:
-		json.dump(request.json['applianceList'], outfile)
 	
 	# update job json file
 	job_file = open(JOBS_JSON, 'r')
@@ -298,7 +298,8 @@ def init_controller():
 	job_file.close()
 	
 	# update appliance list and status code
-	job_data[job_id]["appliance_file"] = 'appList_' + str(job_id) + '.json'
+	job_data[job_id]["raw_appliance_file"] = 'rawAppList_' + str(job_id) + '.json'
+	job_data[job_id]["processed_appliance_file"] = 'rawAppList_' + str(job_id) + '.json'
 	job_data[job_id]["status_code"] = status_code
 
 	# write to json file
@@ -359,11 +360,32 @@ def get_job_info(job_id):
 	# return info
 	return job_data[job_id]
 
+def process_json(appList):
+	print(appList)
+
+	# process the appliance JSON for the controller
+	appliances = []
+	for appliance in appList:
+		processed_dict = appList[appliance]
+		control_inputs = []
+		for control_input in processed_dict["control_inputs"]:
+			control_inputs.append(control_input["p_name"])
+		processed_dict["control_inputs"] = control_inputs
+		
+		measurements = []
+		for measurement in processed_dict["measurements"]:
+			measurements.append(measurement["p_name"])
+		processed_dict["measurements"] = measurements
+
+		appliances.append(processed_dict)
+
+	return appliances
+
 # main function
 if __name__ == '__main__':
 	
 	print("--------------- Connecting to Emulator Server")
-	time.sleep(15)
+	# time.sleep(15)
 	while True:
 		response = requests.get(SITE_NAME + '/step')
 		if response.status_code != 200:

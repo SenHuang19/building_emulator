@@ -1,5 +1,6 @@
 import json
 import socket
+from flask import jsonify
 
 def call_julia(json_data):
     
@@ -21,8 +22,10 @@ def call_julia(json_data):
 			break
 		JuliaMessage = ''.join([JuliaMessage, chunk])
 
-	print('Received from Julia')   
-	print(JuliaMessage)
+	print('Received from Julia')
+
+	JSONMessage = json.loads(JuliaMessage)   
+	print(JSONMessage)
 
 # main function
 if __name__ == '__main__':

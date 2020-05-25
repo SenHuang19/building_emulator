@@ -1,6 +1,6 @@
 [
 	{
-		"id": "",
+		"app_id": "",
 		"label": "HVAC",
 		"measurements": [
 			{"label": "Power Consumption", "source_type": "file", "source_name": "all_results.csv", "p_id": "", "p_name": ""}, 
@@ -11,7 +11,7 @@
 		]
 	}, 
 	{
-		"id": "",
+		"app_id": "",
 		"label": "Lighting",
 		"measurements": [
 			{"label": "Power Consumption", "source_type": "file", "source_name": "all_results.csv", "p_id": "", "p_name": ""}, 
@@ -22,7 +22,7 @@
 		]
 	}, 
 	{
-		"id": "",
+		"app_id": "",
 		"label": "Desktops",
 		"measurements": [
 			{"label": "Power Consumption", "source_type": "file", "source_name": "all_results.csv", "p_id": "", "p_name": ""}, 
@@ -33,7 +33,7 @@
 		]
 	}, 
 	{
-		"id": "",
+		"app_id": "",
 		"label": "Laptops",
 		"measurements": [
 			{"label": "Power Consumption", "source_type": "file", "source_name": "all_results.csv", "p_id": "", "p_name": ""}, 

@@ -4,4 +4,4 @@ services:
   control:
     build: './julia_control'
     working_dir: /usr/myapp
-    command: julia interface.jl
+    command: julia test.jl

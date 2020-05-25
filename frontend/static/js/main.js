@@ -306,7 +306,7 @@ function addFloor(f_no, nZones=1) {
                 for (var i=currentNZones; i<updatedNZones; i++) {
                     // personalize appliance list
                     var applianceList = globalDefaultAppList;
-                    applianceList.forEach(element => element["id"] = ("b_" + floorID + "_Z" + (i+1).toString() + "_" + element["label"]).toLowerCase());
+                    applianceList.forEach(element => element["app_id"] = ("b_" + floorID + "_Z" + (i+1).toString() + "_" + element["label"]).toLowerCase());
 
                     // we subtract 1 from floorNum because array is zero indexed
                     globalBuildingMap["building"]["floors"][floorNum-1]["zones"].push({"label":"Z"+(i+1).toString(), "appliances":applianceList});
@@ -352,11 +352,11 @@ function update_zones() {
 
             // personalize appliance list
             var applianceList = globalDefaultAppList;
-            applianceList.forEach(element => element["id"] = "b_f" + (i+1).toString() + "_" + element["label"].toLowerCase());
+            applianceList.forEach(element => element["app_id"] = "b_f" + (i+1).toString() + "_" + element["label"].toLowerCase());
             globalBuildingMap["building"]["floors"][i]["appliances"] = applianceList;
             
             var applianceList = globalDefaultAppList;
-            applianceList.forEach(element => element["id"] = "b_f" + (i+1).toString() + "_z1_" + element["label"].toLowerCase());
+            applianceList.forEach(element => element["app_id"] = "b_f" + (i+1).toString() + "_z1_" + element["label"].toLowerCase());
             globalBuildingMap["building"]["floors"][i]["zones"] = [{"label":"Z1", "appliances":applianceList}];
 
             // add new floors and zones to the red list
@@ -453,7 +453,7 @@ function generateTable() {
                         .text('Z' + (j+1).toString())
                     .on('click', function(data) {
                         // print list of appliances for the selected zone
-                        printApplianceList('zone', this.id);
+                        showDetails('zone', this.id);
                     });
         }
         
@@ -486,7 +486,7 @@ function generateTable() {
                     .text('F' + (i+1).toString())
                     .on('click', function(data) {
                         // print list of appliances for the selected floor
-                        printApplianceList('floor', this.id);
+                        showDetails('floor', this.id);
                     });
     }
     
@@ -501,32 +501,41 @@ function generateTable() {
             .text("Building Loads")
         .on('click', function(data) {
             // print list of appliances for the building
-            printApplianceList('building', this.id);
+            showDetails('building', this.id);
         });
 }
 
 // print a list of appliances present in building/floor/zone
-function printApplianceList(iType, id) {
+function showDetails(iType, id) {
     var label = "";
-    var cross_tag = "";
     var appliances = [];
+    var exogenous = [];
     
     // get a list of appliances for building, floor, and zone
     if (iType == "building") {
-        label = "Building Loads";
+        label = "Building";
         appliances = globalBuildingMap["building"]["appliances"];
+        exogenous = globalBuildingMap["building"]["exogenous"];
     } else if (iType == "floor") {
         var floor_no = parseInt(id.split('F')[1])
 
-        label = "Floor-" + floor_no.toString() + " Loads"
+        label = "Floor-" + floor_no.toString()
         appliances = globalBuildingMap["building"]["floors"][floor_no-1]["appliances"];
+        exogenous = globalBuildingMap["building"]["floors"][floor_no-1]["exogenous"];
     } else if (iType == "zone") {
         var floor_no = parseInt(id.split('_')[0].split('F')[1])
         var zone_no = parseInt(id.split('_')[1].split('Z')[1])
         
-        label = "Floor-" + floor_no.toString() + " Zone-" + zone_no.toString() + " Loads";
+        label = "Floor-" + floor_no.toString() + " Zone-" + zone_no.toString();
         appliances = globalBuildingMap["building"]["floors"][floor_no-1]["zones"][zone_no-1]["appliances"];
+        exogenous = globalBuildingMap["building"]["floors"][floor_no-1]["zones"][zone_no-1]["exogenous"];
     }
+
+    showAppliancesInfo(label, appliances);
+    showExogenousInfo(label, exogenous);
+}
+
+function showAppliancesInfo(label, appliances) {
     
     // clear the previous appliance list
     var applianceDiv = d3.select(".list-of-appliances");
@@ -537,6 +546,7 @@ function printApplianceList(iType, id) {
                             .attr('class', 'table table-sm table-bordered appliance-table')
     
     // appliance list heading
+    label = label + " Loads"
     var tableHead = applianceTable.append('thead').append('tr').append('th')
             .attr('scope', 'col')
             .attr('colspan', 3)
@@ -551,7 +561,7 @@ function printApplianceList(iType, id) {
         var appliance = appliances[i].label;
 
         // tag for unique identification of the appliance
-        var app_cross_tag = appliances[i].id;
+        var app_cross_tag = appliances[i].app_id;
         
         // add a table row for the appliance
         var tableRow = tableBody.append('tr').attr('id', 'r-' + app_cross_tag);
@@ -566,7 +576,7 @@ function printApplianceList(iType, id) {
                     .text(appliance)
                 .on('click', function() {
                     // for each appliance, show a list of data streams available
-                    showStreams(this.id.split('-')[1]);
+                    showStreams(this.id.split('-')[1], "appliances");
                 });
 
         // appliance selection for control
@@ -622,8 +632,104 @@ function printApplianceList(iType, id) {
                     .append('input')
                         .attr('type', 'button')
                         .attr('class', 'btn btn-block btn-secondary')
-                        .attr('id', 'add-' + cross_tag)
+                        .attr('id', 'add-' + app_cross_tag)
                         .attr('value', 'Add Appliance')
+                    .on('click', function(){
+                        console.log(this.id)
+                    })
+}
+
+function showExogenousInfo(label, exogenous) {
+    
+    // clear the previous exogenous list
+    var exogenousDiv = d3.select(".list-of-exogenous");
+    exogenousDiv.selectAll("*").remove();
+    
+    // add a new exogenous parameters list
+    var exogenousTable = exogenousDiv.append('table')
+                            .attr('class', 'table table-sm table-bordered exogenous-table')
+    
+    // exogenous list heading
+    label = label + " Exogenous Parameters"
+    var tableHead = exogenousTable.append('thead').append('tr').append('th')
+            .attr('scope', 'col')
+            .attr('colspan', 3)
+            .text(label);
+    
+    // exogenous table body
+    var tableBody = exogenousTable.append('tbody')
+    
+    // add all the exogenous
+    for (var i=0; i<Object.keys(exogenous).length; i++) {
+
+        // label of the exogenous
+        var exogenous_parameter = exogenous[i].label;
+
+        // tag for unique identification of the appliance
+        var exo_cross_tag = exogenous[i].exo_id;
+        
+        // add a table row for the appliance
+        var tableRow = tableBody.append('tr').attr('id', 'exor-' + exo_cross_tag);
+        
+        // clickable link for each appliance
+        tableRow.append('td')
+                    .attr('class', 'clickable-link')
+                    .style('text-align', 'left')
+                .append('a')
+                    .attr('href', 'javascript:void(0);')
+                    .attr('id', 'exo-' + exo_cross_tag)
+                    .text(exogenous_parameter)
+                .on('click', function() {
+                    // for each appliance, show a list of data streams available
+                    showStreams(this.id.split('-')[1], "exogenous");
+                });
+
+        // appliance selection for control
+        checkBoxCell = tableRow.append('td')
+                                .append('div')
+                                    .attr('class', 'custom-control custom-checkbox')
+
+        checkBoxCell.append('input')
+                        .attr('class', 'custom-control-input float-right')
+                        .attr('type', 'checkbox')
+                        .attr('id', 'exochk-' + exo_cross_tag)
+                        .property('checked', true);
+                  
+        checkBoxCell.append('label')
+                        .attr('class', 'custom-control-label')
+                        .attr('for', 'exochk-' + exo_cross_tag)
+        
+        // for each appliance, add a delete button
+        tableRow.append('td')
+                .append('i')
+                    .attr('id', 'del-' + exo_cross_tag)
+                    .attr('class', 'fas fa-trash-alt')
+                .on('click', function(){
+                    // on delete, update the building map
+                    var tag = this.id.split('-')[1];
+                    
+                    if (tag.split('_').length == 4) {
+                        deleteInfo(tag, "zone_exogenous");
+                    } else if (tag.split('_').length == 3) {
+                        deleteInfo(tag, "floor_exogenous");
+                    } else if (tag.split('_').length == 2) {
+                        deleteInfo(tag, "building_exogenous");
+                    }
+
+                    d3.select("#exor-" + tag).remove()
+                });
+    }
+
+    exogenousTable.append('tfoot')
+                    .append('tr')
+                    .append('td')
+                        .attr('colspan', 3)
+                        .style('text-align', 'left')
+                    .append('input')
+                        .attr('type', 'button')
+                        .attr('class', 'btn btn-block btn-secondary')
+                        .attr('id', 'add-' + exo_cross_tag)
+                        .attr('value', 'Add Exogenous Parameter')
                     .on('click', function(){
                         console.log(this.id)
                     })
@@ -631,43 +737,47 @@ function printApplianceList(iType, id) {
 
 function getApplianceList(tag) {
 
+    var app_list = getList(tag, "appliances");
+    var index = app_list.findIndex(function(appliance) {
+        return appliance.app_id == tag;
+    });
+    
+    return app_list[index]             
+}
+
+function getExogenousList(tag) {
+
+    var exo_list = getList(tag, "exogenous");
+    var index = exo_list.findIndex(function(exogenous_parameter) {
+        return exogenous_parameter.exo_id == tag;
+    });
+    
+    return exo_list[index]       
+}
+
+function getList(tag, label) {
     var tag_list = tag.split('_')
-    var app_list = [];
+    var device_list = [];
     
     if (tag_list.length == 4) {
+        
         var floor_no = parseInt(tag_list[1].split("f")[1]);
         var zone_no = parseInt(tag_list[2].split("z")[1]);
-
-        app_list = globalBuildingMap["building"]["floors"][floor_no-1]["zones"][zone_no-1]["appliances"];
         
-        var index = app_list.findIndex(function(appliance) {
-            return appliance.id == tag;
-        });
-        
-        return app_list[index]
+        device_list = globalBuildingMap["building"]["floors"][floor_no-1]["zones"][zone_no-1][label];
 
     } else if (tag_list.length == 3) {
+        
         var floor_no = parseInt(tag_list[1].split("f")[1]);
 
-        app_list = globalBuildingMap["building"]["floors"][floor_no-1]["appliances"];
-        
-        var index = app_list.findIndex(function(appliance) {
-            return appliance.id == tag;
-        });
-
-        return app_list[index]
+        device_list = globalBuildingMap["building"]["floors"][floor_no-1][label];
 
     } else if (tag_list.length == 2) {
-        app_list = globalBuildingMap["building"]["appliances"]
-        
-        var index = app_list.findIndex(function(appliance) {
-            return appliance.id == tag;
-        });
 
-        return app_list[index]
-    }
+        device_list = globalBuildingMap["building"][label]
+    }   
 
-                    
+    return device_list
 }
 
 function deleteInfo(tag, type) {
@@ -681,35 +791,68 @@ function deleteInfo(tag, type) {
     // delete an appliance within the building
     else if (type == "building_appliance") {    
         var index = globalBuildingMap["building"]["appliances"].findIndex(function(appliance) {
-            return appliance.id == tag;
+            return appliance.app_id == tag;
         });
 
         globalBuildingMap["building"]["appliances"].splice(index, 1)
     } 
+    // delete an exogenous within the building
+    else if (type == "building_exogenous") {    
+        var index = globalBuildingMap["building"]["exogenous"].findIndex(function(exogenous) {
+            return exogenous.exo_id == tag;
+        });
+
+        globalBuildingMap["building"]["exogenous"].splice(index, 1)
+    } 
     // delete an appliance measurement stream within the building
     else if (type == "building_appliance_measurement") {
         var index = globalBuildingMap["building"]["appliances"].findIndex(function(appliance) {
-            return appliance.id == tag_list.slice(0, 2).join('_');
+            return appliance.app_id == tag_list.slice(0, 2).join('_');
         });
 
-        var index = globalBuildingMap["building"]["appliances"][index]["measurement"].findIndex(function(measurement) {
+        var index = globalBuildingMap["building"]["appliances"][index]["measurements"].findIndex(function(measurement) {
             return measurement.p_name == tag;
         });
 
-        globalBuildingMap["building"]["appliances"][index]["measurement"].splice(index, 1)
+        globalBuildingMap["building"]["appliances"][index]["measurements"].splice(index, 1)
+
+    } 
+    // delete an exogenous measurement stream within the building
+    else if (type == "building_exogenous_measurement") {
+        var index = globalBuildingMap["building"]["exogenous"].findIndex(function(exogenous) {
+            return exogenous.exo_id == tag_list.slice(0, 2).join('_');
+        });
+
+        var index = globalBuildingMap["building"]["exogenous"][index]["measurements"].findIndex(function(measurement) {
+            return measurement.p_name == tag;
+        });
+
+        globalBuildingMap["building"]["exogenous"][index]["measurements"].splice(index, 1)
 
     } 
     // delete an appliance control stream within the building
     else if (type == "building_appliance_control") {
         var index = globalBuildingMap["building"]["appliances"].findIndex(function(appliance) {
-            return appliance.id == tag_list.slice(0, 2).join('_');
+            return appliance.app_id == tag_list.slice(0, 2).join('_');
         });
 
         var index = globalBuildingMap["building"]["appliances"][index]["control_inputs"].findIndex(function(control) {
             return control.p_name == tag;
         });
 
-        globalBuildingMap["building"]["appliances"][index]["measurement"].splice(index, 1)
+        globalBuildingMap["building"]["appliances"][index]["control_inputs"].splice(index, 1)
+    } 
+    // delete an exogenous control stream within the building
+    else if (type == "building_exogenous_control") {
+        var index = globalBuildingMap["building"]["exogenous"].findIndex(function(exogenous) {
+            return exogenous.exo_id == tag_list.slice(0, 2).join('_');
+        });
+
+        var index = globalBuildingMap["building"]["exogenous"][index]["control_inputs"].findIndex(function(control) {
+            return control.p_name == tag;
+        });
+
+        globalBuildingMap["building"]["exogenous"][index]["control_inputs"].splice(index, 1)
     } 
     // delete a floor
     else if (type == "floor") {
@@ -721,31 +864,55 @@ function deleteInfo(tag, type) {
         var floor_no = parseInt(tag_list[1].split("f")[1]);
         
         var index = globalBuildingMap["building"]["floors"][floor_no-1]["appliances"].findIndex(function(appliance) {
-            return appliance.id == tag;
+            return appliance.app_id == tag;
         });
         
         globalBuildingMap["building"]["floors"][floor_no-1]["appliances"].splice(index, 1)
     } 
-    // delete an appliance measurement stream of a floor within the building
-    else if (type == "floor_appliance_measurement") {
+    // delete a floor exogenous
+    else if (type == "floor_exogenous") {
         var floor_no = parseInt(tag_list[1].split("f")[1]);
         
-        var index = globalBuildingMap["building"]["floors"][floor_no-1]["appliances"].findIndex(function(appliance) {
-            return appliance.id == tag_list.slice(0, 3).join('_');
+        var index = globalBuildingMap["building"]["floors"][floor_no-1]["exogenous"].findIndex(function(appliance) {
+            return exogenous.exo_id == tag;
         });
-
-        var index = globalBuildingMap["building"]["floors"][floor_no-1]["appliances"][index]["measurement"].findIndex(function(measurement) {
-            return measurement.p_name == tag;
-        });
-
-        globalBuildingMap["building"]["floors"][floor_no-1]["appliances"][index]["measurement"].splice(index, 1)
+        
+        globalBuildingMap["building"]["floors"][floor_no-1]["exogenous"].splice(index, 1)
     } 
     // delete an appliance measurement stream of a floor within the building
     else if (type == "floor_appliance_measurement") {
         var floor_no = parseInt(tag_list[1].split("f")[1]);
         
         var index = globalBuildingMap["building"]["floors"][floor_no-1]["appliances"].findIndex(function(appliance) {
-            return appliance.id == tag_list.slice(0, 3).join('_');
+            return appliance.app_id == tag_list.slice(0, 3).join('_');
+        });
+
+        var index = globalBuildingMap["building"]["floors"][floor_no-1]["appliances"][index]["measurements"].findIndex(function(measurement) {
+            return measurement.p_name == tag;
+        });
+
+        globalBuildingMap["building"]["floors"][floor_no-1]["appliances"][index]["measurements"].splice(index, 1)
+    } 
+    // delete an exogenous measurement stream of a floor within the building
+    else if (type == "floor_exogenous_measurement") {
+        var floor_no = parseInt(tag_list[1].split("f")[1]);
+        
+        var index = globalBuildingMap["building"]["floors"][floor_no-1]["exogenous"].findIndex(function(exogenous) {
+            return exogenous.exo_id == tag_list.slice(0, 3).join('_');
+        });
+
+        var index = globalBuildingMap["building"]["floors"][floor_no-1]["exogenous"][index]["measurements"].findIndex(function(measurement) {
+            return measurement.p_name == tag;
+        });
+
+        globalBuildingMap["building"]["floors"][floor_no-1]["exogenous"][index]["measurements"].splice(index, 1)
+    } 
+    // delete an appliance control stream of a floor within the building
+    else if (type == "floor_appliance_control") {
+        var floor_no = parseInt(tag_list[1].split("f")[1]);
+        
+        var index = globalBuildingMap["building"]["floors"][floor_no-1]["appliances"].findIndex(function(appliance) {
+            return appliance.app_id == tag_list.slice(0, 3).join('_');
         });
 
         var index = globalBuildingMap["building"]["floors"][floor_no-1]["appliances"][index]["control_inputs"].findIndex(function(control) {
@@ -753,6 +920,20 @@ function deleteInfo(tag, type) {
         });
 
         globalBuildingMap["building"]["floors"][floor_no-1]["appliances"][index]["control_inputs"].splice(index, 1)
+    } 
+    // delete an exogenous control stream of a floor within the building
+    else if (type == "floor_exogenous_control") {
+        var floor_no = parseInt(tag_list[1].split("f")[1]);
+        
+        var index = globalBuildingMap["building"]["floors"][floor_no-1]["exogenous"].findIndex(function(exogenous) {
+            return exogenous.exo_id == tag_list.slice(0, 3).join('_');
+        });
+
+        var index = globalBuildingMap["building"]["floors"][floor_no-1]["exogenous"][index]["control_inputs"].findIndex(function(control) {
+            return control.p_name == tag;
+        });
+
+        globalBuildingMap["building"]["floors"][floor_no-1]["exogenous"][index]["control_inputs"].splice(index, 1)
     } 
     // delete a zone
     else if (type == "zone") {
@@ -767,10 +948,22 @@ function deleteInfo(tag, type) {
         var zone_no = parseInt(tag_list[2].split("z")[1]);
         
         var index = globalBuildingMap["building"]["floors"][floor_no-1]["zones"][zone_no-1]["appliances"].findIndex(function(appliance) {
-            return appliance.id == tag;
+            return appliance.app_id == tag;
         });
         
         globalBuildingMap["building"]["floors"][floor_no-1]["zones"][zone_no-1]["appliances"].splice(index, 1)
+
+    } 
+    // delete an exogenous within a zone
+    else if (type == "zone_exogenous") {
+        var floor_no = parseInt(tag_list[1].split("f")[1]);
+        var zone_no = parseInt(tag_list[2].split("z")[1]);
+        
+        var index = globalBuildingMap["building"]["floors"][floor_no-1]["zones"][zone_no-1]["exogenous"].findIndex(function(exogenous) {
+            return exogenous.exo_id == tag;
+        });
+        
+        globalBuildingMap["building"]["floors"][floor_no-1]["zones"][zone_no-1]["exogenous"].splice(index, 1)
 
     } 
     // delete an appliance measurement within a zone
@@ -779,7 +972,7 @@ function deleteInfo(tag, type) {
         var zone_no = parseInt(tag_list[2].split("z")[1]);
         
         var index = globalBuildingMap["building"]["floors"][floor_no-1]["zones"][zone_no-1]["appliances"].findIndex(function(appliance) {
-            return appliance.id == tag_list.slice(0, 4).join('_');
+            return appliance.app_id == tag_list.slice(0, 4).join('_');
         });
 
         var index = globalBuildingMap["building"]["floors"][floor_no-1]["zones"][zone_no-1]["appliances"][index]["measurements"].findIndex(function(measurement) {
@@ -789,12 +982,27 @@ function deleteInfo(tag, type) {
         globalBuildingMap["building"]["floors"][floor_no-1]["zones"][zone_no-1]["appliances"][index]["measurements"].splice(index, 1)
     } 
     // delete an appliance measurement within a zone
+    else if (type == "zone_exogenous_measurement") {
+        var floor_no = parseInt(tag_list[1].split("f")[1]);
+        var zone_no = parseInt(tag_list[2].split("z")[1]);
+        
+        var index = globalBuildingMap["building"]["floors"][floor_no-1]["zones"][zone_no-1]["exogenous"].findIndex(function(exogenous) {
+            return exogenous.exo_id == tag_list.slice(0, 4).join('_');
+        });
+
+        var index = globalBuildingMap["building"]["floors"][floor_no-1]["zones"][zone_no-1]["exogenous"][index]["measurements"].findIndex(function(measurement) {
+            return measurement.p_name == tag;
+        });
+
+        globalBuildingMap["building"]["floors"][floor_no-1]["zones"][zone_no-1]["exogenous"][index]["measurements"].splice(index, 1)
+    } 
+    // delete an appliance measurement within a zone
     else if (type == "zone_appliance_control") {
         var floor_no = parseInt(tag_list[1].split("f")[1]);
         var zone_no = parseInt(tag_list[2].split("z")[1]);
         
         var index = globalBuildingMap["building"]["floors"][floor_no-1]["zones"][zone_no-1]["appliances"].findIndex(function(appliance) {
-            return appliance.id == tag_list.slice(0, 4).join('_');
+            return appliance.app_id == tag_list.slice(0, 4).join('_');
         });
 
         var index = globalBuildingMap["building"]["floors"][floor_no-1]["zones"][zone_no-1]["appliances"][index]["control_inputs"].findIndex(function(control) {
@@ -802,16 +1010,38 @@ function deleteInfo(tag, type) {
         });
 
         globalBuildingMap["building"]["floors"][floor_no-1]["zones"][zone_no-1]["appliances"][index]["control_inputs"].splice(index, 1)
+    }
+    // delete an appliance measurement within a zone
+    else if (type == "zone_exogenous_control") {
+        var floor_no = parseInt(tag_list[1].split("f")[1]);
+        var zone_no = parseInt(tag_list[2].split("z")[1]);
+        
+        var index = globalBuildingMap["building"]["floors"][floor_no-1]["zones"][zone_no-1]["exogenous"].findIndex(function(exogenous) {
+            return exogenous.exo_id == tag_list.slice(0, 4).join('_');
+        });
+
+        var index = globalBuildingMap["building"]["floors"][floor_no-1]["zones"][zone_no-1]["exogenous"][index]["control_inputs"].findIndex(function(control) {
+            return control.p_name == tag;
+        });
+
+        globalBuildingMap["building"]["floors"][floor_no-1]["zones"][zone_no-1]["exogenous"][index]["control_inputs"].splice(index, 1)
     }       
 }
 
 // show a list of data streams for a selected appliance
-function showStreams(appID) {
+function showStreams(appID, label) {
 
-    var font_size = '1vw'
+    var font_size = '1vw';
+    var app_info = [];
 
     // get list of streams
-    app_info = getApplianceList(appID);
+    if (label == "appliances") {
+        app_info = getApplianceList(appID);
+    } else if (label == "exogenous") {
+        var font_size = '0.8vw';
+        app_info = getExogenousList(appID);
+    }
+    console.log(app_info);
     
     // show modal and remove previous content 
     $('#stream-list').modal('show');
@@ -832,7 +1062,15 @@ function showStreams(appID) {
                     .style('font-size', font_size)
                     .text(function(d){return d;})
 
-    var stream_body = stream_table.append('tbody')
+    var stream_body = stream_table.append('tbody');
+    
+    // measurement heading
+    stream_body.append('tr')
+            .append('td')
+                .attr('scope', 'col')
+                .attr('colspan', 5)
+                .style('text-align', 'left')
+                .text("Measurements")
     
     // for each stream
     app_info["measurements"].forEach(function(appliance){
@@ -896,6 +1134,14 @@ function showStreams(appID) {
                 });
     });
 
+    // measurement heading
+    stream_body.append('tr')
+            .append('td')
+                .attr('scope', 'col')
+                .attr('colspan', 5)
+                .style('text-align', 'left')
+                .text("Control Inputs")
+    
     app_info["control_inputs"].forEach(function(appliance){
         stream_row = stream_body.append('tr').attr('id', 'sr' + appliance["p_id"]);
         
@@ -1397,24 +1643,30 @@ function addGridService(tag, label, applianceRanking) {
 
 // on initiating model training
 jQuery('#btn-learn-model').on('click', function(){
-    $.ajax({
-        url: "/query",
-        type : "POST",
-        data: JSON.stringify({'query_type': 'train', 'map': globalBuildingMap, 'appliances': globalApplianceList}),
-        dataType : "html",
-        contentType:"application/json",
-        success: function(response) {
-            res = JSON.parse(response)
-            if (res['status_code'] == 0) {
-                alert("Couldn't Connect to the Controller!");
-            } else {
-                alert("Initiating Controller");
-                init_modelpage(res);
+    console.log(globalApplianceList)
+
+    if (Object.keys(globalApplianceList).length < 1) {
+        alert("Please select at least one appliance!")
+    } else {
+        $.ajax({
+            url: "/query",
+            type : "POST",
+            data: JSON.stringify({'query_type': 'train', 'map': globalBuildingMap, 'appliances': globalApplianceList}),
+            dataType : "html",
+            contentType:"application/json",
+            success: function(response) {
+                res = JSON.parse(response)
+                if (res['status_code'] == 0) {
+                    alert("Couldn't Connect to the Controller!");
+                } else {
+                    alert("Initiating Controller");
+                    init_modelpage(res);
+                }
+            },
+            error: function(error) {
+                console.log("failure!!!");
+                console.log(error);
             }
-        },
-        error: function(error) {
-            console.log("failure!!!");
-            console.log(error);
-        }
-    });
+        });
+    }
 });

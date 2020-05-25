@@ -1,8 +1,8 @@
 {
-	"id": "emulator_1",
+	"id": "emulator_2",
 	"building": {
-		"type": "building_residential_mra",
-		"index": "0_1_1",
+		"type": "building_residential_hra",
+		"index": "0_1_2",
 		"appliances": [
 			{
 				"app_id": "b_hvac",
