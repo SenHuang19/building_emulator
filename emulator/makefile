@@ -13,4 +13,4 @@ remove-image:
 	docker rmi ${IMG_NAME}
 
 run:
-	$(COMMAND_RUN) --detach=false ${IMG_NAME} /bin/bash -c "python startREST.py --fmuPath=/home/developer/models/LargeBuilding.fmu --fmuStep=60 && bash"
+	$(COMMAND_RUN) --detach=false ${IMG_NAME} /bin/bash -c "python startREST.py --fmuPath=/home/developer/models/largeoffice.fmu --fmuStep=60 && bash"

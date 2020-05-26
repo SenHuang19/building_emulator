@@ -38,7 +38,7 @@ if not path.exists(JOBS_JSON):
 
 def call_julia(json_data):
     
-	print('Connecting')
+	print('--------------- Connecting to Julia Controller')
 	
 	# Server and port address. Make sure the same address were used in Julia code too! 
 	HOST = 'julia'
@@ -49,7 +49,7 @@ def call_julia(json_data):
 
 	s.send((json.dumps(json_data) + '\n').encode())     
 
-	print('Receiving from Julia')
+	print('--------------- Receiving from Julia')
 	JuliaMessage = str() 
 	while True:
 		chunk = s.recv(10000).decode()
@@ -57,7 +57,7 @@ def call_julia(json_data):
 			break
 		JuliaMessage = ''.join([JuliaMessage, chunk])
 
-	print('Received from Julia')
+	print('--------------- Received from Julia')
 
 	status_code = 0
 	try:   

@@ -15,6 +15,7 @@ The API is implemented using the ``flask`` package.
 
 # GENERAL PACKAGE IMPORT
 # ----------------------
+import copy
 from flask import Flask
 from flask_restful import Resource, Api, reqparse
 
@@ -216,6 +217,34 @@ class Info(Resource):
 
     floors = []
 
+    record_dict = {'p_name': "", 'p_id': ""}
+    floor_dict = {
+                  "f_id": "", 
+                  "label": "", 
+                  "appliances": [{
+                      'measurements':[], 
+                      'control_inputs':[]
+                  }], 
+                  "exogenous": [{
+                      'measurements':[], 
+                      'control_inputs':[]
+                  }],
+                  "zones": []
+                }
+
+    zone_dict = {
+                  "z_id": "", 
+                  "label": "", 
+                  "appliances": [{
+                      'measurements':[], 
+                      'control_inputs':[]
+                  }], 
+                  "exogenous": [{
+                      'measurements':[], 
+                      'control_inputs':[]
+                  }]
+                }
+
     for key in u:
 
         if key.find('floor')!=1:
@@ -225,17 +254,20 @@ class Info(Resource):
             if not floor in floors and floor.find('time')==-1:
               
                    floors.append(floor)
-    zones = {}
+                   
+                   floor_dict_instance = copy.deepcopy(floor_dict)
+                   floor_dict_instance["f_id"] = floor
+                   floor_dict_instance["label"] = "F" + floor.split('floor')[1]
+                   
+                   temp['floors'].append(floor_dict_instance)
     
-    for floor in floors:
+    for floor in temp['floors']:
     
         zons = []
         
-        floor_control_input =[]
-    
         for key in u:
         
-            if key.find(floor)!=-1:
+            if key.find(floor['f_id'])!=-1:
             
                 if key.find('zon')!=-1:
                 
@@ -245,56 +277,57 @@ class Info(Resource):
               
                                  zons.append(zon)
                                  
+                                 zone_dict_instance = copy.deepcopy(zone_dict)
+                                 zone_dict_instance["z_id"] = zon
+                                 zone_dict_instance["label"] = "Z" + zon.split('zon')[1]
+
+                                 floor["zones"].append(zone_dict_instance)
+                                 
                 elif key.find('activate')==-1:
                 
-                       floor_control_input.append(key)
+                       control_dict_instance = copy.deepcopy(record_dict)
+                       control_dict_instance["p_id"] = key
+                       control_dict_instance["p_name"] = key
+                       floor["appliances"][0]["control_inputs"].append(control_dict_instance)
                        
-        floor_measurements = [] 
-
         for key in y:        
                        
-            if key.find(floor)!=-1:
+            if key.find(floor['f_id'])!=-1:
             
                 if key.find('zon')==-1:
                 
-                    floor_measurements.append(key)  
-                                     
-        zones[floor] = {'zones':zons,'control_inputs':floor_control_input,'measurements':floor_measurements}        
+                    measurement_dict_instance = copy.deepcopy(record_dict)
+                    measurement_dict_instance["p_id"] = key
+                    measurement_dict_instance["p_name"] = key
+                    floor["appliances"][0]["measurements"].append(measurement_dict_instance)   
 
-    for key in zones.keys():
+    for floor in temp['floors']:
     
-        temp2 = []
-        
-        for zon in zones[key]['zones']:
+        for zone in floor['zones']:
 
-            keyword = '{}_{}'.format(key,zon)
+            keyword = '{}_{}'.format(floor['f_id'], zone['z_id'])
             
-            zon_control_inputs = []
-
             for ukey in u:
 
                 if ukey.find(keyword)!=-1 and ukey.find('activate')==-1:
                 
-                     zon_control_inputs.append(ukey)
+                     control_dict_instance = copy.deepcopy(record_dict)
+                     control_dict_instance["p_id"] = key
+                     control_dict_instance["p_name"] = key
+
+                     zone["appliances"][0]["control_inputs"].append(control_dict_instance)
             
-            zon_measurements = []
-                
             for ykey in y:
 
                 if ykey.find(keyword)!=-1:
                 
-                     zon_measurements.append(ykey)                    
+                     measurement_dict_instance = copy.deepcopy(record_dict)
+                     measurement_dict_instance["p_id"] = key
+                     measurement_dict_instance["p_name"] = key
+                     zone["appliances"][0]["measurements"].append(measurement_dict_instance)                    
         
-            temp2.append({'label':zon,'control_inputs':zon_control_inputs,'measurements':zon_measurements}) 
-
-        zones[key]['zones'] = temp2           
-    
-    temp['floors'] = zones
-                    
     info.update({"building":temp})
 
-    
-    
     return info
 # --------------------
 
