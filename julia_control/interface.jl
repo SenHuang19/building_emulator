@@ -207,7 +207,7 @@ for i = 1:tlen
 end
 occIdx      = findfirst(x->occursin(r"OccSch"i,x),y_of_interest);
 occSeries   = ySeries[:,occIdx];
-
+HTTP.post("$url/stop";retry_non_idempotent=true)
 println("Test case complete.")
 time=(Dates.now()-start_test).value/1000.
 println("Elapsed time of test was $time seconds.")

@@ -145,6 +145,158 @@ class Name(Resource):
     return self.case.get_name()
 # --------------------
 
+class Info(Resource):
+  """Interface to test case info."""
+
+  def __init__(self, **kwargs):
+    self.case = kwargs["case"]
+    
+  def get(self):
+    """GET request to receive test case name."""
+    
+    u = self.case.get_inputs()
+    
+    y = self.case.get_measurements()
+    
+    info={}
+    
+    temp={}
+    
+    temp['type'] = 'building_office_large'
+    
+    temp['index'] = '0_1_1' 
+
+    temp['appliances'] = []
+       
+    #### Building Level ####
+
+    ### Chillers & Boilers & Pumps ###  
+
+    HVAC = {}
+    
+    HVAC['id'] = 'b_hvac'
+    
+    HVAC['label'] = 'HVAC'  
+
+    control_inputs = []
+    
+    measurements = []
+
+    for key in u:
+    
+        if (key.find('Ch')!=-1 or key.find('Bo')!=-1 or key.find('Pum')!=-1 or key.find('Tow')!=-1) and key.find('activate')==-1:
+        
+            temp2={'label':'building level control inputs','p_id':key,'p_name':key}
+            
+            control_inputs.append(temp2)
+        
+    for key in y:
+    
+        if key.find('Ch')!=-1 or key.find('Pum')!=-1 or key.find('Tow')!=-1:
+        
+            temp2={'label':'Power Consumption','p_id':key,'p_name':key}
+            
+            measurements.append(temp2)
+            
+        elif key.find('Boi')!=-1:
+
+            temp2={'label':'Gas Consumption','p_id':key,'p_name':key}        
+            
+            measurements.append(temp2)
+            
+    HVAC['control_inputs'] = control_inputs  
+    
+    HVAC['measurements'] = measurements 
+    
+    temp['appliances'].append(HVAC)
+
+    temp['floors'] = [] 
+    
+    #### Floor Level ####
+
+    floors = []
+
+    for key in u:
+
+        if key.find('floor')!=1:
+        
+            floor = key.split('_')[0]
+            
+            if not floor in floors and floor.find('time')==-1:
+              
+                   floors.append(floor)
+    zones = {}
+    
+    for floor in floors:
+    
+        zons = []
+        
+        floor_control_input =[]
+    
+        for key in u:
+        
+            if key.find(floor)!=-1:
+            
+                if key.find('zon')!=-1:
+                
+                      zon = key.split('_')[1]
+                
+                      if not zon in zons and zon.find('time')==-1:
+              
+                                 zons.append(zon)
+                                 
+                elif key.find('activate')==-1:
+                
+                       floor_control_input.append(key)
+                       
+        floor_measurements = [] 
+
+        for key in y:        
+                       
+            if key.find(floor)!=-1:
+            
+                if key.find('zon')==-1:
+                
+                    floor_measurements.append(key)  
+                                     
+        zones[floor] = {'zones':zons,'control_inputs':floor_control_input,'measurements':floor_measurements}        
+
+    for key in zones.keys():
+    
+        temp2 = []
+        
+        for zon in zones[key]['zones']:
+
+            keyword = '{}_{}'.format(key,zon)
+            
+            zon_control_inputs = []
+
+            for ukey in u:
+
+                if ukey.find(keyword)!=-1 and ukey.find('activate')==-1:
+                
+                     zon_control_inputs.append(ukey)
+            
+            zon_measurements = []
+                
+            for ykey in y:
+
+                if ykey.find(keyword)!=-1:
+                
+                     zon_measurements.append(ykey)                    
+        
+            temp2.append({'label':zon,'control_inputs':zon_control_inputs,'measurements':zon_measurements}) 
+
+        zones[key]['zones'] = temp2           
+    
+    temp['floors'] = zones
+                    
+    info.update({"building":temp})
+
+    
+    
+    return info
+# --------------------
 
 class Stop(Resource):
   """Interface to test case name."""
@@ -213,6 +365,7 @@ def main(argv):
   api.add_resource(KPI, '/kpi', resource_class_kwargs = {"case": case})
   api.add_resource(Name, '/name', resource_class_kwargs = {"case": case})
   api.add_resource(Stop, '/stop', resource_class_kwargs = {"case": case})
+  api.add_resource(Info, '/info', resource_class_kwargs = {"case": case})
   # --------------------------------------
 
   app.run(debug=False, host='0.0.0.0')

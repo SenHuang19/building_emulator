@@ -5,6 +5,8 @@ services:
     build: './emulator'
     container_name: building_emulator
     working_dir: /home/developer
+    ports:
+      - "5000:5000"
     # logging:
             # driver: none 
-    command: python startREST.py --fmuPath=/home/developer/models/wrapped.fmu --fmuStep=60
+    command: python startREST.py --fmuPath=/home/developer/models/largeoffice.fmu --fmuStep=60
