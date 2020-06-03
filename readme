@@ -6,40 +6,43 @@ If the emulator does not receive any override commands it will advance the simul
 
 1. Commands for executing simulation examples are included in the make file
 
-   - build the images by executing "make build_*client*"
+   - build the images by executing "make build"
 
-	 noted that *client* is an argument for specifying the version of the client that connects the emulator docker.
+	 Noted the docker-compose is set up for a python-based control deployment.
+	 However, a julia-based deployment is also provided (see julia_control).
+	 see more in 4
 
-	 Currently, *client* can be either "python" or "julia"
+   - run the images by executing "make run"
 
+   - copy the result files out of the images by executing "make copy"
+   
+	 Noted the docker-compose is set up for a python-based control deployment.
+	 However, a julia-based deployment is also provided (see julia_control). 
 
-   - run the images by executing "make run_*client*"
-
-   - copy the result files out of the images by executing "make copy_*client*"
-
-   - remove the images by executing "make remove_*client*"
-
-   - update the emulator inventory by executing "make update"
-
-	 note that
-
-	 - a parse function will be added so that the emulator fmu can be generated automatically
-
-	 - a user account is required for pull the updates from the emulator inventory
+   - remove the images by executing "make remove"
 
 2. Please note that you will need to install docker-compose and make in order to execute the above commands.
 
    To install docker-compose, please refer to https://docs.docker.com/compose/install/
 
    To install make for Windows, please refer to http://gnuwin32.sourceforge.net/packages/make.htm
+   
+3. Testing control
 
-3. The following simulation configuration options can be modified:
+    Controllers for testing are considered as "client".
+	
+	Clients can be implemented in any programming languages that support HTTP communications.
 
-   - Simulation start time and length:
+	This repo contains two examples: a julia-based client (julia_control/interface.jl) and a python client (python_control/runSimulation.py)
+
+	Develop your controllers based on those examples.
+
+    Note that in the client side, simulation length [s] and starting time [s] can be adjusted:
 
      for the julia client
 
            simulation length [s] is defined in the line 33 of julia_control/interface.jl
+		   
 
            starting time [s] is defined in the line 110 of julia_control/interface.jl
 
@@ -48,20 +51,6 @@ If the emulator does not receive any override commands it will advance the simul
            simulation length [s] and starting time [s] are defined in the line 7 of docker-compose_python.yml
 
 
-   - Sample time:
-
-     for the julia client
-
-           interval [s] is defined in the line 34 of julia_control/interface.jl
 
 
-     for the python client
 
-           interval [s] is defined in the line 7 of docker-compose_python.yml
-
-
-4. Testing control
-
-    Example clients are implemented in julia_control/interface.jl and python_control/runSimulation.py
-
-	 	Develop your controllers based on those examples.
