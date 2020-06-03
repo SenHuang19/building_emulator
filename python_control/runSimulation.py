@@ -3,7 +3,7 @@
 
   :platform: Unix, Windows
 
-  :synopsis: This module simply tests starting and running a simulation within the JModelica docker.
+  :synopsis: This module tests starting and running a simulation within the JModelica docker.
 
 .. moduleauthor:: PNNL
 """
@@ -60,9 +60,9 @@ def main(argv):
 
 
   time.sleep(60)
-                
-              
-                
+
+
+
   # GET TEST INFORMATION
   # --------------------
   print('\nSIMULATION SETUP INFORMATION\n---------------------')
@@ -131,8 +131,12 @@ def main(argv):
     # Advance simulation
     y = requests.post('{0}/advance'.format(url), data = u).json()
     # print(sorted(y.items(), key = lambda x: x[0]))
+
     # Compute next control signal
-    # Here code to change control signals could be added
+    #----------
+    # Put your code here to change control signals
+
+    #----------
     # u = ins
     print("Simulated step {0}.".format(timeStep))
     timeStep += 1

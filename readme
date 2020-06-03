@@ -1,11 +1,15 @@
-This repo is set up for facilitating the testing of load prioritization methods, that is under the scope of the C3PO project.
+This repo includes building emulators and interfacing capability using docker and docker compose.
+Emulator interface examples are included for python and julia.
+The emulator includes local control loops and supervisory control.
+The emulator actuators or supervisory control inputs can be overridden using the available interface.
+If the emulator does not receive any override commands it will advance the simulation based on the existing control baseline.
 
-1. To run the test, please
+1. Commands for executing simulation examples are included in the make file
 
    - build the images by executing "make build_*client*"
-      
+
 	 noted that *client* is an argument for specifying the version of the client that connects the emulator docker.
-	 
+
 	 Currently, *client* can be either "python" or "julia"
 
 
@@ -14,51 +18,50 @@ This repo is set up for facilitating the testing of load prioritization methods,
    - copy the result files out of the images by executing "make copy_*client*"
 
    - remove the images by executing "make remove_*client*"
-   
-   - update the emulator inventory by executing "make update" 
-      
-	 noted that
-	 
-	 - a parse function will be added so that the emulator fmu can be generated automatically 
 
-	 - a user account is required for pull the updates from the emulator inventory	 
+   - update the emulator inventory by executing "make update"
+
+	 note that
+
+	 - a parse function will be added so that the emulator fmu can be generated automatically
+
+	 - a user account is required for pull the updates from the emulator inventory
 
 2. Please note that you will need to install docker-compose and make in order to execute the above commands.
 
    To install docker-compose, please refer to https://docs.docker.com/compose/install/
 
-   To install make for window, please refer to http://gnuwin32.sourceforge.net/packages/make.htm
+   To install make for Windows, please refer to http://gnuwin32.sourceforge.net/packages/make.htm
 
-3. The following options can be modified for your needs:
+3. The following simulation configuration options can be modified:
 
-   - Simulation period:
-   
+   - Simulation start time and length:
+
      for the julia client
-	 
+
            simulation length [s] is defined in the line 33 of julia_control/interface.jl
-		   
+
            starting time [s] is defined in the line 110 of julia_control/interface.jl
 
      for the python client
-	 
+
            simulation length [s] and starting time [s] are defined in the line 7 of docker-compose_python.yml
 
 
-   - Control sampling:
-   
-   
+   - Sample time:
+
      for the julia client
-	 
+
            interval [s] is defined in the line 34 of julia_control/interface.jl
 
 
      for the python client
-	 
-           interval [s] is defined in the line 7 of docker-compose_python.yml 
-	 
-	 
-   - Testing control
-   
-     Example clients are implemented in julia_control/interface.jl and python_control/runSimulation.py
-	 
-	 Please develop your control deployment based on those examples.
+
+           interval [s] is defined in the line 7 of docker-compose_python.yml
+
+
+4. Testing control
+
+    Example clients are implemented in julia_control/interface.jl and python_control/runSimulation.py
+
+	 	Develop your controllers based on those examples.
