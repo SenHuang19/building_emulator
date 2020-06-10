@@ -5,6 +5,9 @@ build:
 
 run:
 	docker-compose -f docker-compose_emulator.yml -f docker-compose_python.yml up
+	
+run_emulator:
+	docker-compose -f docker-compose_emulator.yml up	
 
 remove:
 	docker-compose -f docker-compose_emulator.yml -f docker-compose_python.yml down
@@ -16,6 +19,6 @@ copy:
 	docker cp python:/usr/src/app/controlInputsList.csv 	interfaceLists/controlInputsList.csv
 	docker cp python:/usr/src/app/measurementsList.csv 		interfaceLists/measurementsList.csv
 	docker cp python:/usr/src/app/results.csv 						results/results.csv
-
+	docker cp python:/usr/src/app/infos.json 						results/infos.json
 
 
