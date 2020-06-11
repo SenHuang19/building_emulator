@@ -44,7 +44,7 @@ class emulatorSetup(object):
             self.y[key] = []
         self.y_store = copy.deepcopy(self.y)
         # Define inputs
-        self.u = {'time':[]}
+        self.u = {}
         for key in input_names:
             self.u[key] = []
         self.u_store = copy.deepcopy(self.u)

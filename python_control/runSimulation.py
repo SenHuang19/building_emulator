@@ -16,6 +16,7 @@ import os
 import csv
 import time
 import urllib
+import json
 
 # ----------------------
 
@@ -99,6 +100,7 @@ def main(argv):
       writer = csv.writer(outFile)
       for line in measurements:
         writer.writerow([line])
+        
   outFileName = "results.csv"
   if os.path.exists(outFileName):
     os.remove(outFileName)
