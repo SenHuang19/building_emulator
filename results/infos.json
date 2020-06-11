@@ -1,0 +1,1682 @@
+{
+    "building": {
+        "index": "0_1_1",
+        "floors": [
+            {
+                "zones": [
+                    {
+                        "z_id": "zon5",
+                        "appliances": [
+                            {
+                                "measurements": [
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    }
+                                ],
+                                "control_inputs": [
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    }
+                                ]
+                            }
+                        ],
+                        "exogenous": [
+                            {
+                                "measurements": [],
+                                "control_inputs": []
+                            }
+                        ],
+                        "label": "Z5"
+                    },
+                    {
+                        "z_id": "zon1",
+                        "appliances": [
+                            {
+                                "measurements": [
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    }
+                                ],
+                                "control_inputs": [
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    }
+                                ]
+                            }
+                        ],
+                        "exogenous": [
+                            {
+                                "measurements": [],
+                                "control_inputs": []
+                            }
+                        ],
+                        "label": "Z1"
+                    },
+                    {
+                        "z_id": "zon4",
+                        "appliances": [
+                            {
+                                "measurements": [
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    }
+                                ],
+                                "control_inputs": [
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    }
+                                ]
+                            }
+                        ],
+                        "exogenous": [
+                            {
+                                "measurements": [],
+                                "control_inputs": []
+                            }
+                        ],
+                        "label": "Z4"
+                    },
+                    {
+                        "z_id": "zon3",
+                        "appliances": [
+                            {
+                                "measurements": [
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    }
+                                ],
+                                "control_inputs": [
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    }
+                                ]
+                            }
+                        ],
+                        "exogenous": [
+                            {
+                                "measurements": [],
+                                "control_inputs": []
+                            }
+                        ],
+                        "label": "Z3"
+                    },
+                    {
+                        "z_id": "zon2",
+                        "appliances": [
+                            {
+                                "measurements": [
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    }
+                                ],
+                                "control_inputs": [
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    }
+                                ]
+                            }
+                        ],
+                        "exogenous": [
+                            {
+                                "measurements": [],
+                                "control_inputs": []
+                            }
+                        ],
+                        "label": "Z2"
+                    }
+                ],
+                "f_id": "floor1",
+                "appliances": [
+                    {
+                        "measurements": [
+                            {
+                                "p_name": "floor1_Pfan_y",
+                                "p_id": "floor1_Pfan_y"
+                            },
+                            {
+                                "p_name": "floor1_conCoiEco_OccSig_act_y",
+                                "p_id": "floor1_conCoiEco_OccSig_act_y"
+                            },
+                            {
+                                "p_name": "floor1_conCoiEco_mSupRead_y",
+                                "p_id": "floor1_conCoiEco_mSupRead_y"
+                            },
+                            {
+                                "p_name": "floor1_conCoiEco_TRetRead_y",
+                                "p_id": "floor1_conCoiEco_TRetRead_y"
+                            },
+                            {
+                                "p_name": "floor1_PExtLig_y",
+                                "p_id": "floor1_PExtLig_y"
+                            },
+                            {
+                                "p_name": "floor1_conCoiEco_PosCoiRead_y",
+                                "p_id": "floor1_conCoiEco_PosCoiRead_y"
+                            },
+                            {
+                                "p_name": "floor1_conFan_OvePre_act_y",
+                                "p_id": "floor1_conFan_OvePre_act_y"
+                            },
+                            {
+                                "p_name": "floor1_conFan_OvePreSetPoi_act_y",
+                                "p_id": "floor1_conFan_OvePreSetPoi_act_y"
+                            },
+                            {
+                                "p_name": "floor1_conCoiEco_PosEcoRead_y",
+                                "p_id": "floor1_conCoiEco_PosEcoRead_y"
+                            },
+                            {
+                                "p_name": "floor1_conFan_OveFanSpeed_Status_y",
+                                "p_id": "floor1_conFan_OveFanSpeed_Status_y"
+                            },
+                            {
+                                "p_name": "floor1_conCoiEco_TMixRead_y",
+                                "p_id": "floor1_conCoiEco_TMixRead_y"
+                            },
+                            {
+                                "p_name": "floor1_conCoiEco_TSupRead_y",
+                                "p_id": "floor1_conCoiEco_TSupRead_y"
+                            },
+                            {
+                                "p_name": "floor1_conCoiEco_TSupSetPoiSig_act_y",
+                                "p_id": "floor1_conCoiEco_TSupSetPoiSig_act_y"
+                            }
+                        ],
+                        "control_inputs": [
+                            {
+                                "p_name": "floor1_conCoiEco_OveEco_u",
+                                "p_id": "floor1_conCoiEco_OveEco_u"
+                            },
+                            {
+                                "p_name": "floor1_conCoiEco_OveCoi_u",
+                                "p_id": "floor1_conCoiEco_OveCoi_u"
+                            },
+                            {
+                                "p_name": "floor1_conFan_OvePre_ove_u",
+                                "p_id": "floor1_conFan_OvePre_ove_u"
+                            },
+                            {
+                                "p_name": "floor1_conFan_OvePreSetPoi_ove_u",
+                                "p_id": "floor1_conFan_OvePreSetPoi_ove_u"
+                            },
+                            {
+                                "p_name": "floor1_conCoiEco_OccSig_ove_u",
+                                "p_id": "floor1_conCoiEco_OccSig_ove_u"
+                            },
+                            {
+                                "p_name": "floor1_conFan_OveFanSpeed_oveStatus_u",
+                                "p_id": "floor1_conFan_OveFanSpeed_oveStatus_u"
+                            },
+                            {
+                                "p_name": "floor1_conCoiEco_TSupSetPoiSig_ove_u",
+                                "p_id": "floor1_conCoiEco_TSupSetPoiSig_ove_u"
+                            }
+                        ]
+                    }
+                ],
+                "exogenous": [
+                    {
+                        "measurements": [],
+                        "control_inputs": []
+                    }
+                ],
+                "label": "F1"
+            },
+            {
+                "zones": [
+                    {
+                        "z_id": "zon1",
+                        "appliances": [
+                            {
+                                "measurements": [
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    }
+                                ],
+                                "control_inputs": [
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    }
+                                ]
+                            }
+                        ],
+                        "exogenous": [
+                            {
+                                "measurements": [],
+                                "control_inputs": []
+                            }
+                        ],
+                        "label": "Z1"
+                    },
+                    {
+                        "z_id": "zon4",
+                        "appliances": [
+                            {
+                                "measurements": [
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    }
+                                ],
+                                "control_inputs": [
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    }
+                                ]
+                            }
+                        ],
+                        "exogenous": [
+                            {
+                                "measurements": [],
+                                "control_inputs": []
+                            }
+                        ],
+                        "label": "Z4"
+                    },
+                    {
+                        "z_id": "zon2",
+                        "appliances": [
+                            {
+                                "measurements": [
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    }
+                                ],
+                                "control_inputs": [
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    }
+                                ]
+                            }
+                        ],
+                        "exogenous": [
+                            {
+                                "measurements": [],
+                                "control_inputs": []
+                            }
+                        ],
+                        "label": "Z2"
+                    },
+                    {
+                        "z_id": "zon5",
+                        "appliances": [
+                            {
+                                "measurements": [
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    }
+                                ],
+                                "control_inputs": [
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    }
+                                ]
+                            }
+                        ],
+                        "exogenous": [
+                            {
+                                "measurements": [],
+                                "control_inputs": []
+                            }
+                        ],
+                        "label": "Z5"
+                    },
+                    {
+                        "z_id": "zon3",
+                        "appliances": [
+                            {
+                                "measurements": [
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    }
+                                ],
+                                "control_inputs": [
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    }
+                                ]
+                            }
+                        ],
+                        "exogenous": [
+                            {
+                                "measurements": [],
+                                "control_inputs": []
+                            }
+                        ],
+                        "label": "Z3"
+                    }
+                ],
+                "f_id": "floor2",
+                "appliances": [
+                    {
+                        "measurements": [
+                            {
+                                "p_name": "floor2_PExtLig_y",
+                                "p_id": "floor2_PExtLig_y"
+                            },
+                            {
+                                "p_name": "floor2_conCoiEco_PosCoiRead_y",
+                                "p_id": "floor2_conCoiEco_PosCoiRead_y"
+                            },
+                            {
+                                "p_name": "floor2_conFan_OvePreSetPoi_act_y",
+                                "p_id": "floor2_conFan_OvePreSetPoi_act_y"
+                            },
+                            {
+                                "p_name": "floor2_conCoiEco_TRetRead_y",
+                                "p_id": "floor2_conCoiEco_TRetRead_y"
+                            },
+                            {
+                                "p_name": "floor2_conCoiEco_PosEcoRead_y",
+                                "p_id": "floor2_conCoiEco_PosEcoRead_y"
+                            },
+                            {
+                                "p_name": "floor2_conCoiEco_TMixRead_y",
+                                "p_id": "floor2_conCoiEco_TMixRead_y"
+                            },
+                            {
+                                "p_name": "floor2_conCoiEco_TSupRead_y",
+                                "p_id": "floor2_conCoiEco_TSupRead_y"
+                            },
+                            {
+                                "p_name": "floor2_conCoiEco_TSupSetPoiSig_act_y",
+                                "p_id": "floor2_conCoiEco_TSupSetPoiSig_act_y"
+                            },
+                            {
+                                "p_name": "floor2_conFan_OvePre_act_y",
+                                "p_id": "floor2_conFan_OvePre_act_y"
+                            },
+                            {
+                                "p_name": "floor2_conFan_OveFanSpeed_Status_y",
+                                "p_id": "floor2_conFan_OveFanSpeed_Status_y"
+                            },
+                            {
+                                "p_name": "floor2_conCoiEco_mSupRead_y",
+                                "p_id": "floor2_conCoiEco_mSupRead_y"
+                            },
+                            {
+                                "p_name": "floor2_conCoiEco_OccSig_act_y",
+                                "p_id": "floor2_conCoiEco_OccSig_act_y"
+                            },
+                            {
+                                "p_name": "floor2_Pfan_y",
+                                "p_id": "floor2_Pfan_y"
+                            }
+                        ],
+                        "control_inputs": [
+                            {
+                                "p_name": "floor2_conCoiEco_OccSig_ove_u",
+                                "p_id": "floor2_conCoiEco_OccSig_ove_u"
+                            },
+                            {
+                                "p_name": "floor2_conFan_OveFanSpeed_oveStatus_u",
+                                "p_id": "floor2_conFan_OveFanSpeed_oveStatus_u"
+                            },
+                            {
+                                "p_name": "floor2_conFan_OvePreSetPoi_ove_u",
+                                "p_id": "floor2_conFan_OvePreSetPoi_ove_u"
+                            },
+                            {
+                                "p_name": "floor2_conFan_OvePre_ove_u",
+                                "p_id": "floor2_conFan_OvePre_ove_u"
+                            },
+                            {
+                                "p_name": "floor2_conCoiEco_TSupSetPoiSig_ove_u",
+                                "p_id": "floor2_conCoiEco_TSupSetPoiSig_ove_u"
+                            },
+                            {
+                                "p_name": "floor2_conCoiEco_OveCoi_u",
+                                "p_id": "floor2_conCoiEco_OveCoi_u"
+                            },
+                            {
+                                "p_name": "floor2_conCoiEco_OveEco_u",
+                                "p_id": "floor2_conCoiEco_OveEco_u"
+                            }
+                        ]
+                    }
+                ],
+                "exogenous": [
+                    {
+                        "measurements": [],
+                        "control_inputs": []
+                    }
+                ],
+                "label": "F2"
+            },
+            {
+                "zones": [
+                    {
+                        "z_id": "zon1",
+                        "appliances": [
+                            {
+                                "measurements": [
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    }
+                                ],
+                                "control_inputs": [
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    }
+                                ]
+                            }
+                        ],
+                        "exogenous": [
+                            {
+                                "measurements": [],
+                                "control_inputs": []
+                            }
+                        ],
+                        "label": "Z1"
+                    },
+                    {
+                        "z_id": "zon5",
+                        "appliances": [
+                            {
+                                "measurements": [
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    }
+                                ],
+                                "control_inputs": [
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    }
+                                ]
+                            }
+                        ],
+                        "exogenous": [
+                            {
+                                "measurements": [],
+                                "control_inputs": []
+                            }
+                        ],
+                        "label": "Z5"
+                    },
+                    {
+                        "z_id": "zon4",
+                        "appliances": [
+                            {
+                                "measurements": [
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    }
+                                ],
+                                "control_inputs": [
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    }
+                                ]
+                            }
+                        ],
+                        "exogenous": [
+                            {
+                                "measurements": [],
+                                "control_inputs": []
+                            }
+                        ],
+                        "label": "Z4"
+                    },
+                    {
+                        "z_id": "zon3",
+                        "appliances": [
+                            {
+                                "measurements": [
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    }
+                                ],
+                                "control_inputs": [
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    }
+                                ]
+                            }
+                        ],
+                        "exogenous": [
+                            {
+                                "measurements": [],
+                                "control_inputs": []
+                            }
+                        ],
+                        "label": "Z3"
+                    },
+                    {
+                        "z_id": "zon2",
+                        "appliances": [
+                            {
+                                "measurements": [
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    }
+                                ],
+                                "control_inputs": [
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    },
+                                    {
+                                        "p_name": "floor1_zon3_TSetRooHea_y",
+                                        "p_id": "floor1_zon3_TSetRooHea_y"
+                                    }
+                                ]
+                            }
+                        ],
+                        "exogenous": [
+                            {
+                                "measurements": [],
+                                "control_inputs": []
+                            }
+                        ],
+                        "label": "Z2"
+                    }
+                ],
+                "f_id": "floor3",
+                "appliances": [
+                    {
+                        "measurements": [
+                            {
+                                "p_name": "floor3_conCoiEco_TRetRead_y",
+                                "p_id": "floor3_conCoiEco_TRetRead_y"
+                            },
+                            {
+                                "p_name": "floor3_conCoiEco_OccSig_act_y",
+                                "p_id": "floor3_conCoiEco_OccSig_act_y"
+                            },
+                            {
+                                "p_name": "floor3_conCoiEco_TSupSetPoiSig_act_y",
+                                "p_id": "floor3_conCoiEco_TSupSetPoiSig_act_y"
+                            },
+                            {
+                                "p_name": "floor3_conFan_OvePreSetPoi_act_y",
+                                "p_id": "floor3_conFan_OvePreSetPoi_act_y"
+                            },
+                            {
+                                "p_name": "floor3_Pfan_y",
+                                "p_id": "floor3_Pfan_y"
+                            },
+                            {
+                                "p_name": "floor3_conFan_OvePre_act_y",
+                                "p_id": "floor3_conFan_OvePre_act_y"
+                            },
+                            {
+                                "p_name": "floor3_conCoiEco_TSupRead_y",
+                                "p_id": "floor3_conCoiEco_TSupRead_y"
+                            },
+                            {
+                                "p_name": "floor3_PExtLig_y",
+                                "p_id": "floor3_PExtLig_y"
+                            },
+                            {
+                                "p_name": "floor3_conFan_OveFanSpeed_Status_y",
+                                "p_id": "floor3_conFan_OveFanSpeed_Status_y"
+                            },
+                            {
+                                "p_name": "floor3_conCoiEco_PosEcoRead_y",
+                                "p_id": "floor3_conCoiEco_PosEcoRead_y"
+                            },
+                            {
+                                "p_name": "floor3_conCoiEco_PosCoiRead_y",
+                                "p_id": "floor3_conCoiEco_PosCoiRead_y"
+                            },
+                            {
+                                "p_name": "floor3_conCoiEco_TMixRead_y",
+                                "p_id": "floor3_conCoiEco_TMixRead_y"
+                            },
+                            {
+                                "p_name": "floor3_conCoiEco_mSupRead_y",
+                                "p_id": "floor3_conCoiEco_mSupRead_y"
+                            }
+                        ],
+                        "control_inputs": [
+                            {
+                                "p_name": "floor3_conFan_OveFanSpeed_oveStatus_u",
+                                "p_id": "floor3_conFan_OveFanSpeed_oveStatus_u"
+                            },
+                            {
+                                "p_name": "floor3_conCoiEco_TSupSetPoiSig_ove_u",
+                                "p_id": "floor3_conCoiEco_TSupSetPoiSig_ove_u"
+                            },
+                            {
+                                "p_name": "floor3_conCoiEco_OveCoi_u",
+                                "p_id": "floor3_conCoiEco_OveCoi_u"
+                            },
+                            {
+                                "p_name": "floor3_conFan_OvePre_ove_u",
+                                "p_id": "floor3_conFan_OvePre_ove_u"
+                            },
+                            {
+                                "p_name": "floor3_conCoiEco_OccSig_ove_u",
+                                "p_id": "floor3_conCoiEco_OccSig_ove_u"
+                            },
+                            {
+                                "p_name": "floor3_conFan_OvePreSetPoi_ove_u",
+                                "p_id": "floor3_conFan_OvePreSetPoi_ove_u"
+                            },
+                            {
+                                "p_name": "floor3_conCoiEco_OveEco_u",
+                                "p_id": "floor3_conCoiEco_OveEco_u"
+                            }
+                        ]
+                    }
+                ],
+                "exogenous": [
+                    {
+                        "measurements": [],
+                        "control_inputs": []
+                    }
+                ],
+                "label": "F3"
+            }
+        ],
+        "type": "building_office_large",
+        "appliances": [
+            {
+                "measurements": [
+                    {
+                        "p_name": "PPum_y",
+                        "p_id": "PPum_y",
+                        "label": "Power Consumption"
+                    },
+                    {
+                        "p_name": "PChi_y",
+                        "p_id": "PChi_y",
+                        "label": "Power Consumption"
+                    },
+                    {
+                        "p_name": "PBoiler_y",
+                        "p_id": "PBoiler_y",
+                        "label": "Gas Consumption"
+                    }
+                ],
+                "control_inputs": [],
+                "id": "b_hvac",
+                "label": "HVAC"
+            }
+        ]
+    }
+}

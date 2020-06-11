@@ -1,35 +1,28 @@
 This repo includes building emulators and interfacing capability using docker and docker compose.
-Emulator interface examples are included for python and julia.
-The emulator includes local control loops and supervisory control.
-The emulator actuators or supervisory control inputs can be overridden using the available interface.
-If the emulator does not receive any override commands it will advance the simulation based on the existing control baseline.
 
-1. Commands for executing simulation examples are included in the make file
+Specifically, emulators operate as a "server" while controllers for testing are considered as "client".
 
-   - build the images by executing "make build"
-
-	 Noted the docker-compose is set up for a python-based control deployment.
-	 However, a julia-based deployment is also provided (see julia_control).
-	 see more in 4
-
-   - run the images by executing "make run"
-
-   - copy the result files out of the images by executing "make copy"
-   
-	 Noted the docker-compose is set up for a python-based control deployment.
-	 However, a julia-based deployment is also provided (see julia_control). 
-
-   - remove the images by executing "make remove"
-
-2. Please note that you will need to install docker-compose and make in order to execute the above commands.
+1. Please note that you will need to install docker-compose and make in order to execute the above commands.
 
    To install docker-compose, please refer to https://docs.docker.com/compose/install/
 
    To install make for Windows, please refer to http://gnuwin32.sourceforge.net/packages/make.htm
-   
-3. Testing control
+ 
+2. Commands for executing building emulators are included in the make file
 
-    Controllers for testing are considered as "client".
+   - build the images by executing "make build"
+
+   - run the images by executing "make run"
+
+   - copy the result files out of the images by executing "make copy"
+
+   - remove the images by executing "make remove"
+   
+   Note that actuators or supervisory control inputs in emulators can be overridden using the available interface.
+
+   If emulators do not receive any override commands it will advance the simulation based on the existing control baseline.
+
+3. Testing control
 	
 	Clients can be implemented in any programming languages that support HTTP communications.
 
@@ -49,8 +42,3 @@ If the emulator does not receive any override commands it will advance the simul
      for the python client
 
            simulation length [s] and starting time [s] are defined in the line 7 of docker-compose_python.yml
-
-
-
-
-
