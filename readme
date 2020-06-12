@@ -2,43 +2,74 @@ This repo includes building emulators and interfacing capability using docker an
 
 Specifically, emulators operate as a "server" while controllers for testing are considered as "client".
 
+
 1. Please note that you will need to install docker-compose and make in order to execute the above commands.
 
-   To install docker-compose, please refer to https://docs.docker.com/compose/install/
+	- To install docker-compose, please refer to https://docs.docker.com/compose/install/
 
-   To install make for Windows, please refer to http://gnuwin32.sourceforge.net/packages/make.htm
+	- To install make for Windows, please refer to http://gnuwin32.sourceforge.net/packages/make.htm
+
  
 2. Commands for executing building emulators are included in the make file
 
-   - build the images by executing "make build"
+	- build the images by executing "make build"
 
-   - run the images by executing "make run"
+	- run the images by executing "make run"
 
-   - copy the result files out of the images by executing "make copy"
+	- copy the result files out of the images by executing "make copy"
 
-   - remove the images by executing "make remove"
+	- remove the images by executing "make remove"
    
-   Note that actuators or supervisory control inputs in emulators can be overridden using the available interface.
+	*** Note that actuators or supervisory control inputs in emulators can be overridden using the available interface.
 
-   If emulators do not receive any override commands it will advance the simulation based on the existing control baseline.
+	If emulators do not receive any override commands it will advance the simulation based on the existing control baseline.
+
 
 3. Testing control
 	
-	Clients can be implemented in any programming languages that support HTTP communications.
+	- Clients can be implemented in any programming languages that support HTTP communications.
 
-	This repo contains two examples: a julia-based client (julia_control/interface.jl) and a python client (python_control/runSimulation.py)
+	- This repo contains two simulation examples: a julia-based client (julia_control/interface.jl) and a python client (python_control/runSimulation.py)
 
-	Develop your controllers based on those examples.
+	- Develop your controllers based on those examples.
 
-    Note that in the client side, simulation length [s] and starting time [s] can be adjusted:
+    	*** Note that in the client side, simulation length [s] and starting time [s] can be adjusted:
 
-     for the julia client
+     	- for the julia client
 
-           simulation length [s] is defined in the line 33 of julia_control/interface.jl
-		   
+           simulation length [s] is defined in line 33 of julia_control/interface.jl
 
-           starting time [s] is defined in the line 110 of julia_control/interface.jl
+           starting time [s] is defined in line 110 of julia_control/interface.jl
 
-     for the python client
+     	- for the python client
 
-           simulation length [s] and starting time [s] are defined in the line 7 of docker-compose_python.yml
+           simulation length [s] and starting time [s] are defined in line 8 of docker-compose_python.yml
+
+
+4. Running simulation examples for biasing and overriding measurements (python only)
+
+	- Replace the python script filename in line 8 of docker-compose_python.yml from "runSimulation.py" to "runSimulation_examples.py"
+	
+	- Select simDuration and fmuStep values in line 8 of docker-compose_python.yml to execute multiple simulation steps for displaying the impact of the example cases
+		
+		- Example: using --simDuration=6000 --fmuStep=600 will result in 10 simulation steps
+
+	- Example 1: bias for air temperature as a sensor fault
+		
+		- Implemented in lines 141 through 182 of python_control/runSimulation_examples.py
+
+		- Set bias_example = True in line 146 to run this example (Default = True. Setting bias_example = False will turn off the bias example)
+
+		- Select bias degree value, floor #, and zone # for this example in lines 149, 150, and 151 respectively
+
+	- Example 2: override AHU air temperature set point with measured value
+
+		- Implemented in lines 185 through 226 of python_control/runSimulation_examples.py
+	
+		- Set override_example = True in line 190 to run this example (Default = True. Setting override_example = False will turn off the override example)
+
+		- Select floor # for this example in line 194
+
+	- Execute the code as described in Step 2 above
+
+	- Observe the values printed to the screen corresponding to each activated example 
