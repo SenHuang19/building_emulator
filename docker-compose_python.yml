@@ -5,4 +5,4 @@ services:
     build: './python_control'
     container_name: python
     working_dir: /usr/src/app
-    command: python runSimulation.py --url="http://emulator:5000" --dayOfYear=152 --dayOffset=0 --simDuration=1200 --fmuStep=600
+    command: python client_examples.py --url="http://emulator:5000" --dayOfYear=152 --dayOffset=0 --simDuration=1200 --fmuStep=600

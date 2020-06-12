@@ -1,58 +1,32 @@
-This repo includes building emulators and interfacing capability using docker and docker compose.
+This repository includes a building emulator and interfacing capability using docker and docker-compose.
 
-Specifically, emulators operate as a "server" while controllers for testing are considered as "client".
+Specifically, the emulator operates as a "server" while controllers for testing are considered as "client".
 
+Actuators or supervisory control inputs in the emulator can be overridden. 
 
-1. Please note that you will need to install docker-compose and make in order to execute the above commands.
+Those inputs can be exported via an HTTP request.
+
+If emulators do not receive any override commands, it will advance the simulation based on the existing control baseline.
+
+Note that you will need to install docker-compose and make it to execute the above commands.
 
 	- To install docker-compose, please refer to https://docs.docker.com/compose/install/
 
 	- To install make for Windows, please refer to http://gnuwin32.sourceforge.net/packages/make.htm
 
- 
-2. Commands for executing building emulators are included in the make file
-
-	- build the images by executing "make build"
-
-	- run the images by executing "make run"
-
-	- copy the result files out of the images by executing "make copy"
-
-	- remove the images by executing "make remove"
-   
-	*** Note that actuators or supervisory control inputs in emulators can be overridden using the available interface.
-
-	If emulators do not receive any override commands it will advance the simulation based on the existing control baseline.
-
-
-3. Testing control
-	
-	- Clients can be implemented in any programming languages that support HTTP communications.
-
-	- This repo contains two simulation examples: a julia-based client (julia_control/interface.jl) and a python client (python_control/runSimulation.py)
-
-	- Develop your controllers based on those examples.
-
-    	*** Note that in the client side, simulation length [s] and starting time [s] can be adjusted:
-
-     	- for the julia client
-
-           simulation length [s] is defined in line 33 of julia_control/interface.jl
-
-           starting time [s] is defined in line 110 of julia_control/interface.jl
-
-     	- for the python client
-
-           simulation length [s] and starting time [s] are defined in line 8 of docker-compose_python.yml
-
-
-4. Running simulation examples for biasing and overriding measurements (python only)
-
-	- Replace the python script filename in line 8 of docker-compose_python.yml from "runSimulation.py" to "runSimulation_examples.py"
-	
-	- Select simDuration and fmuStep values in line 8 of docker-compose_python.yml to execute multiple simulation steps for displaying the impact of the example cases
 		
-		- Example: using --simDuration=6000 --fmuStep=600 will result in 10 simulation steps
+1. Control implements
+
+   In this setup, controllers shall be implemented as "clients". Clients can be implemented in any programming languages that 
+   
+   support HTTP communications. This repository contains two templates: a Julia template (julia_control/interface.jl) and a python
+
+   template (python_control/client_examples.py). Based on those two templates, users can establish customized controllers.
+   
+
+2. Faults insertion tests
+
+   The python template contains two examples for inserting faults into the emulator
 
 	- Example 1: bias for air temperature as a sensor fault
 		
@@ -70,6 +44,18 @@ Specifically, emulators operate as a "server" while controllers for testing are 
 
 		- Select floor # for this example in line 194
 
-	- Execute the code as described in Step 2 above
 
-	- Observe the values printed to the screen corresponding to each activated example 
+3. There are several makefile commands for facilitating the usage of this repository 
+
+	- "make build" builds the docker images for both the emulator "server" and the python-based "client"
+
+	- "make run" runs both the emulator "server" and the python-based "client" in the background and stop dockers when the test completes
+
+	- "make copy" copies over files from docker to the host os.
+	
+	- "make remove" deletes the docker images.
+
+  Users can run only the emulator "server" in the background by running "run_emulator".
+  
+  In such a case, start the "client" manually and change the "URL" parameter in the client to be "127.0.0.1:5000"
+
