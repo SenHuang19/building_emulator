@@ -1,0 +1,12 @@
+{
+	"run_1": {
+	    ### remote url address
+		"url": "http://127.0.0.1:5000",
+		"start": "152 * 86400",
+		"duration": 600,
+		"step": 300,
+		"input_point": ["floor1_zon1_TRooAir_y","floor1_zon2_TRooAir_y"],
+		"control_point": ["floor1_zon1_oveTRooAir","floor1_zon2_oveTRooAir"],
+		"fault": ["{}+2","{}-2"]
+	}
+}
