@@ -13,11 +13,11 @@ else
 endif
 
 
-build:
+build: mkenv
 	make mkfolder
 	docker-compose -f docker-compose_emulator.yml -f docker-compose_python.yml build
 
-run:
+run: mkenv
 	docker-compose -f docker-compose_emulator.yml -f docker-compose_python.yml up
 	
 copy:
@@ -28,6 +28,9 @@ copy:
 mkfolder:
 	$(MKDIR)
 
+mkenv:
+	$(MKENV)
+
 remove:
 	docker-compose -f docker-compose_emulator.yml -f docker-compose_python.yml down
 
@@ -37,6 +40,5 @@ else
   RUN_EMUL_OPTS ?= -d --no-recreate --scale emulator=$(NUM_EMULATORS)
 endif
 
-run_emulator:
-	$(MKENV)
+run_emulator: mkenv
 	docker-compose -f docker-compose_emulator.yml up $(RUN_EMUL_OPTS)
