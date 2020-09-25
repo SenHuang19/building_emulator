@@ -55,7 +55,7 @@ Note that you will need to install docker-compose and make it to execute the abo
 	
 	- "make remove" deletes the docker images.
 
-  Users can run only the emulator "server" in the background by running "run_emulator".
+  Users can run only the emulator "server" in the background by running "make run_emulator".  To start multiple emulators in the background with incrementing ports starting at 5000 specify NUM_EMULATORS, "make run_emulator NUM_EMULATORS=2"
   
-  In such a case, start the "client" manually and change the "URL" parameter in the client to be "127.0.0.1:5000"
+  If using "make run_emulator", start the "client" manually and change the "URL" parameter in the client to a valid ip/port: "127.0.0.1:5000"
 

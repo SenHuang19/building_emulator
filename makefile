@@ -1,10 +1,15 @@
 # basic makefile commends to manage the life-cycle of a docker image.
 
 
+START_PORT ?= 5000
+NUM_EMULATORS ?= 1
+
 ifeq ($(OS),Windows_NT)
    MKDIR = cmd /C mkfolder.bat
+   MKENV = cmd /C mkenv.bat $(START_PORT) $(NUM_EMULATORS)
 else
    MKDIR = bash mkfolder.sh   
+   MKENV = bash mkenv.sh $(START_PORT) $(NUM_EMULATORS)
 endif
 
 
@@ -26,5 +31,12 @@ mkfolder:
 remove:
 	docker-compose -f docker-compose_emulator.yml -f docker-compose_python.yml down
 
+ifeq ($(NUM_EMULATORS),1)
+  RUN_EMUL_OPTS ?= 
+else
+  RUN_EMUL_OPTS ?= -d --no-recreate --scale emulator=$(NUM_EMULATORS)
+endif
+
 run_emulator:
-	docker-compose -f docker-compose_emulator.yml up	
+	$(MKENV)
+	docker-compose -f docker-compose_emulator.yml up $(RUN_EMUL_OPTS)
