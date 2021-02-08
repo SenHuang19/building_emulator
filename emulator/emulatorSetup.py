@@ -40,6 +40,9 @@ class emulatorSetup(object):
             raise ValueError("FMU must be version 2.0.")
         # Define measurements
         self.y = {'time':[]}
+        for i in range(1,4):
+            for j in range(1,6):
+                 self.y['mod.floor{}.zon{}.hvac.TRet'.format(i,j)] = []        
         for key in output_names:
             self.y[key] = []
         self.y_store = copy.deepcopy(self.y)
@@ -91,7 +94,7 @@ class emulatorSetup(object):
             input_object = None
         # Simulate
         self.options['initialize'] = self.initialize
-        self.options['filter'] = ['*_y','*_u','*_activate']
+        self.options['filter'] = ['*_y','*_u','*_activate','*.TRet']
         self.options['result_handling'] = 'memory'  
         res = self.fmu.simulate(start_time=self.start_time, 
                                 final_time=self.final_time, 
