@@ -3,10 +3,9 @@ version: '3.1'
 services:
   emulator:
     build: './emulator'
-    container_name: building_emulator
     working_dir: /home/developer
     ports:
-      - "5000:5000"
+      - "5000-${MAX_PORT}:5000"
     # logging:
             # driver: none 
     command: python startREST.py --fmuPath=/home/developer/models/largeoffice.fmu --fmuStep=60

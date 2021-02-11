@@ -1,0 +1,3 @@
+START_PORT=$1
+NUM_EMULATORS=$2
+echo MAX_PORT=$((${START_PORT} - 1 + ${NUM_EMULATORS})) > .env
